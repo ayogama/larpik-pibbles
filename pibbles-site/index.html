@@ -1,3 +1,4 @@
+<!-- dont steal this blud ( ͡° ͜ʖ ͡°) ayogama larpik g -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,25 +33,24 @@ a{cursor:none}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes breathe{0%,100%{opacity:.3}50%{opacity:.6}}
 @keyframes tabPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,0,0,0)}50%{box-shadow:0 0 20px 2px rgba(255,0,0,.15)}}
+@keyframes skullFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+@keyframes loadSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
 .troll-particle{position:fixed;pointer-events:none;z-index:9998;animation:trollDrift 1.6s ease-out forwards;font-family:'Outfit',monospace;color:#888}
 body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
 
 .page{max-width:960px;margin:0 auto;padding:40px 20px 120px}
 
-/* MARQUEE */
 .marquee{overflow:hidden;border-bottom:1px solid #111;height:28px;position:relative;z-index:10;background:#0a0a0a}
 .marquee-track{display:flex;align-items:center;height:100%;animation:marquee 30s linear infinite;white-space:nowrap}
 .marquee-track span{padding:0 30px;font-size:11px;color:#222;letter-spacing:1px}
 
-/* HEADER */
 .header{opacity:0;animation:fadeUp .7s ease .3s forwards;margin-bottom:40px;padding-top:60px;position:relative}
 .header h1{font-family:'Inter',sans-serif;font-size:clamp(36px,7vw,64px);font-weight:900;line-height:1.1;letter-spacing:-2px;margin-bottom:20px;background:linear-gradient(to right,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#8800ff,#ff0000);background-size:200% auto;color:transparent;-webkit-background-clip:text;background-clip:text;animation:rainbowWave 4s linear infinite}
 .header p{font-size:15px;color:#444;line-height:1.6}
 .header a{color:#555;text-decoration:underline;text-underline-offset:3px;cursor:none}
 .header a:hover{color:#888}
 
-/* LEET STRIP */
 .leet-strip{display:flex;gap:20px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:40px;padding-bottom:10px;opacity:0;animation:slideInL .6s ease .6s forwards;-ms-overflow-style:none;scrollbar-width:none}
 .leet-strip::-webkit-scrollbar{display:none}
 .leet{flex-shrink:0;font-size:12px;color:#222;letter-spacing:1px;padding:6px 14px;border:1px solid #141414;border-radius:6px;background:#0a0a0a;animation:breathe 3s ease infinite;transition:all .3s ease;cursor:none}
@@ -60,64 +60,87 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
 
 /* NAV TABS */
 .nav-tabs{display:flex;gap:0;margin-bottom:30px;opacity:0;animation:fadeUp .5s ease .8s forwards;border-bottom:1px solid #111}
-.nav-tab{flex:1;text-align:center;padding:14px 0;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#222;border:1px solid #111;border-bottom:none;background:#0a0a0a;cursor:none;transition:all .3s ease;position:relative;font-weight:600}
+.nav-tab{flex:1;text-align:center;padding:14px 0;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#222;border:1px solid #111;border-bottom:none;background:#0a0a0a;cursor:none;transition:all .3s ease;position:relative;font-weight:600}
 .nav-tab:first-child{border-radius:8px 0 0 0}
 .nav-tab:last-child{border-radius:0 8px 0 0}
 .nav-tab:hover{color:#555;background:#0d0d0d}
 .nav-tab.active{color:#e0e0e0;background:#0d0d0d;border-color:#1a1a1a}
 .nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:linear-gradient(to right,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#8800ff,#ff0000);background-size:200% auto;animation:rainbowWave 3s linear infinite}
+.nav-tab.death-tab.active::after{background:linear-gradient(to right,#ff0000,#880000,#ff0000);background-size:200% auto;animation:rainbowWave 2s linear infinite}
 .nav-tab .tab-count{display:block;font-size:9px;color:#1a1a1a;letter-spacing:1px;margin-top:2px;font-weight:400}
 .nav-tab.active .tab-count{color:#333}
 .nav-tab .tab-icon{font-size:16px;margin-bottom:4px;display:block}
+.nav-tab.death-tab{color:#1a0000}
+.nav-tab.death-tab:hover{color:#550000;background:#0d0808}
+.nav-tab.death-tab.active{color:#cc0000;background:#0d0808;border-color:#220000}
+.nav-tab.death-tab .tab-count{color:#1a0000}
+.nav-tab.death-tab.active .tab-count{color:#440000}
+.nav-tab.death-tab .tab-icon{animation:skullFloat 2s ease infinite}
 
-/* CONTENT SECTIONS */
+/* CONTENT */
 .tab-content{display:none;opacity:0;animation:fadeUp .4s ease forwards}
 .tab-content.active{display:block}
 
-/* GRID */
 .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:640px){.content-grid{grid-template-columns:1fr}}
+
+/* LOADING */
+.grid-loader{text-align:center;padding:60px 20px}
+.grid-loader .spinner{display:inline-block;width:24px;height:24px;border:2px solid #1a1a1a;border-top-color:#333;border-radius:50%;animation:loadSpin .8s linear infinite}
+.grid-loader .loader-text{margin-top:12px;font-size:11px;color:#1a1a1a;letter-spacing:2px}
+.grid-empty{text-align:center;padding:60px 20px;font-size:12px;color:#1a1a1a;letter-spacing:2px}
 
 /* CARDS */
 .card{background:#0a0a0a;border:1px solid #131313;border-radius:10px;overflow:hidden;transition:all .35s ease;opacity:0;transform:translateY(20px);animation:borderRainbow 6s linear infinite}
 .card.visible{opacity:1;transform:translateY(0)}
 .card:hover{border-color:#333;transform:translateY(-4px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.card.death-card{animation:none;border-color:#1a0000}
+.card.death-card:hover{border-color:#440000;box-shadow:0 12px 40px rgba(100,0,0,.2)}
 
-/* VIDEO CARD */
+/* VIDEO */
 .vid-wrap{position:relative;padding-bottom:56.25%;background:#080808;cursor:none}
-.vid-wrap video,.vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;object-fit:fill}
+.vid-wrap video{position:absolute;top:0;left:0;width:100%;height:100%;border:none;object-fit:fill}
 .custom-controls{position:absolute;bottom:10px;left:10px;right:10px;background:rgba(10,10,10,.85);border:1px solid rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;padding:8px 12px;gap:12px;opacity:0;transition:opacity .3s ease;z-index:10;backdrop-filter:blur(4px)}
 .vid-wrap:hover .custom-controls,.vid-wrap.is-paused .custom-controls{opacity:1}
 .cc-btn{background:none;border:none;color:#fff;cursor:none;font-size:12px;outline:none;display:flex;align-items:center;justify-content:center}
 .cc-progress-bg{flex-grow:1;height:6px;background:#222;border-radius:3px;cursor:none;position:relative}
 .cc-progress-fill{width:0%;height:100%;background:#fff;border-radius:3px;pointer-events:none}
+.death-card .cc-progress-fill{background:#cc0000}
 .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);z-index:5;transition:opacity .3s ease}
 .vid-wrap:hover .play-overlay{background:rgba(0,0,0,.5)}
 .play-icon{width:44px;height:44px;background:rgba(20,20,20,.6);border:1px solid rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;padding-left:3px;backdrop-filter:blur(4px);transition:transform .2s ease}
 .vid-wrap:hover .play-icon{transform:scale(1.1)}
 
-/* GIF CARD */
+/* GIF */
 .gif-wrap{position:relative;padding-bottom:56.25%;background:#080808;overflow:hidden}
 .gif-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
 .gif-badge{position:absolute;top:8px;right:8px;background:rgba(10,10,10,.8);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;font-size:9px;color:#555;letter-spacing:1px;backdrop-filter:blur(4px);z-index:2}
 
-/* PIC CARD */
+/* PIC */
 .pic-wrap{position:relative;padding-bottom:75%;background:#080808;overflow:hidden}
 .pic-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .card:hover .pic-wrap img{transform:scale(1.05)}
 
 /* CARD TITLE */
 .card-title{padding:10px 14px;font-size:12px;color:#333;font-weight:400;display:flex;justify-content:space-between;align-items:center}
+.death-card .card-title{color:#440000}
 .card-tag{font-size:9px;color:#222;letter-spacing:1px;padding:2px 8px;border:1px solid #1a1a1a;border-radius:4px}
+.death-card .card-tag{color:#330000;border-color:#220000}
 
 /* LOAD MORE */
 .load-more-wrap{text-align:center;margin-top:30px}
 .load-more-btn{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:8px;color:#333;font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:12px 40px;cursor:none;transition:all .3s ease}
-.load-more-btn:hover{border-color:#333;color:#666;background:linear-gradient(to right,#ff000008,#ff880008,#ffff0008,#00ff0008,#00ffff08,#0088ff08,#8800ff08);animation:tabPulse 2s ease infinite}
+.load-more-btn:hover{border-color:#333;color:#666;animation:tabPulse 2s ease infinite}
 .load-more-btn:disabled{opacity:.3;pointer-events:none}
+.load-more-btn.death-btn{color:#330000;border-color:#1a0000}
+.load-more-btn.death-btn:hover{border-color:#440000;color:#660000}
 
-/* COUNTER */
 .item-counter{text-align:center;margin-top:12px;font-size:10px;color:#1a1a1a;letter-spacing:2px}
+
+/* PLACEHOLDER */
+.media-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#080808;z-index:1}
+.media-placeholder .ph-icon{font-size:24px;color:#1a1a1a;margin-bottom:6px}
+.media-placeholder .ph-text{font-size:10px;color:#151515;letter-spacing:1px}
 
 /* BOTTOM */
 .bottom-section{margin-top:60px;text-align:center;opacity:0;animation:fadeUp .5s ease 1.5s forwards}
@@ -126,16 +149,11 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
 .footer a{color:#222;text-decoration:none;cursor:none}
 .footer a:hover{color:#555}
 .footer .rainbow-paw{background:linear-gradient(to right,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#8800ff,#ff0000);background-size:200% auto;color:transparent;-webkit-background-clip:text;background-clip:text;animation:rainbowWave 4s linear infinite;font-size:13px}
-
-/* PLACEHOLDER FOR MISSING MEDIA */
-.media-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#080808;z-index:1}
-.media-placeholder .ph-icon{font-size:24px;color:#1a1a1a;margin-bottom:6px}
-.media-placeholder .ph-text{font-size:10px;color:#151515;letter-spacing:1px}
 </style>
 </head>
 <body>
 
-<!-- CUSTOM CURSOR -->
+<!-- CURSOR -->
 <div id="xcursor"><svg width="100%" height="100%" viewBox="0 0 28 28" fill="none"><line x1="4" y1="4" x2="24" y2="24" stroke="url(#rg)" stroke-width="3" stroke-linecap="round"/><line x1="24" y1="4" x2="4" y2="24" stroke="url(#rg)" stroke-width="3" stroke-linecap="round"/><defs><linearGradient id="rg" x1="0" y1="0" x2="28" y2="28"><stop offset="0%" stop-color="#ff0000"><animate attributeName="stop-color" values="#ff0000;#ff8800;#ffff00;#00ff00;#00ffff;#0088ff;#8800ff;#ff0000" dur="2s" repeatCount="indefinite"/></stop><stop offset="100%" stop-color="#0088ff"><animate attributeName="stop-color" values="#0088ff;#8800ff;#ff0000;#ff8800;#ffff00;#00ff00;#00ffff;#0088ff" dur="2s" repeatCount="indefinite"/></stop></linearGradient></defs></svg></div>
 
 <!-- MARQUEE -->
@@ -163,42 +181,54 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
 
 <!-- NAV TABS -->
 <div class="nav-tabs">
-  <div class="nav-tab active" data-tab="videos">
-    <span class="tab-icon">▶</span>
-    videos
-    <span class="tab-count">50 vids</span>
+  <div class="nav-tab active" data-tab="videos" data-folder="vids">
+    <span class="tab-icon">▶</span>videos
+    <span class="tab-count" id="count-videos">...</span>
   </div>
-  <div class="nav-tab" data-tab="gifs">
-    <span class="tab-icon">~</span>
-    gifs
-    <span class="tab-count">50 gifs</span>
+  <div class="nav-tab" data-tab="gifs" data-folder="gifs">
+    <span class="tab-icon">~</span>gifs
+    <span class="tab-count" id="count-gifs">...</span>
   </div>
-  <div class="nav-tab" data-tab="pictures">
-    <span class="tab-icon">◻</span>
-    pictures
-    <span class="tab-count">50 pics</span>
+  <div class="nav-tab" data-tab="pictures" data-folder="pics">
+    <span class="tab-icon">◻</span>pictures
+    <span class="tab-count" id="count-pics">...</span>
+  </div>
+  <div class="nav-tab death-tab" data-tab="death" data-folder="death">
+    <span class="tab-icon">☠</span>death
+    <span class="tab-count" id="count-death">...</span>
   </div>
 </div>
 
-<!-- VIDEOS TAB -->
+<!-- VIDEOS -->
 <div class="tab-content active" id="tab-videos">
   <div class="content-grid" id="grid-videos"></div>
-  <div class="load-more-wrap"><button class="load-more-btn" data-tab="videos">load more ( ͡° ͜ʖ ͡°)</button></div>
+  <div class="grid-loader" id="loader-videos"><div class="spinner"></div><div class="loader-text">loading vids...</div></div>
+  <div class="load-more-wrap"><button class="load-more-btn" data-tab="videos" style="display:none">load more ( ͡° ͜ʖ ͡°)</button></div>
   <div class="item-counter" id="counter-videos"></div>
 </div>
 
-<!-- GIFS TAB -->
+<!-- GIFS -->
 <div class="tab-content" id="tab-gifs">
   <div class="content-grid" id="grid-gifs"></div>
-  <div class="load-more-wrap"><button class="load-more-btn" data-tab="gifs">load more (ﾉ◕ヮ◕)ﾉ</button></div>
+  <div class="grid-loader" id="loader-gifs"><div class="spinner"></div><div class="loader-text">loading gifs...</div></div>
+  <div class="load-more-wrap"><button class="load-more-btn" data-tab="gifs" style="display:none">load more (ﾉ◕ヮ◕)ﾉ</button></div>
   <div class="item-counter" id="counter-gifs"></div>
 </div>
 
-<!-- PICTURES TAB -->
+<!-- PICTURES -->
 <div class="tab-content" id="tab-pictures">
   <div class="content-grid" id="grid-pictures"></div>
-  <div class="load-more-wrap"><button class="load-more-btn" data-tab="pictures">load more ʕ•ᴥ•ʔ</button></div>
+  <div class="grid-loader" id="loader-pictures"><div class="spinner"></div><div class="loader-text">loading pics...</div></div>
+  <div class="load-more-wrap"><button class="load-more-btn" data-tab="pictures" style="display:none">load more ʕ•ᴥ•ʔ</button></div>
   <div class="item-counter" id="counter-pictures"></div>
+</div>
+
+<!-- DEATH -->
+<div class="tab-content" id="tab-death">
+  <div class="content-grid" id="grid-death"></div>
+  <div class="grid-loader" id="loader-death"><div class="spinner"></div><div class="loader-text">loading...</div></div>
+  <div class="load-more-wrap"><button class="load-more-btn death-btn" data-tab="death" style="display:none">load more (╯°□°)╯</button></div>
+  <div class="item-counter" id="counter-death"></div>
 </div>
 
 <!-- BOTTOM -->
@@ -216,199 +246,10 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
   <span class="rainbow-paw">(^・ω・^)</span>
 </div>
 
-</div><!-- end .page -->
+</div>
 
 <script>
-/* ===== RIGHT-CLICK / DEVTOOLS BLOCK ===== */
-document.addEventListener("contextmenu",e=>e.preventDefault());
-document.onkeydown=function(e){if(123===e.keyCode||e.ctrlKey&&e.shiftKey&&(73===e.keyCode||74===e.keyCode||67===e.keyCode)||e.ctrlKey&&85===e.keyCode)return!1};
-
-/* ===== ROTATING TITLE ===== */
-const titles=["larpik g frenc cute pibbles","(^・ω・^) larpik.com","ayogama g","( ͡° ͜ʖ ͡°) dont talking please","frenc blud","ʕ•ᴥ•ʔ ah brock"];
-let ti=0;
-setInterval(()=>{document.title=titles[ti%titles.length];ti++},1500);
-
-/* ===== CUSTOM CURSOR ===== */
-const xcursor=document.getElementById("xcursor");
-document.addEventListener("mousemove",e=>{xcursor.style.left=e.clientX+"px";xcursor.style.top=e.clientY+"px"});
-document.addEventListener("mousedown",()=>xcursor.classList.add("clicked"));
-document.addEventListener("mouseup",()=>xcursor.classList.remove("clicked"));
-
-/* ===== TROLL PARTICLES ===== */
-const kaomoji=["( ͡° ͜ʖ ͡°)","(╥﹏╥)","(^・ω・^)","(ﾉ◕ヮ◕)ﾉ","(¬_¬)","(◕‿◕)","(´･ω･`)","(つ▀¯▀)つ","(╯°□°）╯","(•̀ᴗ•́)و","(o_O)","(ง •̀_•́)ง","(づ｡◕‿‿◕｡)づ","(¯▿¯)","ʕ•ᴥ•ʔ","(ง'̀-'́)ง","( ˘ ³˘)♥","¯\\_(ツ)_/¯","(⌐■_■)","( ಥ_ಥ)","( ಠ_ಠ)","(ꈍᴗꈍ)","( T_T)＼(^-^ )","ಠ_ಠ","(~˘▾˘)~","~(˘▾˘~)","༼ つ ◕_◕ ༽つ"];
-let lastParticle=0,ki=0;
-document.addEventListener("mousemove",e=>{
-  const t=Date.now();
-  if(t-lastParticle<90)return;
-  lastParticle=t;
-  const n=document.createElement("div");
-  n.className="troll-particle";
-  n.textContent=kaomoji[ki%kaomoji.length];
-  n.style.left=e.clientX+(Math.random()-.5)*24+"px";
-  n.style.top=e.clientY+"px";
-  n.style.fontSize=6+4*Math.random()+"px";
-  document.body.appendChild(n);
-  ki++;
-  setTimeout(()=>n.remove(),1600);
-});
-
-/* ===== TAB SWITCHING ===== */
-const tabs=document.querySelectorAll(".nav-tab");
-const contents=document.querySelectorAll(".tab-content");
-tabs.forEach(tab=>{
-  tab.addEventListener("click",()=>{
-    tabs.forEach(t=>t.classList.remove("active"));
-    contents.forEach(c=>c.classList.remove("active"));
-    tab.classList.add("active");
-    const target=document.getElementById("tab-"+tab.dataset.tab);
-    target.classList.add("active");
-    // Re-observe cards for animation
-    target.querySelectorAll(".card:not(.visible)").forEach((c,i)=>{
-      c.dataset.delay=60*i;
-      cardObserver.observe(c);
-    });
-  });
-});
-
-/* ===== LAZY LOAD / PAGINATION STATE ===== */
-const BATCH=10;
-const state={
-  videos:{loaded:0,total:50},
-  gifs:{loaded:0,total:50},
-  pictures:{loaded:0,total:50}
-};
-
-/* ===== CARD GENERATORS ===== */
-function createVideoCard(num){
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-    <div class="vid-wrap is-paused">
-      <video src="vids/${num}.mp4" playsinline preload="metadata"></video>
-      <div class="play-overlay"><div class="play-icon">▶</div></div>
-      <div class="custom-controls">
-        <button class="cc-btn cc-play">▶</button>
-        <div class="cc-progress-bg"><div class="cc-progress-fill"></div></div>
-      </div>
-    </div>
-    <div class="card-title">pibble vid ${num} <span class="card-tag">mp4</span></div>`;
-  initVideoControls(card);
-  return card;
-}
-
-function createGifCard(num){
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-    <div class="gif-wrap">
-      <img src="gifs/${num}.gif" alt="pibble gif ${num}" draggable="false" loading="lazy"
-        onerror="this.style.display='none';this.parentElement.querySelector('.media-placeholder').style.display='flex'">
-      <div class="media-placeholder" style="display:none"><div class="ph-icon">(o_O)</div><div class="ph-text">gif ${num}</div></div>
-      <div class="gif-badge">GIF</div>
-    </div>
-    <div class="card-title">pibble gif ${num} <span class="card-tag">gif</span></div>`;
-  return card;
-}
-
-function createPicCard(num){
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-    <div class="pic-wrap">
-      <img src="pics/${num}.jpg" alt="pibble pic ${num}" draggable="false" loading="lazy"
-        onerror="this.style.display='none';this.parentElement.querySelector('.media-placeholder').style.display='flex'">
-      <div class="media-placeholder" style="display:none"><div class="ph-icon">(◕‿◕)</div><div class="ph-text">pic ${num}</div></div>
-    </div>
-    <div class="card-title">pibble pic ${num} <span class="card-tag">jpg</span></div>`;
-  return card;
-}
-
-/* ===== LOAD BATCH ===== */
-function loadBatch(type){
-  const s=state[type];
-  const grid=document.getElementById("grid-"+type);
-  const counter=document.getElementById("counter-"+type);
-  const btn=document.querySelector(`.load-more-btn[data-tab="${type}"]`);
-  const start=s.loaded+1;
-  const end=Math.min(s.loaded+BATCH,s.total);
-
-  for(let i=start;i<=end;i++){
-    let card;
-    if(type==="videos") card=createVideoCard(i);
-    else if(type==="gifs") card=createGifCard(i);
-    else card=createPicCard(i);
-    card.dataset.delay=(i-start)*60;
-    grid.appendChild(card);
-    cardObserver.observe(card);
-  }
-
-  s.loaded=end;
-  counter.textContent=`${s.loaded} / ${s.total}`;
-  if(s.loaded>=s.total) btn.disabled=true;
-}
-
-/* ===== INTERSECTION OBSERVER FOR CARD ANIMATIONS ===== */
-const cardObserver=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const card=entry.target;
-      const delay=parseFloat(card.dataset.delay||0);
-      setTimeout(()=>card.classList.add("visible"),delay);
-      cardObserver.unobserve(card);
-    }
-  });
-},{threshold:.05});
-
-/* ===== VIDEO CONTROLS ===== */
-function initVideoControls(card){
-  const wrap=card.querySelector(".vid-wrap");
-  const video=wrap.querySelector("video");
-  const overlay=wrap.querySelector(".play-overlay");
-  const playBtn=wrap.querySelector(".cc-play");
-  const progressBg=wrap.querySelector(".cc-progress-bg");
-  const progressFill=wrap.querySelector(".cc-progress-fill");
-
-  function toggle(){
-    if(video.paused){
-      video.play();
-      wrap.classList.remove("is-paused");
-      overlay.style.display="none";
-      playBtn.textContent="⏸";
-    }else{
-      video.pause();
-      wrap.classList.add("is-paused");
-      playBtn.textContent="▶";
-    }
-  }
-
-  video.addEventListener("click",toggle);
-  overlay.addEventListener("click",toggle);
-  playBtn.addEventListener("click",e=>{e.stopPropagation();toggle()});
-  video.addEventListener("timeupdate",()=>{
-    if(!video.duration)return;
-    progressFill.style.width=`${(video.currentTime/video.duration)*100}%`;
-  });
-  video.addEventListener("ended",()=>{
-    wrap.classList.add("is-paused");
-    playBtn.textContent="▶";
-    overlay.style.display="";
-  });
-  progressBg.addEventListener("click",e=>{
-    e.stopPropagation();
-    const rect=progressBg.getBoundingClientRect();
-    video.currentTime=((e.clientX-rect.left)/rect.width)*video.duration;
-  });
-}
-
-/* ===== LOAD MORE BUTTONS ===== */
-document.querySelectorAll(".load-more-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>loadBatch(btn.dataset.tab));
-});
-
-/* ===== INITIAL LOAD ===== */
-loadBatch("videos");
-loadBatch("gifs");
-loadBatch("pictures");
+(function(){eval(atob("KGZ1bmN0aW9uKCl7CnZhciBfMHgxYSA9ICJodHRwczovL2xhcnBpay1hcGkuWU9VUl9BQ0NPVU5ULndvcmtlcnMuZGV2IjsKdmFyIF8weDFiID0gMTA7IC8vIGl0ZW1zIHBlciBiYXRjaApkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCJjb250ZXh0bWVudSIsZnVu"+"Y3Rpb24oZSl7ZS5wcmV2ZW50RGVmYXVsdCgpfSk7CmRvY3VtZW50Lm9ua2V5ZG93bj1mdW5jdGlvbihlKXt2YXIgaz1lLmtleUNvZGU7aWYoaz09PTEyM3x8KGUuY3RybEtleSYmZS5zaGlmdEtleSYmKGs9PT03M3x8az09PTc0fHxrPT09NjcpKXx8KGUuY3RybEtl"+"eSYmaz09PTg1KSlyZXR1cm4gZmFsc2V9Owp2YXIgX3Q9WyJsYXJwaWsgZyBmcmVuYyBjdXRlIHBpYmJsZXMiLCIoXuODu8+J44O7XikgbGFycGlrLmNvbSIsImF5b2dhbWEgZyIsIiggzaHCsCDNnMqWIM2hwrApIGRvbnQgdGFsa2luZyBwbGVhc2UiLCJmcmVuYyBi"+"bHVkIiwiypXigKLhtKXigKLKlCBhaCBicm9jayJdLF8weDJiPTA7CnNldEludGVydmFsKGZ1bmN0aW9uKCl7ZG9jdW1lbnQudGl0bGU9X3RbXzB4MmIlX3QubGVuZ3RoXTtfMHgyYisrfSwxNTAwKTsKdmFyIF8weDNhPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ4"+"Y3Vyc29yIik7CmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoIm1vdXNlbW92ZSIsZnVuY3Rpb24oZSl7XzB4M2Euc3R5bGUubGVmdD1lLmNsaWVudFgrInB4IjtfMHgzYS5zdHlsZS50b3A9ZS5jbGllbnRZKyJweCJ9KTsKZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5l"+"cigibW91c2Vkb3duIixmdW5jdGlvbigpe18weDNhLmNsYXNzTGlzdC5hZGQoImNsaWNrZWQiKX0pOwpkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCJtb3VzZXVwIixmdW5jdGlvbigpe18weDNhLmNsYXNzTGlzdC5yZW1vdmUoImNsaWNrZWQiKX0pOwp2YXIgXzB4"+"NGE9WyIoIM2hwrAgzZzKliDNocKwKSIsIijilaXvuY/ilaUpIiwiKF7jg7vPieODu14pIiwiKO++ieKXleODruKXlSnvvokiLCIowqxfwqwpIiwiKOKXleKAv+KXlSkiLCIowrTvvaXPie+9pWApIiwiKOOBpOKWgMKv4paAKeOBpCIsIijila/CsOKWocKw77yJ4pWv"+"IiwiKOKAosyA4bSX4oCizIEp2YgiLCIob19PKSIsIijguIcg4oCizIBf4oCizIEp4LiHIiwiKOOBpe+9oeKXleKAv+KAv+KXle+9oSnjgaUiLCIowq/ilr/CrykiLCLKleKAouG0peKAosqUIiwiKOC4hyfMgC0nzIEp4LiHIiwiKCDLmCDCs8uYKeKZpSIsIsKvXFxf"+"KOODhClfL8KvIiwiKOKMkOKWoF/ilqApIiwiKCDgsqVf4LKlKSIsIigg4LKgX+CyoCkiLCIo6oiN4bSX6oiNKSIsIiggVF9UKe+8vCheLV4gKSIsIuCyoF/gsqAiLCIofsuY4pa+y5gpfiIsIn4oy5jilr7LmH4pIiwi4Ly8IOOBpCDil5Vf4peVIOC8veOBpCJdLF8w"+"eDRiPTAsXzB4NGM9MDsKZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigibW91c2Vtb3ZlIixmdW5jdGlvbihlKXsKdmFyIHQ9RGF0ZS5ub3coKTtpZih0LV8weDRiPDkwKXJldHVybjtfMHg0Yj10Owp2YXIgbj1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJkaXYiKTtu"+"LmNsYXNzTmFtZT0idHJvbGwtcGFydGljbGUiOwpuLnRleHRDb250ZW50PV8weDRhW18weDRjJV8weDRhLmxlbmd0aF07Cm4uc3R5bGUubGVmdD1lLmNsaWVudFgrKE1hdGgucmFuZG9tKCktLjUpKjI0KyJweCI7Cm4uc3R5bGUudG9wPWUuY2xpZW50WSsicHgiO24u"+"c3R5bGUuZm9udFNpemU9Nis0Kk1hdGgucmFuZG9tKCkrInB4IjsKZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChuKTtfMHg0YysrOwpzZXRUaW1lb3V0KGZ1bmN0aW9uKCl7bi5yZW1vdmUoKX0sMTYwMCk7Cn0pOwp2YXIgXzB4NWE9bmV3IEludGVyc2VjdGlvbk9i"+"c2VydmVyKGZ1bmN0aW9uKGVudHJpZXMpewplbnRyaWVzLmZvckVhY2goZnVuY3Rpb24oZW50cnkpewppZihlbnRyeS5pc0ludGVyc2VjdGluZyl7CnZhciBjPWVudHJ5LnRhcmdldDsKdmFyIGQ9cGFyc2VGbG9hdChjLmRhdGFzZXQuZGVsYXl8fDApOwpzZXRUaW1l"+"b3V0KGZ1bmN0aW9uKCl7Yy5jbGFzc0xpc3QuYWRkKCJ2aXNpYmxlIil9LGQpOwpfMHg1YS51bm9ic2VydmUoYyk7Cn0KfSk7Cn0se3RocmVzaG9sZDowLjA1fSk7CnZhciBfMHg2YT1bIi5tcDQiLCIud2VibSIsIi5tb3YiXTsKdmFyIF8weDZiPVsiLmpwZyIsIi5q"+"cGVnIiwiLnBuZyIsIi53ZWJwIl07CnZhciBfMHg2Yz1bIi5naWYiXTsKZnVuY3Rpb24gXzB4N2Eobil7cmV0dXJuIF8weDZhLnNvbWUoZnVuY3Rpb24oZSl7cmV0dXJuIG4udG9Mb3dlckNhc2UoKS5lbmRzV2l0aChlKX0pfQpmdW5jdGlvbiBfMHg3YihuKXtyZXR1"+"cm4gXzB4NmIuc29tZShmdW5jdGlvbihlKXtyZXR1cm4gbi50b0xvd2VyQ2FzZSgpLmVuZHNXaXRoKGUpfSl9CmZ1bmN0aW9uIF8weDdjKG4pe3JldHVybiBfMHg2Yy5zb21lKGZ1bmN0aW9uKGUpe3JldHVybiBuLnRvTG93ZXJDYXNlKCkuZW5kc1dpdGgoZSl9KX0K"+"ZnVuY3Rpb24gXzB4N2Qobil7cmV0dXJuIG4uc3BsaXQoIi4iKS5wb3AoKS50b0xvd2VyQ2FzZSgpfQp2YXIgXzB4OGE9e3ZpZGVvczpudWxsLGdpZnM6bnVsbCxwaWN0dXJlczpudWxsLGRlYXRoOm51bGx9Owp2YXIgXzB4OGI9e3ZpZGVvczowLGdpZnM6MCxwaWN0"+"dXJlczowLGRlYXRoOjB9Owp2YXIgXzB4OGM9e3ZpZGVvczoidmlkcyIsZ2lmczoiZ2lmcyIscGljdHVyZXM6InBpY3MiLGRlYXRoOiJkZWF0aCJ9Owp2YXIgXzB4OWE9ZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgiLm5hdi10YWIiKTsKdmFyIF8weDliPWRvY3Vt"+"ZW50LnF1ZXJ5U2VsZWN0b3JBbGwoIi50YWItY29udGVudCIpOwpfMHg5YS5mb3JFYWNoKGZ1bmN0aW9uKHRhYil7CnRhYi5hZGRFdmVudExpc3RlbmVyKCJjbGljayIsZnVuY3Rpb24oKXsKXzB4OWEuZm9yRWFjaChmdW5jdGlvbih0KXt0LmNsYXNzTGlzdC5yZW1v"+"dmUoImFjdGl2ZSIpfSk7Cl8weDliLmZvckVhY2goZnVuY3Rpb24oYyl7Yy5jbGFzc0xpc3QucmVtb3ZlKCJhY3RpdmUiKX0pOwp0YWIuY2xhc3NMaXN0LmFkZCgiYWN0aXZlIik7CnZhciB0YXJnZXQ9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInRhYi0iK3RhYi5k"+"YXRhc2V0LnRhYik7CnRhcmdldC5jbGFzc0xpc3QuYWRkKCJhY3RpdmUiKTsKfSk7Cn0pOwpmdW5jdGlvbiBfMHhhMShjYXJkKXsKdmFyIHdyYXA9Y2FyZC5xdWVyeVNlbGVjdG9yKCIudmlkLXdyYXAiKTsKdmFyIHZpZGVvPXdyYXAucXVlcnlTZWxlY3Rvcigidmlk"+"ZW8iKTsKdmFyIG92ZXJsYXk9d3JhcC5xdWVyeVNlbGVjdG9yKCIucGxheS1vdmVybGF5Iik7CnZhciBwbGF5QnRuPXdyYXAucXVlcnlTZWxlY3RvcigiLmNjLXBsYXkiKTsKdmFyIHByb2dCZz13cmFwLnF1ZXJ5U2VsZWN0b3IoIi5jYy1wcm9ncmVzcy1iZyIpOwp2"+"YXIgcHJvZ0ZpbGw9d3JhcC5xdWVyeVNlbGVjdG9yKCIuY2MtcHJvZ3Jlc3MtZmlsbCIpOwpmdW5jdGlvbiB0b2coKXsKaWYodmlkZW8ucGF1c2VkKXt2aWRlby5wbGF5KCk7d3JhcC5jbGFzc0xpc3QucmVtb3ZlKCJpcy1wYXVzZWQiKTtpZihvdmVybGF5KW92ZXJs"+"YXkuc3R5bGUuZGlzcGxheT0ibm9uZSI7aWYocGxheUJ0bilwbGF5QnRuLnRleHRDb250ZW50PSLij7gifQplbHNle3ZpZGVvLnBhdXNlKCk7d3JhcC5jbGFzc0xpc3QuYWRkKCJpcy1wYXVzZWQiKTtpZihwbGF5QnRuKXBsYXlCdG4udGV4dENvbnRlbnQ9IuKWtiJ9"+"Cn0KdmlkZW8uYWRkRXZlbnRMaXN0ZW5lcigiY2xpY2siLHRvZyk7CmlmKG92ZXJsYXkpb3ZlcmxheS5hZGRFdmVudExpc3RlbmVyKCJjbGljayIsdG9nKTsKaWYocGxheUJ0bilwbGF5QnRuLmFkZEV2ZW50TGlzdGVuZXIoImNsaWNrIixmdW5jdGlvbihlKXtlLnN0"+"b3BQcm9wYWdhdGlvbigpO3RvZygpfSk7CnZpZGVvLmFkZEV2ZW50TGlzdGVuZXIoInRpbWV1cGRhdGUiLGZ1bmN0aW9uKCl7aWYoIXZpZGVvLmR1cmF0aW9uKXJldHVybjtpZihwcm9nRmlsbClwcm9nRmlsbC5zdHlsZS53aWR0aD0odmlkZW8uY3VycmVudFRpbWUv"+"dmlkZW8uZHVyYXRpb24qMTAwKSsiJSJ9KTsKdmlkZW8uYWRkRXZlbnRMaXN0ZW5lcigiZW5kZWQiLGZ1bmN0aW9uKCl7d3JhcC5jbGFzc0xpc3QuYWRkKCJpcy1wYXVzZWQiKTtpZihwbGF5QnRuKXBsYXlCdG4udGV4dENvbnRlbnQ9IuKWtiI7aWYob3ZlcmxheSlv"+"dmVybGF5LnN0eWxlLmRpc3BsYXk9IiJ9KTsKaWYocHJvZ0JnKXByb2dCZy5hZGRFdmVudExpc3RlbmVyKCJjbGljayIsZnVuY3Rpb24oZSl7ZS5zdG9wUHJvcGFnYXRpb24oKTt2YXIgcj1wcm9nQmcuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCk7dmlkZW8uY3VycmVu"+"dFRpbWU9KChlLmNsaWVudFgtci5sZWZ0KS9yLndpZHRoKSp2aWRlby5kdXJhdGlvbn0pOwp9CmZ1bmN0aW9uIF8weGEyKGZpbGUsZm9sZGVyLGlzRGVhdGgpewp2YXIgdXJsPV8weDFhKyIvZmlsZS8iK2ZvbGRlcisiLyIrZmlsZS5uYW1lOwp2YXIgY2xzPWlzRGVh"+"dGg/ImNhcmQgZGVhdGgtY2FyZCI6ImNhcmQiOwp2YXIgY2FyZD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJkaXYiKTtjYXJkLmNsYXNzTmFtZT1jbHM7CmNhcmQuaW5uZXJIVE1MPSc8ZGl2IGNsYXNzPSJ2aWQtd3JhcCBpcy1wYXVzZWQiPjx2aWRlbyBzcmM9Iicr"+"dXJsKyciIHBsYXlzaW5saW5lIHByZWxvYWQ9Im1ldGFkYXRhIj48L3ZpZGVvPjxkaXYgY2xhc3M9InBsYXktb3ZlcmxheSI+PGRpdiBjbGFzcz0icGxheS1pY29uIj7ilrY8L2Rpdj48L2Rpdj48ZGl2IGNsYXNzPSJjdXN0b20tY29udHJvbHMiPjxidXR0b24gY2xh"+"c3M9ImNjLWJ0biBjYy1wbGF5Ij7ilrY8L2J1dHRvbj48ZGl2IGNsYXNzPSJjYy1wcm9ncmVzcy1iZyI+PGRpdiBjbGFzcz0iY2MtcHJvZ3Jlc3MtZmlsbCI+PC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PGRpdiBjbGFzcz0iY2FyZC10aXRsZSI+JytmaWxlLm5hbWUr"+"JyA8c3BhbiBjbGFzcz0iY2FyZC10YWciPicrXzB4N2QoZmlsZS5uYW1lKSsnPC9zcGFuPjwvZGl2Pic7Cl8weGExKGNhcmQpO3JldHVybiBjYXJkOwp9CmZ1bmN0aW9uIF8weGEzKGZpbGUsZm9sZGVyLGlzRGVhdGgpewp2YXIgdXJsPV8weDFhKyIvZmlsZS8iK2Zv"+"bGRlcisiLyIrZmlsZS5uYW1lOwp2YXIgY2xzPWlzRGVhdGg/ImNhcmQgZGVhdGgtY2FyZCI6ImNhcmQiOwp2YXIgY2FyZD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJkaXYiKTtjYXJkLmNsYXNzTmFtZT1jbHM7CmNhcmQuaW5uZXJIVE1MPSc8ZGl2IGNsYXNzPSJn"+"aWYtd3JhcCI+PGltZyBzcmM9IicrdXJsKyciIGFsdD0iJytmaWxlLm5hbWUrJyIgZHJhZ2dhYmxlPSJmYWxzZSIgbG9hZGluZz0ibGF6eSIgb25lcnJvcj0idGhpcy5zdHlsZS5kaXNwbGF5PVwnbm9uZVwnO3RoaXMucGFyZW50RWxlbWVudC5xdWVyeVNlbGVjdG9y"+"KFwnLm1lZGlhLXBsYWNlaG9sZGVyXCcpLnN0eWxlLmRpc3BsYXk9XCdmbGV4XCciPjxkaXYgY2xhc3M9Im1lZGlhLXBsYWNlaG9sZGVyIiBzdHlsZT0iZGlzcGxheTpub25lIj48ZGl2IGNsYXNzPSJwaC1pY29uIj4ob19PKTwvZGl2PjxkaXYgY2xhc3M9InBoLXRl"+"eHQiPicrZmlsZS5uYW1lKyc8L2Rpdj48L2Rpdj48ZGl2IGNsYXNzPSJnaWYtYmFkZ2UiPkdJRjwvZGl2PjwvZGl2PjxkaXYgY2xhc3M9ImNhcmQtdGl0bGUiPicrZmlsZS5uYW1lKycgPHNwYW4gY2xhc3M9ImNhcmQtdGFnIj5naWY8L3NwYW4+PC9kaXY+JzsKcmV0"+"dXJuIGNhcmQ7Cn0KZnVuY3Rpb24gXzB4YTQoZmlsZSxmb2xkZXIsaXNEZWF0aCl7CnZhciB1cmw9XzB4MWErIi9maWxlLyIrZm9sZGVyKyIvIitmaWxlLm5hbWU7CnZhciBjbHM9aXNEZWF0aD8iY2FyZCBkZWF0aC1jYXJkIjoiY2FyZCI7CnZhciBjYXJkPWRvY3Vt"+"ZW50LmNyZWF0ZUVsZW1lbnQoImRpdiIpO2NhcmQuY2xhc3NOYW1lPWNsczsKY2FyZC5pbm5lckhUTUw9JzxkaXYgY2xhc3M9InBpYy13cmFwIj48aW1nIHNyYz0iJyt1cmwrJyIgYWx0PSInK2ZpbGUubmFtZSsnIiBkcmFnZ2FibGU9ImZhbHNlIiBsb2FkaW5nPSJs"+"YXp5IiBvbmVycm9yPSJ0aGlzLnN0eWxlLmRpc3BsYXk9XCdub25lXCc7dGhpcy5wYXJlbnRFbGVtZW50LnF1ZXJ5U2VsZWN0b3IoXCcubWVkaWEtcGxhY2Vob2xkZXJcJykuc3R5bGUuZGlzcGxheT1cJ2ZsZXhcJyI+PGRpdiBjbGFzcz0ibWVkaWEtcGxhY2Vob2xk"+"ZXIiIHN0eWxlPSJkaXNwbGF5Om5vbmUiPjxkaXYgY2xhc3M9InBoLWljb24iPijil5XigL/il5UpPC9kaXY+PGRpdiBjbGFzcz0icGgtdGV4dCI+JytmaWxlLm5hbWUrJzwvZGl2PjwvZGl2PjwvZGl2PjxkaXYgY2xhc3M9ImNhcmQtdGl0bGUiPicrZmlsZS5uYW1l"+"KycgPHNwYW4gY2xhc3M9ImNhcmQtdGFnIj4nK18weDdkKGZpbGUubmFtZSkrJzwvc3Bhbj48L2Rpdj4nOwpyZXR1cm4gY2FyZDsKfQpmdW5jdGlvbiBfMHhiMSh0YWJLZXkpewp2YXIgZmlsZXM9XzB4OGFbdGFiS2V5XTtpZighZmlsZXMpcmV0dXJuOwp2YXIgZ3Jp"+"ZD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiZ3JpZC0iK3RhYktleSk7CnZhciBjb3VudGVyPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJjb3VudGVyLSIrdGFiS2V5KTsKdmFyIGJ0bj1kb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcubG9hZC1tb3JlLWJ0bltkYXRh"+"LXRhYj0iJyt0YWJLZXkrJyJdJyk7CnZhciBmb2xkZXI9XzB4OGNbdGFiS2V5XTsKdmFyIGlzRGVhdGg9dGFiS2V5PT09ImRlYXRoIjsKdmFyIHN0YXJ0PV8weDhiW3RhYktleV07CnZhciBlbmQ9TWF0aC5taW4oc3RhcnQrXzB4MWIsZmlsZXMubGVuZ3RoKTsKZm9y"+"KHZhciBpPXN0YXJ0O2k8ZW5kO2krKyl7CnZhciBmPWZpbGVzW2ldO3ZhciBjYXJkOwppZihfMHg3YShmLm5hbWUpKWNhcmQ9XzB4YTIoZixmb2xkZXIsaXNEZWF0aCk7CmVsc2UgaWYoXzB4N2MoZi5uYW1lKSljYXJkPV8weGEzKGYsZm9sZGVyLGlzRGVhdGgpOwpl"+"bHNlIGNhcmQ9XzB4YTQoZixmb2xkZXIsaXNEZWF0aCk7CmNhcmQuZGF0YXNldC5kZWxheT0oaS1zdGFydCkqNjA7CmdyaWQuYXBwZW5kQ2hpbGQoY2FyZCk7Cl8weDVhLm9ic2VydmUoY2FyZCk7Cn0KXzB4OGJbdGFiS2V5XT1lbmQ7CmNvdW50ZXIudGV4dENvbnRl"+"bnQ9ZW5kKyIgLyAiK2ZpbGVzLmxlbmd0aDsKaWYoZW5kPj1maWxlcy5sZW5ndGgpYnRuLmRpc2FibGVkPXRydWU7CmlmKGZpbGVzLmxlbmd0aD4wKWJ0bi5zdHlsZS5kaXNwbGF5PSIiOwp9CmZ1bmN0aW9uIF8weGIyKHRhYktleSl7CnZhciBmb2xkZXI9XzB4OGNb"+"dGFiS2V5XTsKdmFyIGxvYWRlcj1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgibG9hZGVyLSIrdGFiS2V5KTsKdmFyIGdyaWQ9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImdyaWQtIit0YWJLZXkpOwp2YXIgY291bnRFbD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgi"+"Y291bnQtIisKKHRhYktleT09PSJwaWN0dXJlcyI/InBpY3MiOnRhYktleT09PSJ2aWRlb3MiPyJ2aWRlb3MiOnRhYktleT09PSJnaWZzIj8iZ2lmcyI6ImRlYXRoIikpOwpmZXRjaChfMHgxYSsiL2xpc3QvIitmb2xkZXIpCi50aGVuKGZ1bmN0aW9uKHIpe3JldHVy"+"biByLmpzb24oKX0pCi50aGVuKGZ1bmN0aW9uKGZpbGVzKXsKaWYobG9hZGVyKWxvYWRlci5zdHlsZS5kaXNwbGF5PSJub25lIjsKaWYoIWZpbGVzfHxmaWxlcy5lcnJvcnx8ZmlsZXMubGVuZ3RoPT09MCl7CmdyaWQuaW5uZXJIVE1MPSc8ZGl2IGNsYXNzPSJncmlk"+"LWVtcHR5Ij5ub3RoaW5nIGhlcmUgeWV0ICjilaXvuY/ilaUpPC9kaXY+JzsKaWYoY291bnRFbCljb3VudEVsLnRleHRDb250ZW50PSIwIjsKcmV0dXJuOwp9Cl8weDhhW3RhYktleV09ZmlsZXM7CmlmKGNvdW50RWwpY291bnRFbC50ZXh0Q29udGVudD1maWxlcy5s"+"ZW5ndGgrIiBmaWxlcyI7Cl8weGIxKHRhYktleSk7Cn0pCi5jYXRjaChmdW5jdGlvbigpewppZihsb2FkZXIpbG9hZGVyLnN0eWxlLmRpc3BsYXk9Im5vbmUiOwpncmlkLmlubmVySFRNTD0nPGRpdiBjbGFzcz0iZ3JpZC1lbXB0eSI+Y291bGRuXCd0IGxvYWQgKCDg"+"sqVf4LKlKTwvZGl2Pic7Cn0pOwp9CmRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoIi5sb2FkLW1vcmUtYnRuIikuZm9yRWFjaChmdW5jdGlvbihidG4pewpidG4uYWRkRXZlbnRMaXN0ZW5lcigiY2xpY2siLGZ1bmN0aW9uKCl7XzB4YjEoYnRuLmRhdGFzZXQudGFi"+"KX0pOwp9KTsKXzB4YjIoInZpZGVvcyIpOwpfMHhiMigiZ2lmcyIpOwpfMHhiMigicGljdHVyZXMiKTsKXzB4YjIoImRlYXRoIik7Cn0pKCk7"))})()
 </script>
 </body>
 </html>
