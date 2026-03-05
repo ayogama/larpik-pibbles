@@ -68,10 +68,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
 .nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:linear-gradient(to right,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#8800ff,#ff0000);background-size:200% auto;animation:rainbowWave 3s linear infinite}
 .nav-tab .tab-count{display:block;font-size:9px;color:#1a1a1a;letter-spacing:1px;margin-top:2px;font-weight:400}
 .nav-tab.active .tab-count{color:#333}
-
-/* Custom Image Icons for Tabs */
-.tab-img-icon{width:18px;height:18px;margin:0 auto 4px auto;display:block;object-fit:contain;opacity:0.7;transition:opacity .3s ease}
-.nav-tab:hover .tab-img-icon, .nav-tab.active .tab-img-icon{opacity:1}
+.nav-tab .tab-icon{font-size:16px;margin-bottom:4px;display:block}
 
 /* CONTENT SECTIONS */
 .tab-content{display:none;opacity:0;animation:fadeUp .4s ease forwards}
@@ -138,17 +135,21 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
 </head>
 <body>
 
+<!-- CUSTOM CURSOR -->
 <div id="xcursor"><svg width="100%" height="100%" viewBox="0 0 28 28" fill="none"><line x1="4" y1="4" x2="24" y2="24" stroke="url(#rg)" stroke-width="3" stroke-linecap="round"/><line x1="24" y1="4" x2="4" y2="24" stroke="url(#rg)" stroke-width="3" stroke-linecap="round"/><defs><linearGradient id="rg" x1="0" y1="0" x2="28" y2="28"><stop offset="0%" stop-color="#ff0000"><animate attributeName="stop-color" values="#ff0000;#ff8800;#ffff00;#00ff00;#00ffff;#0088ff;#8800ff;#ff0000" dur="2s" repeatCount="indefinite"/></stop><stop offset="100%" stop-color="#0088ff"><animate attributeName="stop-color" values="#0088ff;#8800ff;#ff0000;#ff8800;#ffff00;#00ff00;#00ffff;#0088ff" dur="2s" repeatCount="indefinite"/></stop></linearGradient></defs></svg></div>
 
+<!-- MARQUEE -->
 <div class="marquee"><div class="marquee-track"><span>(^・ω・^) larpik.com</span><span>ayogama g</span><span>dont talking please</span><span>( ͡° ͜ʖ ͡°)</span><span>frenc blud</span><span>ah brock</span><span>(ﾉ◕ヮ◕)ﾉ g</span><span>cute pibbles vids</span><span>larpik g</span><span>(╯°□°)╯︵ ┻━┻</span><span>ʕ•ᴥ•ʔ</span><span>(ง'̀-'́)ง</span><span>(^・ω・^) larpik.com</span><span>ayogama g</span><span>dont talking please</span><span>( ͡° ͜ʖ ͡°)</span><span>frenc blud</span><span>ah brock</span><span>(ﾉ◕ヮ◕)ﾉ g</span><span>cute pibbles vids</span><span>larpik g</span><span>(⌐■_■)</span><span>( T_T)＼(^-^ )</span><span>¯\_(ツ)_/¯</span></div></div>
 
 <div class="page">
 
+<!-- HEADER -->
 <div class="header">
   <h1>hello brock this is ayogama blud frenc larpik g cute pibbles vids</h1>
   <p>cute pibbles - <a href="https://larpik.com" draggable="false">larpik.com</a></p>
 </div>
 
+<!-- LEET STRIP -->
 <div class="leet-strip">
   <div class="leet">dont talking please</div>
   <div class="leet">( ͡° ͜ʖ ͡°)</div>
@@ -160,42 +161,47 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
   <div class="leet">(ง'̀-'́)ง</div>
 </div>
 
+<!-- NAV TABS -->
 <div class="nav-tabs">
   <div class="nav-tab active" data-tab="videos">
-    <img src="icons/vids.png" alt="vids" class="tab-img-icon" draggable="false">
+    <span class="tab-icon">▶</span>
     videos
     <span class="tab-count">50 vids</span>
   </div>
   <div class="nav-tab" data-tab="gifs">
-    <img src="icons/gifs.png" alt="gifs" class="tab-img-icon" draggable="false">
+    <span class="tab-icon">~</span>
     gifs
     <span class="tab-count">50 gifs</span>
   </div>
   <div class="nav-tab" data-tab="pictures">
-    <img src="icons/pics.png" alt="pics" class="tab-img-icon" draggable="false">
+    <span class="tab-icon">◻</span>
     pictures
     <span class="tab-count">50 pics</span>
   </div>
 </div>
 
+<!-- VIDEOS TAB -->
 <div class="tab-content active" id="tab-videos">
   <div class="content-grid" id="grid-videos"></div>
   <div class="load-more-wrap"><button class="load-more-btn" data-tab="videos">load more ( ͡° ͜ʖ ͡°)</button></div>
   <div class="item-counter" id="counter-videos"></div>
 </div>
 
+<!-- GIFS TAB -->
 <div class="tab-content" id="tab-gifs">
   <div class="content-grid" id="grid-gifs"></div>
   <div class="load-more-wrap"><button class="load-more-btn" data-tab="gifs">load more (ﾉ◕ヮ◕)ﾉ</button></div>
   <div class="item-counter" id="counter-gifs"></div>
 </div>
 
+<!-- PICTURES TAB -->
 <div class="tab-content" id="tab-pictures">
   <div class="content-grid" id="grid-pictures"></div>
   <div class="load-more-wrap"><button class="load-more-btn" data-tab="pictures">load more ʕ•ᴥ•ʔ</button></div>
   <div class="item-counter" id="counter-pictures"></div>
 </div>
 
+<!-- BOTTOM -->
 <div class="bottom-section">
   <div class="bottom-text">
     dont talking please ( ͡° ͜ʖ ͡°)<br>
@@ -210,7 +216,9 @@ body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;b
   <span class="rainbow-paw">(^・ω・^)</span>
 </div>
 
-</div><script>
+</div><!-- end .page -->
+
+<script>
 /* ===== RIGHT-CLICK / DEVTOOLS BLOCK ===== */
 document.addEventListener("contextmenu",e=>e.preventDefault());
 document.onkeydown=function(e){if(123===e.keyCode||e.ctrlKey&&e.shiftKey&&(73===e.keyCode||74===e.keyCode||67===e.keyCode)||e.ctrlKey&&85===e.keyCode)return!1};
@@ -254,6 +262,7 @@ tabs.forEach(tab=>{
     tab.classList.add("active");
     const target=document.getElementById("tab-"+tab.dataset.tab);
     target.classList.add("active");
+    // Re-observe cards for animation
     target.querySelectorAll(".card:not(.visible)").forEach((c,i)=>{
       c.dataset.delay=60*i;
       cardObserver.observe(c);
@@ -319,7 +328,7 @@ function loadBatch(type){
   const s=state[type];
   const grid=document.getElementById("grid-"+type);
   const counter=document.getElementById("counter-"+type);
-  const btn=document.querySelector(\`.load-more-btn[data-tab="\${type}"]\`);
+  const btn=document.querySelector(`.load-more-btn[data-tab="${type}"]`);
   const start=s.loaded+1;
   const end=Math.min(s.loaded+BATCH,s.total);
 
@@ -334,7 +343,7 @@ function loadBatch(type){
   }
 
   s.loaded=end;
-  counter.textContent=\`\${s.loaded} / \${s.total}\`;
+  counter.textContent=`${s.loaded} / ${s.total}`;
   if(s.loaded>=s.total) btn.disabled=true;
 }
 
@@ -377,7 +386,7 @@ function initVideoControls(card){
   playBtn.addEventListener("click",e=>{e.stopPropagation();toggle()});
   video.addEventListener("timeupdate",()=>{
     if(!video.duration)return;
-    progressFill.style.width=\`\${(video.currentTime/video.duration)*100}%\`;
+    progressFill.style.width=`${(video.currentTime/video.duration)*100}%`;
   });
   video.addEventListener("ended",()=>{
     wrap.classList.add("is-paused");
