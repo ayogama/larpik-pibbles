@@ -1,0 +1,51 @@
+name: Generate file list
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate files.json
+        run: |
+          echo '{' > files.json
+
+          for folder in vids gifs pics death; do
+            echo "  \"$folder\": [" >> files.json
+            if [ -d "$folder" ]; then
+              first=true
+              for f in "$folder"/*; do
+                [ -f "$f" ] || continue
+                name=$(basename "$f")
+                # skip hidden files and files.json itself
+                [[ "$name" == .* ]] && continue
+                if [ "$first" = true ]; then
+                  first=false
+                else
+                  echo "," >> files.json
+                fi
+                printf '    "%s"' "$name" >> files.json
+              done
+            fi
+            echo "" >> files.json
+
+            if [ "$folder" = "death" ]; then
+              echo "  ]" >> files.json
+            else
+              echo "  ]," >> files.json
+            fi
+          done
+
+          echo '}' >> files.json
+          cat files.json
+
+      - name: Commit files.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add files.json
+          git diff --cached --quiet && echo "No changes" || git commit -m "update files.json [skip ci]" && git push
