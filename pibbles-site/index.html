@@ -67,17 +67,21 @@ body.pm{animation:km 2s linear infinite}
   animation: sl .5s ease .3s forwards;
 }
 .tags-track {
-  display: inline-flex;
-  gap: 12px;
+  display: flex;
   width: max-content;
-  animation: mq 30s linear infinite; /* Adjusted speed */
+  animation: mq 30s linear infinite;
 }
 .tags-track:hover {
   animation-play-state: paused;
 }
+.tags-list {
+  display: flex;
+  gap: 12px;
+  padding-right: 12px; /* Matches the gap so the next list snaps perfectly next to it */
+}
 .tag {
   flex-shrink: 0;
-  font-size: 14px; /* Made them slightly bigger since they are kaomojis */
+  font-size: 14px;
   color: var(--text3);
   padding: 6px 14px;
   border: 1px solid var(--border);
@@ -95,7 +99,7 @@ body.pm{animation:km 2s linear infinite}
 
 @keyframes mq {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 6px)); } /* Perfectly accounts for the 12px gap */
+  100% { transform: translateX(-50%); } /* Exactly 50% is flawless now */
 }
 
 /* ========== LAYOUT ========== */
@@ -282,34 +286,38 @@ body.pm{animation:km 2s linear infinite}
 
 <div class="tags-wrap">
   <div class="tags-track">
-    <div class="tag">( ͡° ͜ʖ ͡°)</div>
-    <div class="tag">ʕ•ᴥ•ʔ</div>
-    <div class="tag">(ง‘̀-‘́)ง</div>
-    <div class="tag">(づ｡◕‿‿◕｡)づ</div>
-    <div class="tag">¯\_(ツ)_/¯</div>
-    <div class="tag">(⌐■_■)</div>
-    <div class="tag">(ಠ_ಠ)</div>
-    <div class="tag">(╯°□°）╯︵ ┻━┻</div>
-    <div class="tag">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
-    <div class="tag">(>_<)</div>
-    <div class="tag">ᕙ(⇀‸↼‶)ᕗ</div>
-    <div class="tag">(╥﹏╥)</div>
-    <div class="tag">(^・ω・^ )</div>
-    <div class="tag">(~˘▾˘)~</div>
-    <div class="tag">( ͡° ͜ʖ ͡°)</div>
-    <div class="tag">ʕ•ᴥ•ʔ</div>
-    <div class="tag">(ง‘̀-‘́)ง</div>
-    <div class="tag">(づ｡◕‿‿◕｡)づ</div>
-    <div class="tag">¯\_(ツ)_/¯</div>
-    <div class="tag">(⌐■_■)</div>
-    <div class="tag">(ಠ_ಠ)</div>
-    <div class="tag">(╯°□°）╯︵ ┻━┻</div>
-    <div class="tag">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
-    <div class="tag">(>_<)</div>
-    <div class="tag">ᕙ(⇀‸↼‶)ᕗ</div>
-    <div class="tag">(╥﹏╥)</div>
-    <div class="tag">(^・ω・^ )</div>
-    <div class="tag">(~˘▾˘)~</div>
+    <div class="tags-list">
+      <div class="tag">( ͡° ͜ʖ ͡°)</div>
+      <div class="tag">ʕ•ᴥ•ʔ</div>
+      <div class="tag">(ง‘̀-‘́)ง</div>
+      <div class="tag">(づ｡◕‿‿◕｡)づ</div>
+      <div class="tag">¯\_(ツ)_/¯</div>
+      <div class="tag">(⌐■_■)</div>
+      <div class="tag">(ಠ_ಠ)</div>
+      <div class="tag">(╯°□°）╯︵ ┻━┻</div>
+      <div class="tag">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+      <div class="tag">(>_<)</div>
+      <div class="tag">ᕙ(⇀‸↼‶)ᕗ</div>
+      <div class="tag">(╥﹏╥)</div>
+      <div class="tag">(^・ω・^ )</div>
+      <div class="tag">(~˘▾˘)~</div>
+    </div>
+    <div class="tags-list" aria-hidden="true">
+      <div class="tag">( ͡° ͜ʖ ͡°)</div>
+      <div class="tag">ʕ•ᴥ•ʔ</div>
+      <div class="tag">(ง‘̀-‘́)ง</div>
+      <div class="tag">(づ｡◕‿‿◕｡)づ</div>
+      <div class="tag">¯\_(ツ)_/¯</div>
+      <div class="tag">(⌐■_■)</div>
+      <div class="tag">(ಠ_ಠ)</div>
+      <div class="tag">(╯°□°）╯︵ ┻━┻</div>
+      <div class="tag">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+      <div class="tag">(>_<)</div>
+      <div class="tag">ᕙ(⇀‸↼‶)ᕗ</div>
+      <div class="tag">(╥﹏╥)</div>
+      <div class="tag">(^・ω・^ )</div>
+      <div class="tag">(~˘▾˘)~</div>
+    </div>
   </div>
 </div>
 
