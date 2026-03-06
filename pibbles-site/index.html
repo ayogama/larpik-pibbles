@@ -36,36 +36,34 @@ a{cursor:none}
 @keyframes loadSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 @keyframes konami{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
 @keyframes glitchShake{0%,100%{transform:translate(0)}25%{transform:translate(-2px,1px)}75%{transform:translate(2px,-1px)}}
-@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 
 .troll-particle{position:fixed;pointer-events:none;z-index:9998;animation:trollDrift 1.6s ease-out forwards;font-family:'Outfit',monospace;color:#888}
 body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
 body.party-mode{animation:konami 2s linear infinite}
 body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 
-/* ========== TOP RIBBON (rainbow header text) ========== */
-.top-ribbon{background:#080808;border-bottom:1px solid #0e0e0e;padding:10px 0;overflow:hidden;position:relative}
+/* RIBBON */
+.top-ribbon{background:#080808;border-bottom:1px solid #0e0e0e;padding:10px 0;overflow:hidden}
 .ribbon-track{display:flex;align-items:center;white-space:nowrap;animation:marquee 25s linear infinite}
 .ribbon-track span{padding:0 40px;font-family:'Inter',sans-serif;font-size:clamp(14px,3vw,22px);font-weight:900;letter-spacing:-1px;background:linear-gradient(to right,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#8800ff,#ff0000);background-size:200% auto;color:transparent;-webkit-background-clip:text;background-clip:text;animation:rainbowWave 4s linear infinite}
 
-/* ========== INFO BAR ========== */
-.info-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 20px;background:#080808;border-bottom:1px solid #0a0a0a;font-size:10px;color:#1a1a1a;letter-spacing:1px;max-width:100%}
+/* INFO BAR */
+.info-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 20px;background:#080808;border-bottom:1px solid #0a0a0a;font-size:10px;color:#1a1a1a;letter-spacing:1px}
 .info-bar .info-left{display:flex;align-items:center;gap:8px}
 .info-bar .visitor-dot{width:5px;height:5px;background:#0a4;border-radius:50%;animation:breathe 2s ease infinite}
 .info-bar a{color:#222;text-decoration:underline;text-underline-offset:2px;cursor:none}
 .info-bar a:hover{color:#444}
 
-/* ========== LAYOUT ========== */
 .page{max-width:1000px;margin:0 auto;padding:20px 20px 120px}
 
-/* ========== LEET STRIP ========== */
+/* LEET */
 .leet-strip{display:flex;gap:12px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:24px;padding:12px 0;opacity:0;animation:slideInL .6s ease .4s forwards;-ms-overflow-style:none;scrollbar-width:none}
 .leet-strip::-webkit-scrollbar{display:none}
 .leet{flex-shrink:0;font-size:11px;color:#1a1a1a;letter-spacing:1px;padding:5px 12px;border:1px solid #0e0e0e;border-radius:4px;background:#080808;animation:breathe 3s ease infinite;transition:all .3s ease;cursor:none}
 .leet:nth-child(2n){animation-delay:.5s}
 .leet:hover{animation:none;opacity:1;border-color:#222;color:#444}
 
-/* ========== NAV TABS ========== */
+/* TABS */
 .nav-tabs{display:flex;gap:6px;margin-bottom:24px;opacity:0;animation:fadeUp .5s ease .5s forwards;flex-wrap:wrap}
 .nav-tab{padding:8px 16px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#1a1a1a;border:1px solid #0e0e0e;border-radius:6px;background:#080808;cursor:none;transition:all .25s ease;font-weight:600;display:flex;align-items:center;gap:6px}
 .nav-tab:hover{color:#444;border-color:#1a1a1a;background:#0a0a0a}
@@ -76,11 +74,13 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 .nav-tab .tab-count{font-size:9px;color:#141414;font-weight:400;margin-left:4px}
 .nav-tab.active .tab-count{color:#333}
 
-/* ========== TAB CONTENT ========== */
 .tab-content{display:none;opacity:0;animation:fadeUp .4s ease forwards}
 .tab-content.active{display:block}
 
-/* ========== GRID ========== */
+/* SOURCE BADGE on cards */
+.source-badge{position:absolute;top:6px;left:6px;background:rgba(6,6,6,.85);border:1px solid rgba(255,255,255,.04);border-radius:3px;padding:2px 5px;font-size:7px;color:#222;letter-spacing:1px;backdrop-filter:blur(4px);z-index:3;text-transform:uppercase}
+
+/* GRID */
 .content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:768px){.content-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.content-grid{grid-template-columns:1fr}}
@@ -90,7 +90,7 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 .grid-loader .loader-text{margin-top:10px;font-size:10px;color:#1a1a1a;letter-spacing:2px}
 .grid-empty{text-align:center;padding:60px 20px;font-size:11px;color:#1a1a1a;letter-spacing:2px}
 
-/* ========== CARDS ========== */
+/* CARDS */
 .card{background:#0a0a0a;border:1px solid #0e0e0e;border-radius:8px;overflow:hidden;transition:all .3s ease;opacity:0;transform:translateY(16px)}
 .card.visible{opacity:1;transform:translateY(0)}
 .card:hover{border-color:#1a1a1a;transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
@@ -111,7 +111,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 .play-icon{width:40px;height:40px;background:rgba(10,10,10,.7);border:1px solid rgba(255,255,255,.06);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;font-size:13px;padding-left:2px;backdrop-filter:blur(4px);transition:transform .2s,color .2s}
 .vid-wrap:hover .play-icon{transform:scale(1.1);color:#fff}
 
-/* VOLUME */
 .cc-vol-wrap{display:flex;align-items:center;gap:4px}
 .cc-vol-btn{background:none;border:none;color:#666;cursor:none;outline:none;display:flex;align-items:center;transition:color .2s}
 .cc-vol-btn:hover{color:#fff}
@@ -130,18 +129,15 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 .pic-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;cursor:none}
 .card:hover .pic-wrap img{transform:scale(1.04)}
 
-/* CARD TITLE */
 .card-title{padding:8px 12px;font-size:11px;color:#1a1a1a;font-weight:400;display:flex;justify-content:space-between;align-items:center}
 .card-tag{font-size:8px;color:#141414;letter-spacing:1px;padding:2px 6px;border:1px solid #0e0e0e;border-radius:3px}
 
-/* LOAD MORE */
 .load-more-wrap{text-align:center;margin-top:24px}
 .load-more-btn{background:#080808;border:1px solid #0e0e0e;border-radius:6px;color:#1a1a1a;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:10px 32px;cursor:none;transition:all .25s ease}
 .load-more-btn:hover{border-color:#1a1a1a;color:#444}
 .load-more-btn:disabled{opacity:.15;pointer-events:none}
 .item-counter{text-align:center;margin-top:10px;font-size:9px;color:#111;letter-spacing:2px}
 
-/* PLACEHOLDER */
 .media-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#080808;z-index:1}
 .media-placeholder .ph-icon{font-size:20px;color:#141414;margin-bottom:4px}
 .media-placeholder .ph-text{font-size:9px;color:#0e0e0e;letter-spacing:1px}
@@ -153,10 +149,10 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 .lightbox-close{position:absolute;top:16px;right:20px;color:#222;font-size:22px;cursor:none;transition:color .2s}
 .lightbox-close:hover{color:#666}
 
-/* ========== CRYPTO TAB ========== */
+/* CRYPTO */
 .crypto-page{padding:0}
 .crypto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
-.crypto-header h2{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;color:#222;letter-spacing:-0.5px}
+.crypto-header h2{font-family:'Inter',sans-serif;font-size:18px;font-weight:800;color:#222;letter-spacing:-.5px}
 .crypto-header .crypto-updated{font-size:9px;color:#1a1a1a;letter-spacing:1px}
 .crypto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:20px}
 .crypto-coin{background:#080808;border:1px solid #0e0e0e;border-radius:6px;padding:14px;cursor:none;transition:all .25s ease;display:flex;flex-direction:column;gap:6px}
@@ -168,14 +164,14 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 .crypto-coin .cc-name{font-size:9px;color:#1a1a1a;letter-spacing:.5px}
 .crypto-coin .cc-price{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#222;font-variant-numeric:tabular-nums}
 .crypto-coin.selected .cc-price{color:#ddd}
-.crypto-coin .cc-chg{font-size:10px;font-weight:600;letter-spacing:.5px}
+.crypto-coin .cc-chg{font-size:10px;font-weight:600}
 .crypto-coin .cc-chg.up{color:#0a4}
 .crypto-coin .cc-chg.down{color:#a00}
-.chart-container{background:#080808;border:1px solid #0e0e0e;border-radius:8px;overflow:hidden;height:500px;position:relative}
+.chart-container{background:#080808;border:1px solid #0e0e0e;border-radius:8px;overflow:hidden;height:500px}
 .chart-container iframe{width:100%;height:100%;border:none}
 .chart-placeholder{display:flex;align-items:center;justify-content:center;height:100%;font-size:11px;color:#1a1a1a;letter-spacing:2px}
 
-/* ========== BOTTOM ========== */
+/* BOTTOM */
 .bottom-section{margin-top:50px;text-align:center;opacity:0;animation:fadeUp .5s ease 1s forwards}
 .bottom-text{font-size:12px;color:#111;line-height:2;animation:textGlitch 5s infinite}
 .footer{margin-top:60px;padding-top:16px;border-top:1px solid #0a0a0a;font-size:9px;color:#111;display:flex;justify-content:space-between;opacity:0;animation:fadeUp .5s ease 1.2s forwards}
@@ -184,10 +180,8 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 </head>
 <body>
 
-<!-- CURSOR -->
 <div id="xcursor"><svg width="100%" height="100%" viewBox="0 0 28 28" fill="none"><line x1="4" y1="4" x2="24" y2="24" stroke="url(#rg)" stroke-width="3" stroke-linecap="round"/><line x1="24" y1="4" x2="4" y2="24" stroke="url(#rg)" stroke-width="3" stroke-linecap="round"/><defs><linearGradient id="rg" x1="0" y1="0" x2="28" y2="28"><stop offset="0%" stop-color="#ff0000"><animate attributeName="stop-color" values="#ff0000;#ff8800;#ffff00;#00ff00;#00ffff;#0088ff;#8800ff;#ff0000" dur="2s" repeatCount="indefinite"/></stop><stop offset="100%" stop-color="#0088ff"><animate attributeName="stop-color" values="#0088ff;#8800ff;#ff0000;#ff8800;#ffff00;#00ff00;#00ffff;#0088ff" dur="2s" repeatCount="indefinite"/></stop></linearGradient></defs></svg></div>
 
-<!-- RAINBOW RIBBON -->
 <div class="top-ribbon">
   <div class="ribbon-track">
     <span>hello brock this is ayogama blud frenc larpik g cute pibbles vids</span>
@@ -197,16 +191,11 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   </div>
 </div>
 
-<!-- INFO BAR -->
 <div class="info-bar">
-  <div class="info-left">
-    <div class="visitor-dot"></div>
-    <span id="visitor-count">...</span>
-  </div>
+  <div class="info-left"><div class="visitor-dot"></div><span id="visitor-count">...</span></div>
   <div><a href="https://larpik.com" draggable="false">larpik.com</a></div>
 </div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <div class="lightbox-close" id="lb-close">&times;</div>
   <img id="lb-img" src="" alt="">
@@ -214,7 +203,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 
 <div class="page">
 
-<!-- LEET STRIP -->
 <div class="leet-strip">
   <div class="leet">( &#865;&#176; &#860;&#662; &#865;&#176;)</div>
   <div class="leet">g brock ah blud</div>
@@ -226,7 +214,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   <div class="leet">nah fr tho</div>
 </div>
 
-<!-- NAV TABS (pill style) -->
 <div class="nav-tabs">
   <div class="nav-tab active" data-tab="videos">
     <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
@@ -250,7 +237,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   </div>
 </div>
 
-<!-- VIDS -->
 <div class="tab-content active" id="tab-videos">
   <div class="content-grid" id="grid-videos"></div>
   <div class="grid-loader" id="loader-videos"><div class="spinner"></div><div class="loader-text">loading vids...</div></div>
@@ -258,7 +244,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   <div class="item-counter" id="counter-videos"></div>
 </div>
 
-<!-- GIFS -->
 <div class="tab-content" id="tab-gifs">
   <div class="content-grid" id="grid-gifs"></div>
   <div class="grid-loader" id="loader-gifs"><div class="spinner"></div><div class="loader-text">loading gifs...</div></div>
@@ -266,7 +251,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   <div class="item-counter" id="counter-gifs"></div>
 </div>
 
-<!-- PICS -->
 <div class="tab-content" id="tab-pictures">
   <div class="content-grid" id="grid-pictures"></div>
   <div class="grid-loader" id="loader-pictures"><div class="spinner"></div><div class="loader-text">loading pics...</div></div>
@@ -274,7 +258,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   <div class="item-counter" id="counter-pictures"></div>
 </div>
 
-<!-- DEATH -->
 <div class="tab-content" id="tab-death">
   <div class="content-grid" id="grid-death"></div>
   <div class="grid-loader" id="loader-death"><div class="spinner"></div><div class="loader-text">loading...</div></div>
@@ -282,7 +265,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   <div class="item-counter" id="counter-death"></div>
 </div>
 
-<!-- CRYPTO -->
 <div class="tab-content" id="tab-crypto">
   <div class="crypto-page">
     <div class="crypto-header">
@@ -296,7 +278,6 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   </div>
 </div>
 
-<!-- BOTTOM -->
 <div class="bottom-section">
   <div class="bottom-text">
     dont talking please ( &#865;&#176; &#860;&#662; &#865;&#176;)<br>
@@ -313,6 +294,8 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
 
 <script>
 (function(){
+  /* ===== CONFIG ===== */
+  var _0xW="https://worker.vokemane.workers.dev";
   var _0x1=12;
   var _0x2a=[".mp4",".webm",".mov"];
   var _0x2b=[".jpg",".jpeg",".png",".webp"];
@@ -323,6 +306,7 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   function _0x3d(n){return n.split(".").pop().toLowerCase()}
   function _0x3e(n){var m=n.match(/\d+/);return m?parseInt(m[0]):999999}
 
+  /* Each item: {name, src, source:"git"|"r2"} */
   var _0x4a={videos:[],gifs:[],pictures:[],death:[]};
   var _0x4b={videos:0,gifs:0,pictures:0,death:0};
   var _0x4c={videos:"vids",gifs:"gifs",pictures:"pics",death:"death"};
@@ -332,26 +316,16 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   document.onkeydown=function(e){var k=e.keyCode;if(k===123||(e.ctrlKey&&e.shiftKey&&(k===73||k===74||k===67))||(e.ctrlKey&&k===85))return false};
 
   /* title */
-  var _0x5a=[
-    "larpik g frenc cute pibbles",
-    "(^\u00B7\u03C9\u00B7^) larpik.com",
-    "ayogama g",
-    "( \u0361\u00B0 \u035C\u0296 \u0361\u00B0) dont talking please",
-    "\u0283\u2022\u1D25\u2022\u0284 ah brock"
-  ];
+  var _0x5a=["larpik g frenc cute pibbles","(^\u00B7\u03C9\u00B7^) larpik.com","ayogama g","( \u0361\u00B0 \u035C\u0296 \u0361\u00B0) dont talking please","\u0283\u2022\u1D25\u2022\u0284 ah brock"];
   var _0x5b=0;
   setInterval(function(){document.title=_0x5a[_0x5b%_0x5a.length];_0x5b++},1500);
 
-  /* REAL visitor counter using localStorage + session detection */
+  /* visitor counter */
   (function(){
-    var key="larpik_visits";
-    var skey="larpik_session";
-    var count=parseInt(localStorage.getItem(key)||"0");
-    if(!sessionStorage.getItem(skey)){
-      count++;
-      localStorage.setItem(key,count);
-      sessionStorage.setItem(skey,"1");
-    }
+    var key="larpik_visits";var skey="larpik_session";
+    var count=0;
+    try{count=parseInt(localStorage.getItem(key)||"0")}catch(e){}
+    try{if(!sessionStorage.getItem(skey)){count++;try{localStorage.setItem(key,count)}catch(e){}sessionStorage.setItem(skey,"1")}}catch(e){}
     document.getElementById("visitor-count").textContent=count.toLocaleString()+" total visits";
   })();
 
@@ -362,17 +336,7 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   document.addEventListener("mouseup",function(){_0x6a.classList.remove("clicked")});
 
   /* particles */
-  var _0x7a=[
-    "( \u0361\u00B0 \u035C\u0296 \u0361\u00B0)","(\u256F\uFE4F\u256F)","(^\u00B7\u03C9\u00B7^)",
-    "(\uFF89\u25D5\u30F2\u25D5)\uFF89","(\u00AC_\u00AC)","(\u25D5\u203F\u25D5)",
-    "(\u00B4\uFF65\u03C9\uFF65`)","(\u3064\u2580\u00AF\u2580)\u3064","(\u256F\u00B0\u25A1\u00B0\uFF09\u256F",
-    "(\u2022\u0300\u1D17\u2022\u0301)\u0648","(o_O)","(\u0E07 \u2022\u0300_\u2022\u0301)\u0E07",
-    "(\u3065\uFF61\u25D5\u203F\u203F\u25D5\uFF61)\u3065","(\u00AF\u25BF\u00AF)","\u0283\u2022\u1D25\u2022\u0284",
-    "(\u0E07\u2018\u0300-\u2019\u0301\u0E07)","\u00AF\\_(\u30C4)_/\u00AF","(\u2310\u25A0_\u25A0)",
-    "( \u0CA5_\u0CA5)","( \u0CA0_\u0CA0)","(~\u02D8\u25BE\u02D8)~",
-    "\u10DA \u3064 \u25D5_\u25D5 \u10DB\u3064","\u0F3C \u3064 \u25D5_\u25D5 \u0F3D\u3064",
-    "(\u2283\u25D5\u203F\u25D5)\u2283","(\u0E07\u2580\u035C\u0296\u2580)\u0E07","(\u25E3_\u25E2)"
-  ];
+  var _0x7a=["( \u0361\u00B0 \u035C\u0296 \u0361\u00B0)","(\u256F\uFE4F\u256F)","(^\u00B7\u03C9\u00B7^)","(\uFF89\u25D5\u30F2\u25D5)\uFF89","(\u00AC_\u00AC)","(\u25D5\u203F\u25D5)","(\u00B4\uFF65\u03C9\uFF65`)","(\u3064\u2580\u00AF\u2580)\u3064","(\u256F\u00B0\u25A1\u00B0\uFF09\u256F","(\u2022\u0300\u1D17\u2022\u0301)\u0648","(o_O)","(\u0E07 \u2022\u0300_\u2022\u0301)\u0E07","(\u3065\uFF61\u25D5\u203F\u203F\u25D5\uFF61)\u3065","\u0283\u2022\u1D25\u2022\u0284","\u00AF\\_(\u30C4)_/\u00AF","(\u2310\u25A0_\u25A0)","( \u0CA0_\u0CA0)","(~\u02D8\u25BE\u02D8)~","\u0F3C \u3064 \u25D5_\u25D5 \u0F3D\u3064","(\u2283\u25D5\u203F\u25D5)\u2283","(\u0E07\u2580\u035C\u0296\u2580)\u0E07"];
   var _0x7b=0,_0x7c=0;
   document.addEventListener("mousemove",function(e){
     var t=Date.now();if(t-_0x7b<90)return;_0x7b=t;
@@ -393,11 +357,7 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   /* observer */
   var _0x8a=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        var c=entry.target;var d=parseFloat(c.dataset.delay||0);
-        setTimeout(function(){c.classList.add("visible")},d);
-        _0x8a.unobserve(c);
-      }
+      if(entry.isIntersecting){var c=entry.target;var d=parseFloat(c.dataset.delay||0);setTimeout(function(){c.classList.add("visible")},d);_0x8a.unobserve(c)}
     });
   },{threshold:0.05});
 
@@ -423,24 +383,15 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
   /* volume icons */
   var _0xVOn='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
   var _0xVOff='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
-
-  function _0xFmtTime(s){
-    var m=Math.floor(s/60);var sec=Math.floor(s%60);
-    return m+":"+(sec<10?"0":"")+sec;
-  }
+  function _0xFmt(s){var m=Math.floor(s/60);var sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
 
   /* video controls */
   function _0xa1(card){
-    var wrap=card.querySelector(".vid-wrap");
-    var video=wrap.querySelector("video");
-    var overlay=wrap.querySelector(".play-overlay");
-    var playBtn=wrap.querySelector(".cc-play");
-    var progBg=wrap.querySelector(".cc-progress-bg");
-    var progFill=wrap.querySelector(".cc-progress-fill");
-    var volBtn=wrap.querySelector(".cc-vol-btn");
-    var volSlider=wrap.querySelector(".cc-vol-slider");
+    var wrap=card.querySelector(".vid-wrap");var video=wrap.querySelector("video");
+    var overlay=wrap.querySelector(".play-overlay");var playBtn=wrap.querySelector(".cc-play");
+    var progBg=wrap.querySelector(".cc-progress-bg");var progFill=wrap.querySelector(".cc-progress-fill");
+    var volBtn=wrap.querySelector(".cc-vol-btn");var volSlider=wrap.querySelector(".cc-vol-slider");
     var timeEl=wrap.querySelector(".cc-time");
-
     function tog(){
       if(video.paused){video.play();wrap.classList.remove("is-paused");if(overlay)overlay.style.display="none";if(playBtn)playBtn.textContent="\u23F8"}
       else{video.pause();wrap.classList.add("is-paused");if(playBtn)playBtn.textContent="\u25B6"}
@@ -448,42 +399,29 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
     video.addEventListener("click",tog);
     if(overlay)overlay.addEventListener("click",tog);
     if(playBtn)playBtn.addEventListener("click",function(e){e.stopPropagation();tog()});
-    video.addEventListener("timeupdate",function(){
-      if(!video.duration)return;
-      if(progFill)progFill.style.width=(video.currentTime/video.duration*100)+"%";
-      if(timeEl)timeEl.textContent=_0xFmtTime(video.currentTime)+" / "+_0xFmtTime(video.duration);
-    });
+    video.addEventListener("timeupdate",function(){if(!video.duration)return;if(progFill)progFill.style.width=(video.currentTime/video.duration*100)+"%";if(timeEl)timeEl.textContent=_0xFmt(video.currentTime)+" / "+_0xFmt(video.duration)});
     video.addEventListener("ended",function(){wrap.classList.add("is-paused");if(playBtn)playBtn.textContent="\u25B6";if(overlay)overlay.style.display=""});
     if(progBg)progBg.addEventListener("click",function(e){e.stopPropagation();var r=progBg.getBoundingClientRect();video.currentTime=((e.clientX-r.left)/r.width)*video.duration});
-    if(volSlider){
-      volSlider.value=video.volume;
-      volSlider.addEventListener("input",function(e){e.stopPropagation();video.volume=parseFloat(this.value);video.muted=video.volume===0;volBtn.innerHTML=video.muted?_0xVOff:_0xVOn});
-    }
-    if(volBtn){
-      volBtn.innerHTML=_0xVOn;
-      volBtn.addEventListener("click",function(e){e.stopPropagation();video.muted=!video.muted;volBtn.innerHTML=video.muted?_0xVOff:_0xVOn;if(volSlider)volSlider.value=video.muted?0:video.volume});
-    }
+    if(volSlider){volSlider.value=video.volume;volSlider.addEventListener("input",function(e){e.stopPropagation();video.volume=parseFloat(this.value);video.muted=video.volume===0;volBtn.innerHTML=video.muted?_0xVOff:_0xVOn})}
+    if(volBtn){volBtn.innerHTML=_0xVOn;volBtn.addEventListener("click",function(e){e.stopPropagation();video.muted=!video.muted;volBtn.innerHTML=video.muted?_0xVOff:_0xVOn;if(volSlider)volSlider.value=video.muted?0:video.volume})}
   }
 
-  /* card builders */
-  function _0xb1(name,folder){
-    var url=folder+"/"+name;
+  /* card builders - now accept src directly */
+  function _0xb1(item){
     var card=document.createElement("div");card.className="card";
-    card.innerHTML='<div class="vid-wrap is-paused"><video src="'+url+'" playsinline preload="metadata"></video><div class="play-overlay"><div class="play-icon">\u25B6</div></div><div class="custom-controls"><button class="cc-btn cc-play">\u25B6</button><div class="cc-progress-bg"><div class="cc-progress-fill"></div></div><span class="cc-time">0:00 / 0:00</span><div class="cc-vol-wrap"><button class="cc-vol-btn"></button><input type="range" class="cc-vol-slider" min="0" max="1" step="0.05" value="1"></div></div></div><div class="card-title">'+name+' <span class="card-tag">'+_0x3d(name)+'</span></div>';
+    card.innerHTML='<div class="vid-wrap is-paused"><video src="'+item.src+'" playsinline preload="metadata"></video><div class="play-overlay"><div class="play-icon">\u25B6</div></div><div class="custom-controls"><button class="cc-btn cc-play">\u25B6</button><div class="cc-progress-bg"><div class="cc-progress-fill"></div></div><span class="cc-time">0:00 / 0:00</span><div class="cc-vol-wrap"><button class="cc-vol-btn"></button><input type="range" class="cc-vol-slider" min="0" max="1" step="0.05" value="1"></div></div></div><div class="card-title">'+item.name+' <span class="card-tag">'+_0x3d(item.name)+'</span></div>';
     _0xa1(card);return card;
   }
-  function _0xb2(name,folder){
-    var url=folder+"/"+name;
+  function _0xb2(item){
     var card=document.createElement("div");card.className="card";
-    card.innerHTML='<div class="gif-wrap"><img src="'+url+'" alt="'+name+'" draggable="false" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.media-placeholder\').style.display=\'flex\'"><div class="media-placeholder" style="display:none"><div class="ph-icon">(o_O)</div><div class="ph-text">'+name+'</div></div><div class="gif-badge">GIF</div></div><div class="card-title">'+name+' <span class="card-tag">gif</span></div>';
-    card.querySelector(".gif-wrap img").addEventListener("click",function(){_0xOpenLB(url)});
+    card.innerHTML='<div class="gif-wrap"><img src="'+item.src+'" alt="'+item.name+'" draggable="false" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.media-placeholder\').style.display=\'flex\'"><div class="media-placeholder" style="display:none"><div class="ph-icon">(o_O)</div><div class="ph-text">'+item.name+'</div></div><div class="gif-badge">GIF</div></div><div class="card-title">'+item.name+' <span class="card-tag">gif</span></div>';
+    card.querySelector(".gif-wrap img").addEventListener("click",function(){_0xOpenLB(item.src)});
     return card;
   }
-  function _0xb3(name,folder){
-    var url=folder+"/"+name;
+  function _0xb3(item){
     var card=document.createElement("div");card.className="card";
-    card.innerHTML='<div class="pic-wrap"><img src="'+url+'" alt="'+name+'" draggable="false" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.media-placeholder\').style.display=\'flex\'"><div class="media-placeholder" style="display:none"><div class="ph-icon">(\u25D5\u203F\u25D5)</div><div class="ph-text">'+name+'</div></div></div><div class="card-title">'+name+' <span class="card-tag">'+_0x3d(name)+'</span></div>';
-    card.querySelector(".pic-wrap img").addEventListener("click",function(){_0xOpenLB(url)});
+    card.innerHTML='<div class="pic-wrap"><img src="'+item.src+'" alt="'+item.name+'" draggable="false" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.media-placeholder\').style.display=\'flex\'"><div class="media-placeholder" style="display:none"><div class="ph-icon">(\u25D5\u203F\u25D5)</div><div class="ph-text">'+item.name+'</div></div></div><div class="card-title">'+item.name+' <span class="card-tag">'+_0x3d(item.name)+'</span></div>';
+    card.querySelector(".pic-wrap img").addEventListener("click",function(){_0xOpenLB(item.src)});
     return card;
   }
 
@@ -493,17 +431,14 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
     var grid=document.getElementById("grid-"+tabKey);
     var counter=document.getElementById("counter-"+tabKey);
     var btn=document.querySelector('.load-more-btn[data-tab="'+tabKey+'"]');
-    var folder=_0x4c[tabKey];
-    var start=_0x4b[tabKey];
-    var end=Math.min(start+_0x1,files.length);
+    var start=_0x4b[tabKey];var end=Math.min(start+_0x1,files.length);
     for(var i=start;i<end;i++){
-      var f=files[i];var card;
-      if(_0x3a(f))card=_0xb1(f,folder);
-      else if(_0x3c(f))card=_0xb2(f,folder);
-      else card=_0xb3(f,folder);
+      var item=files[i];var card;
+      if(_0x3a(item.name))card=_0xb1(item);
+      else if(_0x3c(item.name))card=_0xb2(item);
+      else card=_0xb3(item);
       card.dataset.delay=(i-start)*50;
-      grid.appendChild(card);
-      _0x8a.observe(card);
+      grid.appendChild(card);_0x8a.observe(card);
     }
     _0x4b[tabKey]=end;
     counter.textContent=end+" / "+files.length;
@@ -515,108 +450,126 @@ body.party-mode .card{animation:glitchShake .3s ease infinite !important}
     btn.addEventListener("click",function(){_0xc1(btn.dataset.tab)});
   });
 
-  /* ========== CRYPTO TAB ========== */
-  var _0xCoinMap={
-    BTC:{id:"bitcoin",name:"Bitcoin"},
-    ETH:{id:"ethereum",name:"Ethereum"},
-    SOL:{id:"solana",name:"Solana"},
-    DOGE:{id:"dogecoin",name:"Dogecoin"},
-    XRP:{id:"ripple",name:"XRP"},
-    ADA:{id:"cardano",name:"Cardano"},
-    AVAX:{id:"avalanche-2",name:"Avalanche"},
-    DOT:{id:"polkadot",name:"Polkadot"},
-    MATIC:{id:"matic-network",name:"Polygon"},
-    LINK:{id:"chainlink",name:"Chainlink"},
-    ATOM:{id:"cosmos",name:"Cosmos"},
-    NEAR:{id:"near",name:"NEAR"},
-    BNB:{id:"binancecoin",name:"BNB"},
-    LTC:{id:"litecoin",name:"Litecoin"},
-    UNI:{id:"uniswap",name:"Uniswap"},
-    PEPE:{id:"pepe",name:"Pepe"}
-  };
-  var _0xCoinSymbols=Object.keys(_0xCoinMap);
-  var _0xSelectedCoin="BTC";
-  var _0xTvMap={BTC:"BTCUSD",ETH:"ETHUSD",SOL:"SOLUSD",DOGE:"DOGEUSD",XRP:"XRPUSD",ADA:"ADAUSD",AVAX:"AVAXUSD",DOT:"DOTUSD",MATIC:"MATICUSD",LINK:"LINKUSD",ATOM:"ATOMUSD",NEAR:"NEARUSD",BNB:"BNBUSD",LTC:"LTCUSD",UNI:"UNIUSD",PEPE:"PEPEUSD"};
+  /* ===== DUAL SOURCE LOADING ===== */
+  /* Fetch from files.json (github) AND from R2 worker, merge results */
 
-  function _0xLoadChart(sym){
-    _0xSelectedCoin=sym;
-    var container=document.getElementById("chart-container");
-    var tvSym="BINANCE:"+(_0xTvMap[sym]||sym+"USD");
-    container.innerHTML='<iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tv_chart&symbol='+encodeURIComponent(tvSym)+'&interval=60&hidesidetoolbar=0&symboledit=1&saveimage=0&toolbarbg=060606&studies=[]&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&showpopupbutton=0&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&showFloatingTooltip=1&locale=en&utm_source=larpik.com&utm_medium=widget&utm_campaign=chart" allowTransparency="true" allowfullscreen></iframe>';
-    document.querySelectorAll(".crypto-coin").forEach(function(c){
-      c.classList.toggle("selected",c.dataset.sym===sym);
+  var _0xGitDone=false,_0xR2Done=false;
+  var _0xGitData={vids:[],gifs:[],pics:[],death:[]};
+  var _0xR2Data={vids:[],gifs:[],pics:[],death:[]};
+
+  function _0xMergeAndRender(){
+    if(!_0xGitDone||!_0xR2Done)return;
+
+    var folders=["vids","gifs","pics","death"];
+    var tabKeys=["videos","gifs","pictures","death"];
+
+    for(var i=0;i<folders.length;i++){
+      var folder=folders[i];
+      var tabKey=tabKeys[i];
+      var merged=[];
+      var seen={};
+
+      /* git files: src is local path */
+      (_0xGitData[folder]||[]).forEach(function(name){
+        if(!seen[name]){seen[name]=true;merged.push({name:name,src:folder+"/"+name,source:"git"})}
+      });
+
+      /* r2 files: src is worker URL */
+      (_0xR2Data[folder]||[]).forEach(function(name){
+        if(!seen[name]){seen[name]=true;merged.push({name:name,src:_0xW+"/file/"+folder+"/"+name,source:"r2"})}
+      });
+
+      /* sort */
+      merged.sort(function(a,b){return _0x3e(a.name)-_0x3e(b.name)});
+      _0x4a[tabKey]=merged;
+    }
+
+    /* update counts */
+    document.getElementById("count-videos").textContent=_0x4a.videos.length;
+    document.getElementById("count-gifs").textContent=_0x4a.gifs.length;
+    document.getElementById("count-pics").textContent=_0x4a.pictures.length;
+    document.getElementById("count-death").textContent=_0x4a.death.length;
+
+    /* render */
+    ["videos","gifs","pictures","death"].forEach(function(key){
+      var loader=document.getElementById("loader-"+key);
+      if(loader)loader.style.display="none";
+      if(_0x4a[key].length===0){
+        document.getElementById("grid-"+key).innerHTML='<div class="grid-empty">nothing here yet</div>';
+      }else{
+        _0xc1(key);
+      }
     });
   }
 
+  /* Fetch files.json (github source) */
+  fetch("files.json?v="+Date.now())
+    .then(function(r){return r.json()})
+    .then(function(data){
+      _0xGitData=data;
+      _0xGitDone=true;
+      _0xMergeAndRender();
+    })
+    .catch(function(){
+      _0xGitDone=true;
+      _0xMergeAndRender();
+    });
+
+  /* Fetch from R2 worker (all 4 folders) */
+  var _0xR2Loaded=0;
+  ["vids","gifs","pics","death"].forEach(function(folder){
+    fetch(_0xW+"/list/"+folder)
+      .then(function(r){return r.json()})
+      .then(function(files){
+        if(Array.isArray(files)){
+          _0xR2Data[folder]=files.map(function(f){return typeof f==="string"?f:f.name});
+        }
+      })
+      .catch(function(){})
+      .finally(function(){
+        _0xR2Loaded++;
+        if(_0xR2Loaded>=4){_0xR2Done=true;_0xMergeAndRender()}
+      });
+  });
+
+  /* ===== CRYPTO ===== */
+  var _0xCoinMap={BTC:{id:"bitcoin",name:"Bitcoin"},ETH:{id:"ethereum",name:"Ethereum"},SOL:{id:"solana",name:"Solana"},DOGE:{id:"dogecoin",name:"Dogecoin"},XRP:{id:"ripple",name:"XRP"},ADA:{id:"cardano",name:"Cardano"},AVAX:{id:"avalanche-2",name:"Avalanche"},DOT:{id:"polkadot",name:"Polkadot"},MATIC:{id:"matic-network",name:"Polygon"},LINK:{id:"chainlink",name:"Chainlink"},ATOM:{id:"cosmos",name:"Cosmos"},NEAR:{id:"near",name:"NEAR"},BNB:{id:"binancecoin",name:"BNB"},LTC:{id:"litecoin",name:"Litecoin"},UNI:{id:"uniswap",name:"Uniswap"},PEPE:{id:"pepe",name:"Pepe"}};
+  var _0xCoinSyms=Object.keys(_0xCoinMap);
+  var _0xSelCoin="BTC";
+  var _0xTvMap={BTC:"BTCUSD",ETH:"ETHUSD",SOL:"SOLUSD",DOGE:"DOGEUSD",XRP:"XRPUSD",ADA:"ADAUSD",AVAX:"AVAXUSD",DOT:"DOTUSD",MATIC:"MATICUSD",LINK:"LINKUSD",ATOM:"ATOMUSD",NEAR:"NEARUSD",BNB:"BNBUSD",LTC:"LTCUSD",UNI:"UNIUSD",PEPE:"PEPEUSD"};
+
+  function _0xLoadChart(sym){
+    _0xSelCoin=sym;
+    var c=document.getElementById("chart-container");
+    var tv="BINANCE:"+(_0xTvMap[sym]||sym+"USD");
+    c.innerHTML='<iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tv&symbol='+encodeURIComponent(tv)+'&interval=60&hidesidetoolbar=0&symboledit=1&saveimage=0&toolbarbg=060606&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&locale=en" allowTransparency="true" allowfullscreen></iframe>';
+    document.querySelectorAll(".crypto-coin").forEach(function(el){el.classList.toggle("selected",el.dataset.sym===sym)});
+  }
+
   function _0xLoadCrypto(){
-    var ids=_0xCoinSymbols.map(function(s){return _0xCoinMap[s].id}).join(",");
+    var ids=_0xCoinSyms.map(function(s){return _0xCoinMap[s].id}).join(",");
     fetch("https://api.coingecko.com/api/v3/simple/price?ids="+ids+"&vs_currencies=usd&include_24hr_change=true")
       .then(function(r){return r.json()})
       .then(function(data){
-        var grid=document.getElementById("crypto-grid");
-        grid.innerHTML="";
-        _0xCoinSymbols.forEach(function(sym){
-          var info=_0xCoinMap[sym];
-          var d=data[info.id];
-          if(!d)return;
-          var price=d.usd;
-          var change=d.usd_24h_change||0;
-          var cls=change>=0?"up":"down";
-          var sign=change>=0?"+":"";
-          var priceStr=price>=1?"$"+price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"$"+price.toFixed(6);
-
+        var grid=document.getElementById("crypto-grid");grid.innerHTML="";
+        _0xCoinSyms.forEach(function(sym){
+          var info=_0xCoinMap[sym];var d=data[info.id];if(!d)return;
+          var price=d.usd;var change=d.usd_24h_change||0;
+          var cls=change>=0?"up":"down";var sign=change>=0?"+":"";
+          var ps=price>=1?"$"+price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"$"+price.toFixed(6);
           var coin=document.createElement("div");
-          coin.className="crypto-coin"+(sym===_0xSelectedCoin?" selected":"");
+          coin.className="crypto-coin"+(sym===_0xSelCoin?" selected":"");
           coin.dataset.sym=sym;
-          coin.innerHTML='<div class="cc-top"><span class="cc-symbol">'+sym+'</span><span class="cc-chg '+cls+'">'+sign+change.toFixed(2)+'%</span></div><span class="cc-name">'+info.name+'</span><span class="cc-price">'+priceStr+'</span>';
+          coin.innerHTML='<div class="cc-top"><span class="cc-symbol">'+sym+'</span><span class="cc-chg '+cls+'">'+sign+change.toFixed(2)+'%</span></div><span class="cc-name">'+info.name+'</span><span class="cc-price">'+ps+'</span>';
           coin.addEventListener("click",function(){_0xLoadChart(sym)});
           grid.appendChild(coin);
         });
         document.getElementById("crypto-updated").textContent="updated "+new Date().toLocaleTimeString();
-      })
-      .catch(function(){
-        document.getElementById("crypto-grid").innerHTML='<div class="grid-empty">couldn\'t load prices</div>';
-      });
+      }).catch(function(){document.getElementById("crypto-grid").innerHTML='<div class="grid-empty">couldn\'t load prices</div>'});
   }
-  _0xLoadCrypto();
-  setInterval(_0xLoadCrypto,60000);
+  _0xLoadCrypto();setInterval(_0xLoadCrypto,60000);
+  document.querySelector('[data-tab="crypto"]').addEventListener("click",function(){if(!document.querySelector("#chart-container iframe"))_0xLoadChart(_0xSelCoin)});
 
-  /* load chart on first crypto tab click */
-  document.querySelector('[data-tab="crypto"]').addEventListener("click",function(){
-    if(!document.querySelector("#chart-container iframe")){_0xLoadChart(_0xSelectedCoin)}
-  });
-
-  /* ========== FETCH FILES ========== */
-  fetch("files.json?v="+Date.now())
-    .then(function(r){return r.json()})
-    .then(function(data){
-      _0x4a.videos=(data.vids||[]).sort(function(a,b){return _0x3e(a)-_0x3e(b)});
-      _0x4a.gifs=(data.gifs||[]).sort(function(a,b){return _0x3e(a)-_0x3e(b)});
-      _0x4a.pictures=(data.pics||[]).sort(function(a,b){return _0x3e(a)-_0x3e(b)});
-      _0x4a.death=(data.death||[]).sort(function(a,b){return _0x3e(a)-_0x3e(b)});
-
-      document.getElementById("count-videos").textContent=_0x4a.videos.length;
-      document.getElementById("count-gifs").textContent=_0x4a.gifs.length;
-      document.getElementById("count-pics").textContent=_0x4a.pictures.length;
-      document.getElementById("count-death").textContent=_0x4a.death.length;
-
-      ["videos","gifs","pictures","death"].forEach(function(key){
-        var loader=document.getElementById("loader-"+key);
-        if(loader)loader.style.display="none";
-        if(_0x4a[key].length===0){
-          document.getElementById("grid-"+key).innerHTML='<div class="grid-empty">nothing here yet</div>';
-        }else{
-          _0xc1(key);
-        }
-      });
-    })
-    .catch(function(){
-      ["videos","gifs","pictures","death"].forEach(function(key){
-        var loader=document.getElementById("loader-"+key);
-        if(loader)loader.style.display="none";
-        document.getElementById("grid-"+key).innerHTML='<div class="grid-empty">couldn\'t load files.json</div>';
-      });
-    });
 })();
 </script>
 </body>
