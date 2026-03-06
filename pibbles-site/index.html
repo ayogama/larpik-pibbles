@@ -70,14 +70,14 @@ body.pm{animation:km 2s linear infinite}
   display: inline-flex;
   gap: 12px;
   width: max-content;
-  animation: mq 25s linear infinite;
+  animation: mq 30s linear infinite; /* Adjusted speed */
 }
 .tags-track:hover {
   animation-play-state: paused;
 }
 .tag {
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 14px; /* Made them slightly bigger since they are kaomojis */
   color: var(--text3);
   padding: 6px 14px;
   border: 1px solid var(--border);
@@ -91,6 +91,11 @@ body.pm{animation:km 2s linear infinite}
   border-color: var(--text2);
   color: var(--text1);
   background: var(--border2);
+}
+
+@keyframes mq {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 6px)); } /* Perfectly accounts for the 12px gap */
 }
 
 /* ========== LAYOUT ========== */
@@ -278,33 +283,33 @@ body.pm{animation:km 2s linear infinite}
 <div class="tags-wrap">
   <div class="tags-track">
     <div class="tag">( ͡° ͜ʖ ͡°)</div>
-    <div class="tag">g brock ah blud</div>
-    <div class="tag">frenc larpik</div>
-    <div class="tag">ayogama</div>
     <div class="tag">ʕ•ᴥ•ʔ</div>
     <div class="tag">(ง‘̀-‘́)ง</div>
-    <div class="tag">nah fr tho</div>
     <div class="tag">(づ｡◕‿‿◕｡)づ</div>
-    <div class="tag">let him cook</div>
-    <div class="tag">based</div>
-    <div class="tag">sigma</div>
-    <div class="tag">skibidi</div>
-    <div class="tag">brainrot</div>
-    <div class="tag">W</div>
+    <div class="tag">¯\_(ツ)_/¯</div>
+    <div class="tag">(⌐■_■)</div>
+    <div class="tag">(ಠ_ಠ)</div>
+    <div class="tag">(╯°□°）╯︵ ┻━┻</div>
+    <div class="tag">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+    <div class="tag">(>_<)</div>
+    <div class="tag">ᕙ(⇀‸↼‶)ᕗ</div>
+    <div class="tag">(╥﹏╥)</div>
+    <div class="tag">(^・ω・^ )</div>
+    <div class="tag">(~˘▾˘)~</div>
     <div class="tag">( ͡° ͜ʖ ͡°)</div>
-    <div class="tag">g brock ah blud</div>
-    <div class="tag">frenc larpik</div>
-    <div class="tag">ayogama</div>
     <div class="tag">ʕ•ᴥ•ʔ</div>
     <div class="tag">(ง‘̀-‘́)ง</div>
-    <div class="tag">nah fr tho</div>
     <div class="tag">(づ｡◕‿‿◕｡)づ</div>
-    <div class="tag">let him cook</div>
-    <div class="tag">based</div>
-    <div class="tag">sigma</div>
-    <div class="tag">skibidi</div>
-    <div class="tag">brainrot</div>
-    <div class="tag">W</div>
+    <div class="tag">¯\_(ツ)_/¯</div>
+    <div class="tag">(⌐■_■)</div>
+    <div class="tag">(ಠ_ಠ)</div>
+    <div class="tag">(╯°□°）╯︵ ┻━┻</div>
+    <div class="tag">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+    <div class="tag">(>_<)</div>
+    <div class="tag">ᕙ(⇀‸↼‶)ᕗ</div>
+    <div class="tag">(╥﹏╥)</div>
+    <div class="tag">(^・ω・^ )</div>
+    <div class="tag">(~˘▾˘)~</div>
   </div>
 </div>
 
