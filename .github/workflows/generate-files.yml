@@ -7,45 +7,51 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
       - name: Generate files.json
         run: |
-          echo '{' > files.json
+          cd pibbles-site
 
-          for folder in vids gifs pics death; do
-            echo "  \"$folder\": [" >> files.json
-            if [ -d "$folder" ]; then
-              first=true
-              for f in "$folder"/*; do
-                [ -f "$f" ] || continue
-                name=$(basename "$f")
-                # skip hidden files and files.json itself
-                [[ "$name" == .* ]] && continue
-                if [ "$first" = true ]; then
-                  first=false
-                else
-                  echo "," >> files.json
-                fi
-                printf '    "%s"' "$name" >> files.json
-              done
-            fi
-            echo "" >> files.json
+          echo "=== Scanning folders ==="
+          echo "vids:" && ls -la vids/ 2>/dev/null || echo "(empty)"
+          echo "gifs:" && ls -la gifs/ 2>/dev/null || echo "(empty)"
+          echo "pics:" && ls -la pics/ 2>/dev/null || echo "(empty)"
+          echo "death:" && ls -la death/ 2>/dev/null || echo "(empty)"
 
-            if [ "$folder" = "death" ]; then
-              echo "  ]" >> files.json
-            else
-              echo "  ]," >> files.json
-            fi
-          done
+          python3 -c "
+          import os, json
 
-          echo '}' >> files.json
-          cat files.json
+          data = {}
+          for folder in ['vids', 'gifs', 'pics', 'death']:
+              files = []
+              if os.path.isdir(folder):
+                  for f in sorted(os.listdir(folder)):
+                      if f.startswith('.'):
+                          continue
+                      full = os.path.join(folder, f)
+                      if os.path.isfile(full):
+                          files.append(f)
+              data[folder] = files
 
-      - name: Commit files.json
+          with open('files.json', 'w') as out:
+              json.dump(data, out, indent=2)
+
+          print('Generated files.json:')
+          print(json.dumps(data, indent=2))
+          "
+
+      - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add files.json
-          git diff --cached --quiet && echo "No changes" || git commit -m "update files.json [skip ci]" && git push
+          git add pibbles-site/files.json
+          if git diff --cached --quiet; then
+            echo "No changes to files.json"
+          else
+            git commit -m "update files.json"
+            git push
+          fi
