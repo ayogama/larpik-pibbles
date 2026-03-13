@@ -339,7 +339,25 @@ setInterval(function(){
   logoI++;
 }, 2500);
 
-fetch("https://api.counterapi.dev/v1/LARPIK-site/views/up").then(function(r){return r.json()}).then(function(d){document.getElementById("vc").textContent=(d.count||0).toLocaleString()}).catch(function(){document.getElementById("vc").textContent="?"});
+// Remove this:
+// fetch("https://api.counterapi.dev/v1/LARPIK-site/views/up").then(...)
+
+// Replace it with this smooth unique visitor logic:
+var W="https://worker.vokemane.workers.dev";
+function getVisitors() {
+  // Check if we already counted this guy today so we don't spam the counter on refresh
+  var visited = localStorage.getItem("larpik_visited");
+  var url = W + "/visitors" + (visited ? "" : "?hit=1");
+  
+  fetch(url)
+    .then(function(r){return r.json()})
+    .then(function(d){
+      document.getElementById("vc").textContent = (d.count || 0).toLocaleString();
+      if(!visited) localStorage.setItem("larpik_visited", "true");
+    })
+    .catch(function(){document.getElementById("vc").textContent="?"});
+}
+getVisitors();
 
 // Global Parallax for Ambient Blobs
 var pWrap = document.getElementById('p-wrap');
