@@ -3,31 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>larpik.com</title>
+<title>LARPIK</title>
 <link rel="icon" type="image/gif" href="https://media1.tenor.com/m/akwQ41N209EAAAAd/cute-dog-pibble.gif">
-<meta property="og:title" content="larpik.com">
-<meta property="og:description" content="nsm larpik">
-<meta property="og:image" content="https://media1.tenor.com/m/akwQ41N209EAAAAd/cute-dog-pibble.gif">
-<meta property="og:url" content="https://larpik.com">
-<meta name="theme-color" content="#09090b">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#000000">
 <style>
+/* BRUTALIST MINIMALISM */
 :root {
-  /* High-end Modern Dark Theme (Linear/Vercel inspired) */
-  --bg: #000000;
-  --bg-panel: #09090b;
-  --bg-card: #18181b;
-  --bg-hover: #27272a;
-  --border: #27272a;
-  --border-light: #3f3f46;
-  --text-main: #f4f4f5;
-  --text-muted: #a1a1aa;
-  --text-faint: #52525b;
-  --accent: #ffffff;
-  --radius: 8px;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --shadow: 0 4px 20px rgba(0,0,0,0.5);
+  --bg: #000;
+  --fg: #fff;
+  --dim: #222;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 *, *::before, *::after {
@@ -36,412 +21,235 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
-  color: var(--text-main);
-  font-family: var(--font-sans);
+  color: var(--fg);
+  font-family: var(--font);
   overflow-x: hidden;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  text-transform: uppercase;
 }
 
-body.on-admin .app-layout { display: none; }
-body.on-admin .admin-page { display: flex; }
+body.on-admin .archive { display: none; }
+body.on-admin .admin { display: block; }
 
-a { color: var(--text-main); text-decoration: none; }
+/* TYPOGRAPHY */
+.hero {
+  padding: 10vh 20px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: clamp(4rem, 15vw, 15rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.8;
+  margin: 0;
+}
+.hero p {
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  margin-top: 2rem;
+  font-weight: 700;
+}
 
-/* Clean Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
-
-/* Top Loading Bar */
-.loader-bar { position: fixed; top: 0; left: 0; width: 100%; height: 2px; z-index: 9999; background: transparent; }
-.loader-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.4s ease, opacity 0.4s ease; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
-
-/* Layout Structure */
-.app-layout {
+/* FLOATING NAV */
+.nav-wrap {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: var(--fg);
+  color: var(--bg);
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  padding: 5px;
+  border-radius: 50px;
+  gap: 5px;
 }
-
-/* Sidebar Navigation */
-.sidebar {
-  width: 260px;
-  background: var(--bg-panel);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  padding: 24px 16px;
-  z-index: 50;
-}
-
-.brand {
-  padding: 0 12px 32px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.brand-dot { width: 12px; height: 12px; background: var(--text-main); border-radius: 2px; }
-.brand h1 { font-size: 16px; font-weight: 600; letter-spacing: -0.5px; }
-
-.nav-group { margin-bottom: 24px; }
-.nav-group-title { font-size: 11px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; padding: 0 12px 8px; }
-
 .nav-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
   background: transparent;
   border: none;
-  border-radius: var(--radius);
+  color: var(--bg);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 40px;
   cursor: pointer;
-  transition: all 0.2s;
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
 }
-.nav-btn:hover { background: var(--bg-hover); color: var(--text-main); }
-.nav-btn.active { background: var(--border); color: var(--text-main); }
-.nav-left { display: flex; align-items: center; gap: 10px; }
-.nav-left svg { width: 16px; height: 16px; opacity: 0.7; }
-.nav-btn.active .nav-left svg { opacity: 1; }
-.nav-cnt { font-family: var(--font-mono); font-size: 11px; background: var(--bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
-
-/* Main Content Area */
-.main-content {
-  flex: 1;
-  overflow-y: auto;
+.nav-btn.active {
   background: var(--bg);
-  padding: 40px;
+  color: var(--fg);
 }
 
-/* Header & Stats */
-.page-header {
-  max-width: 1200px;
-  margin: 0 auto 40px;
-}
-.page-title {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  margin-bottom: 8px;
-}
-.page-desc {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 32px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-.stat-card {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.stat-lbl { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-.stat-val { font-size: 24px; font-weight: 600; font-family: var(--font-mono); letter-spacing: -1px; }
-
-/* Content Panels */
-.panel-wrap {
-  max-width: 1200px;
+/* GRID */
+.wrap {
+  padding: 0 20px 150px;
+  max-width: 2000px;
   margin: 0 auto;
 }
-.panel { display: none; animation: fadeIn 0.3s ease; }
+.panel { display: none; }
 .panel.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Masonry Grid */
 .masonry {
-  columns: 3;
+  columns: 4;
   column-gap: 20px;
 }
-@media (max-width: 1024px) { .masonry { columns: 2; } }
-@media (max-width: 640px) { 
-  .app-layout { flex-direction: column; }
-  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 16px; flex-direction: row; align-items: center; justify-content: space-between;}
-  .nav-group { margin: 0; display: flex; gap: 8px; }
-  .nav-group-title, .brand { display: none; }
-  .nav-btn { padding: 8px; }
-  .nav-btn .nav-cnt { display: none; }
-  .main-content { padding: 20px; }
-  .masonry { columns: 1; } 
-}
+@media (max-width: 1400px) { .masonry { columns: 3; } }
+@media (max-width: 900px) { .masonry { columns: 2; } }
+@media (max-width: 500px) { .masonry { columns: 1; } }
 
-/* Media Cards */
+/* MEDIA CARDS */
 .card {
   break-inside: avoid;
   margin-bottom: 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  position: relative;
+  background: var(--dim);
   overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
 }
-.card:hover {
-  border-color: var(--border-light);
+.card img, .card video {
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
-/* Video Player Styling */
-.vw { position: relative; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-.vw video { width: 100%; display: block; object-fit: contain; max-height: 70vh; }
-.cc { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 20px 16px 12px; display: flex; align-items: center; gap: 12px; opacity: 0; transition: opacity 0.2s ease; }
+/* RAW VIDEO CONTROLS */
+.vw { position: relative; cursor: pointer; }
+.po {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.2s;
+}
+.vw.ip .po { opacity: 1; }
+.pi { font-size: 3rem; font-weight: 900; }
+.cc {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 10px;
+  display: flex; gap: 10px; align-items: center;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  opacity: 0; transition: opacity 0.2s;
+}
 .vw:hover .cc, .vw.ip .cc { opacity: 1; }
-.cb, .vb { background: none; border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.cb { width: 24px; height: 24px; }
-.vb svg { width: 16px; height: 16px; }
-.pb { flex-grow: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; cursor: pointer; overflow: hidden; }
-.pf { height: 100%; width: 0%; background: var(--text-main); pointer-events: none; }
-.ct { font-family: var(--font-mono); font-size: 11px; color: var(--text-main); }
-.po { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); z-index: 5; transition: background 0.2s; pointer-events: none; }
-.vw:hover .po { background: rgba(0,0,0,0.5); }
-.pi { width: 48px; height: 48px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 14px; backdrop-filter: blur(4px); transition: transform 0.2s; pointer-events: auto; cursor: pointer; }
-.pi:hover { transform: scale(1.05); background: var(--text-main); color: #000; }
-.vl { display: flex; align-items: center; gap: 8px; }
-.vs { -webkit-appearance: none; width: 48px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; outline: none; cursor: pointer; }
-.vs::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: #fff; border-radius: 50%; }
+.pb { flex-grow: 1; height: 2px; background: rgba(255,255,255,0.3); cursor: pointer; position: relative; }
+.pf { height: 100%; width: 0%; background: var(--fg); pointer-events: none; }
+.cb, .vb { background: none; border: none; color: var(--fg); font-family: var(--font); font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+.vs { -webkit-appearance: none; width: 40px; height: 2px; background: rgba(255,255,255,0.3); }
+.vs::-webkit-slider-thumb { -webkit-appearance: none; width: 8px; height: 8px; background: var(--fg); border-radius: 50%; }
 
-/* Image/Gif Cards */
-.gw, .pw { position: relative; overflow: hidden; background: #000; }
-.gw img, .pw img { width: 100%; display: block; object-fit: cover; cursor: zoom-in; }
-.gb { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 4px 8px; font-family: var(--font-mono); font-size: 10px; color: var(--text-main); backdrop-filter: blur(4px); pointer-events: none; }
+/* UI ELEMENTS */
+.lmw { text-align: center; margin-top: 40px; }
+.lm { background: var(--fg); color: var(--bg); font-family: var(--font); font-weight: 900; font-size: 1.5rem; padding: 15px 50px; border: none; cursor: pointer; text-transform: uppercase; }
+.lm:disabled { opacity: 0.2; pointer-events: none; }
+.empty { text-align: center; padding: 100px; font-weight: 900; font-size: 2rem; color: var(--dim); }
 
-/* Card Footers */
-.cn { padding: 12px 16px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); background: var(--bg-card); }
-.tg { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); text-transform: uppercase; }
+/* LIGHTBOX */
+.lb { position: fixed; inset: 0; z-index: 999; background: var(--bg); display: none; align-items: center; justify-content: center; padding: 20px; }
+.lb.open { display: flex; }
+.lb img { max-width: 100%; max-height: 100vh; object-fit: contain; }
+.lbc { position: absolute; top: 20px; right: 30px; font-size: 3rem; font-weight: 900; cursor: pointer; }
 
-/* Placeholders & Loaders */
-.ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-card); }
-.ph .pi2 { font-size: 20px; color: var(--text-faint); margin-bottom: 8px; }
-.ph .pt { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
-.lmw { text-align: center; margin-top: 40px; padding-bottom: 40px; }
-.lm { background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-main); font-size: 13px; font-weight: 500; padding: 10px 24px; border-radius: var(--radius); cursor: pointer; transition: all 0.2s; }
-.lm:hover { background: var(--bg-hover); border-color: var(--border-light); }
-.lm:disabled { opacity: 0.5; pointer-events: none; }
-.ic { text-align: center; margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); }
-.empty { text-align: center; padding: 80px 20px; font-size: 14px; color: var(--text-muted); border: 1px dashed var(--border); border-radius: var(--radius); }
+/* FOOTER */
+.ftr { text-align: center; padding: 50px; font-weight: 700; letter-spacing: 0.2em; font-size: 0.8rem; }
 
-/* Lightbox */
-.lb { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; }
-.lb.open { display: flex; animation: fadeIn 0.2s ease; }
-.lb img { max-width: 90vw; max-height: 90vh; border-radius: 4px; box-shadow: var(--shadow); }
-.lbc { position: absolute; top: 24px; right: 24px; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 20px; cursor: pointer; transition: all 0.2s; }
-.lbc:hover { background: rgba(255,255,255,0.2); }
+/* ADMIN - BRUTALIST */
+.admin { display: none; padding: 50px 20px; max-width: 800px; margin: 0 auto; }
+.adm-login { text-align: center; margin-top: 20vh; }
+.adm-login input { background: transparent; border: 2px solid var(--fg); color: var(--fg); padding: 15px; font-size: 1.5rem; width: 100%; max-width: 400px; text-transform: uppercase; font-family: var(--font); text-align: center; outline: none; }
+.adm-login button { background: var(--fg); color: var(--bg); border: none; padding: 15px 40px; font-size: 1.5rem; font-weight: 900; cursor: pointer; margin-top: 20px; font-family: var(--font); }
+.adm-err { color: red; margin-top: 10px; font-weight: 900; }
 
-/* Footer */
-.footer { padding: 24px; text-align: left; border-top: 1px solid var(--border); margin-top: auto; }
-.footer p { font-size: 12px; color: var(--text-faint); }
+.adm-panel { display: none; }
+.adm-panel.vis { display: block; }
+.adm-hdr { display: flex; justify-content: space-between; border-bottom: 2px solid var(--dim); padding-bottom: 20px; margin-bottom: 40px; align-items: flex-end; }
+.adm-hdr h1 { font-size: 3rem; line-height: 1; }
+.adm-hdr button { background: var(--dim); color: var(--fg); border: none; padding: 10px 20px; font-weight: 700; cursor: pointer; }
 
-/* Admin Panel Rehaul */
-.admin-page { min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 20px; background: var(--bg); }
-.adm-container { width: 100%; max-width: 900px; }
-.adm-login { background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; width: 100%; max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-.adm-login h1 { font-size: 20px; font-weight: 600; text-align: center; }
-.adm-login input { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; color: var(--text-main); font-size: 14px; outline: none; font-family: var(--font-sans); }
-.adm-login input:focus { border-color: var(--border-light); }
-.adm-login button { background: var(--text-main); color: var(--bg); border: none; border-radius: 6px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-.adm-login button:hover { opacity: 0.9; }
-.adm-err { color: #ef4444; font-size: 13px; text-align: center; }
+.adm-row { display: flex; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.adm-field select, .adm-field input { background: var(--dim); color: var(--fg); border: none; padding: 15px; font-family: var(--font); font-size: 1rem; outline: none; }
+.adm-btn { background: var(--fg); color: var(--bg); font-weight: 900; font-family: var(--font); padding: 15px 30px; border: none; cursor: pointer; }
 
-.adm-panel { display: none; background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.adm-panel.vis { display: block; animation: fadeIn 0.3s ease; }
-.adm-hdr { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--bg-card); }
-.adm-hdr h1 { font-size: 16px; font-weight: 600; }
-.adm-actions { display: flex; align-items: center; gap: 16px; }
-.adm-actions a { font-size: 13px; color: var(--text-muted); }
-.adm-actions a:hover { color: var(--text-main); }
-.adm-actions button { background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; color: var(--text-main); font-size: 12px; cursor: pointer; transition: background 0.2s; }
-.adm-actions button:hover { background: var(--bg-hover); }
-
-.adm-body { padding: 24px; }
-.adm-upload { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 24px; margin-bottom: 32px; }
-.adm-upload h2 { font-size: 14px; margin-bottom: 16px; font-weight: 500; }
-.adm-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
-.adm-field { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
-.adm-field label { font-size: 12px; color: var(--text-muted); }
-.adm-field select, .adm-field input[type=file] { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 6px; padding: 10px; color: var(--text-main); font-size: 13px; outline: none; }
-.adm-btn { background: var(--text-main); color: var(--bg); border: none; border-radius: 6px; padding: 10px 24px; font-size: 13px; font-weight: 500; cursor: pointer; height: 39px; }
-.adm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.adm-status { margin-top: 12px; font-size: 13px; }
-.adm-status.ok { color: #10b981; }
-.adm-status.err { color: #ef4444; }
-
-.adm-files h2 { font-size: 14px; margin-bottom: 16px; font-weight: 500; }
-.adm-ftabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-.adm-ft { font-size: 13px; color: var(--text-muted); cursor: pointer; padding: 4px 12px; border-radius: 4px; transition: all 0.2s; }
-.adm-ft:hover { color: var(--text-main); }
-.adm-ft.active { background: var(--bg-hover); color: var(--text-main); }
-.adm-flist { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
-.adm-fi { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
-.adm-fi img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; }
-.adm-fi .fi-name { font-size: 12px; color: var(--text-main); word-break: break-all; }
-.adm-fi .fi-src { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); }
-.adm-fi .fi-del { background: transparent; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 4px; padding: 6px; color: #ef4444; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-top: auto; }
-.adm-fi .fi-del:hover { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; }
-.adm-fi .fi-del.git-del { opacity: 0.3; pointer-events: none; border-color: var(--border); color: var(--text-muted); }
+.adm-ftabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.adm-ft { font-weight: 900; color: var(--dim); cursor: pointer; font-size: 1.5rem; }
+.adm-ft.active { color: var(--fg); }
+.adm-flist { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.adm-fi { background: var(--dim); padding: 10px; position: relative; }
+.adm-fi img { width: 100%; height: 100px; object-fit: cover; margin-bottom: 10px; }
+.adm-fi .name { font-size: 0.7rem; word-break: break-all; margin-bottom: 10px; }
+.adm-fi .del { background: red; color: white; border: none; padding: 5px 10px; font-weight: 900; cursor: pointer; width: 100%; }
+.adm-fi .del.git { opacity: 0.2; pointer-events: none; }
 </style>
 </head>
 <body>
 
-<div class="loader-bar"><div class="loader-fill" id="lf"></div></div>
 <div class="lb" id="lb"><div class="lbc" id="lbc">&times;</div><img id="lbi" src="" alt=""></div>
 
-<!-- App Interface -->
-<div class="app-layout">
-  
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-dot"></div>
-      <h1>LARPIK</h1>
-    </div>
-    
-    <div class="nav-group">
-      <div class="nav-group-title">Media Archive</div>
-      <button class="nav-btn active" data-tab="videos">
-        <div class="nav-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          Videos
-        </div>
-        <span class="nav-cnt" id="cv">-</span>
-      </button>
-      <button class="nav-btn" data-tab="gifs">
-        <div class="nav-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          GIFs
-        </div>
-        <span class="nav-cnt" id="cg">-</span>
-      </button>
-      <button class="nav-btn" data-tab="pictures">
-        <div class="nav-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          Pictures
-        </div>
-        <span class="nav-cnt" id="cp">-</span>
-      </button>
-      <button class="nav-btn" data-tab="death">
-        <div class="nav-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Death
-        </div>
-        <span class="nav-cnt" id="cd">-</span>
-      </button>
-    </div>
+<div class="archive">
+  <header class="hero">
+    <h1>LARPIK</h1>
+    <p>NSM</p>
+  </header>
 
-    <div class="footer">
-      <p>System Version 2.0</p>
-      <p style="margin-top:4px; opacity:0.5">© LARPIK Core</p>
+  <nav class="nav-wrap">
+    <button class="nav-btn active" data-tab="videos">VIDS</button>
+    <button class="nav-btn" data-tab="gifs">GIFS</button>
+    <button class="nav-btn" data-tab="pictures">PICS</button>
+    <button class="nav-btn" data-tab="death">DEATH</button>
+  </nav>
+
+  <main class="wrap">
+    <div class="panel active" id="tab-videos">
+      <div class="masonry" id="gv"></div>
+      <div class="lmw"><button class="lm" data-tab="videos" style="display:none">+</button></div>
     </div>
-  </aside>
-
-  <!-- Main View -->
-  <main class="main-content">
-    <header class="page-header">
-      <h2 class="page-title">Overview</h2>
-      <p class="page-desc">Secure media archive and indexing system.</p>
-      
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-lbl">Total Visitors</span>
-          <span class="stat-val" id="vc">-</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-lbl">Indexed Files</span>
-          <span class="stat-val" id="fc">-</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-lbl">Collections</span>
-          <span class="stat-val">4</span>
-        </div>
-      </div>
-    </header>
-
-    <div class="panel-wrap">
-      <div class="panel active" id="tab-videos">
-        <div class="masonry" id="gv"></div>
-        <div class="lmw"><button class="lm" data-tab="videos" style="display:none">Load More</button></div>
-        <div class="ic" id="iv"></div>
-      </div>
-      <div class="panel" id="tab-gifs">
-        <div class="masonry" id="gg"></div>
-        <div class="lmw"><button class="lm" data-tab="gifs" style="display:none">Load More</button></div>
-        <div class="ic" id="ig"></div>
-      </div>
-      <div class="panel" id="tab-pictures">
-        <div class="masonry" id="gp"></div>
-        <div class="lmw"><button class="lm" data-tab="pictures" style="display:none">Load More</button></div>
-        <div class="ic" id="ip"></div>
-      </div>
-      <div class="panel" id="tab-death">
-        <div class="masonry" id="gd"></div>
-        <div class="lmw"><button class="lm" data-tab="death" style="display:none">Load More</button></div>
-        <div class="ic" id="id2"></div>
-      </div>
+    <div class="panel" id="tab-gifs">
+      <div class="masonry" id="gg"></div>
+      <div class="lmw"><button class="lm" data-tab="gifs" style="display:none">+</button></div>
+    </div>
+    <div class="panel" id="tab-pictures">
+      <div class="masonry" id="gp"></div>
+      <div class="lmw"><button class="lm" data-tab="pictures" style="display:none">+</button></div>
+    </div>
+    <div class="panel" id="tab-death">
+      <div class="masonry" id="gd"></div>
+      <div class="lmw"><button class="lm" data-tab="death" style="display:none">+</button></div>
     </div>
   </main>
+
+  <footer class="ftr">LARPIK.COM</footer>
 </div>
 
-<!-- Admin Interface -->
-<div class="admin-page">
-  <div class="adm-container">
-    <div class="adm-login" id="adm-login">
-      <h1>Admin Gateway</h1>
-      <input type="password" id="adm-pass" placeholder="Enter password" autocomplete="off">
-      <button id="adm-go">Authenticate</button>
-      <div class="adm-err" id="adm-err"></div>
+<div class="admin">
+  <div class="adm-login" id="adm-login">
+    <input type="password" id="adm-pass" placeholder="PASS" autocomplete="off">
+    <br>
+    <button id="adm-go">ENTER</button>
+    <div class="adm-err" id="adm-err"></div>
+  </div>
+  
+  <div class="adm-panel" id="adm-panel">
+    <div class="adm-hdr">
+      <h1>LARPIK</h1>
+      <button id="adm-out">EXIT</button>
     </div>
-    <div class="adm-panel" id="adm-panel">
-      <div class="adm-hdr">
-        <h1>Dashboard</h1>
-        <div class="adm-actions">
-          <a href="/" id="adm-back">Return to App</a>
-          <button id="adm-out">Sign Out</button>
-        </div>
+    
+    <div class="adm-row">
+      <div class="adm-field">
+        <select id="adm-folder">
+          <option value="vids">VIDS</option>
+          <option value="gifs">GIFS</option>
+          <option value="pics">PICS</option>
+          <option value="death">DEATH</option>
+        </select>
       </div>
-      <div class="adm-body">
-        <div class="adm-upload">
-          <h2>Upload File to Storage (R2)</h2>
-          <div class="adm-row">
-            <div class="adm-field">
-              <label>Destination</label>
-              <select id="adm-folder">
-                <option value="vids">Videos</option>
-                <option value="gifs">GIFs</option>
-                <option value="pics">Pictures</option>
-                <option value="death">Death</option>
-              </select>
-            </div>
-            <div class="adm-field">
-              <label>Select Files</label>
-              <input type="file" id="adm-files" multiple accept="video/*,image/*,.gif">
-            </div>
-            <button class="adm-btn" id="adm-upload-btn">Upload</button>
-          </div>
-          <div class="adm-status" id="adm-status"></div>
-        </div>
-        <div class="adm-files">
-          <h2>Indexed Files (Git + R2)</h2>
-          <div class="adm-ftabs" id="adm-ftabs"></div>
-          <div class="adm-flist" id="adm-flist"></div>
-        </div>
+      <div class="adm-field">
+        <input type="file" id="adm-files" multiple accept="video/*,image/*,.gif">
       </div>
+      <button class="adm-btn" id="adm-upload-btn">UPLOAD</button>
     </div>
+    <div id="adm-status" style="margin-bottom:40px; font-weight:900;"></div>
+
+    <div class="adm-ftabs" id="adm-ftabs"></div>
+    <div class="adm-flist" id="adm-flist"></div>
   </div>
 </div>
 
@@ -451,43 +259,23 @@ a { color: var(--text-main); text-decoration: none; }
   var VE=[".mp4",".webm",".mov"],GE=[".gif"];
   function isV(n){return VE.some(function(e){return n.toLowerCase().endsWith(e)})}
   function isG(n){return GE.some(function(e){return n.toLowerCase().endsWith(e)})}
-  function ext(n){return n.split(".").pop().toLowerCase()}
   function num(n){var m=n.match(/\d+/);return m?parseInt(m[0]):999999}
   
   var D={videos:[],gifs:[],pictures:[],death:[]};
   var S={videos:0,gifs:0,pictures:0,death:0};
   var GM={videos:"gv",gifs:"gg",pictures:"gp",death:"gd"};
-  var IM={videos:"iv",gifs:"ig",pictures:"ip",death:"id2"};
   
   var isAdmin=location.pathname==="/admin"||location.pathname==="/admin/";
   if(isAdmin) document.body.classList.add("on-admin");
-  
-  // Clean Loader
-  var lf=document.getElementById("lf"), lp=0;
-  var li=setInterval(function(){ lp+=Math.random()*20+5; if(lp>95) lp=95; lf.style.width=lp+"%"; }, 150);
-  function finishLoad(){ clearInterval(li); lf.style.width="100%"; setTimeout(function(){ lf.style.opacity="0"; }, 400); }
 
-  // Unique Visitors
-  function getVisitors() {
-    var visited = localStorage.getItem("larpik_visited");
-    var url = W + "/visitors" + (visited ? "" : "?hit=1");
-    fetch(url)
-      .then(function(r){return r.json()})
-      .then(function(d){
-        document.getElementById("vc").textContent = (d.count || 0).toLocaleString();
-        if(!visited) localStorage.setItem("larpik_visited", "true");
-      })
-      .catch(function(){document.getElementById("vc").textContent="---"});
-  }
-  getVisitors();
-
-  // Tab Switching
+  // Nav Logic
   document.querySelectorAll(".nav-btn").forEach(function(t){
     t.addEventListener("click",function(){
       document.querySelectorAll(".nav-btn").forEach(function(x){x.classList.remove("active");});
       document.querySelectorAll(".panel").forEach(function(x){x.classList.remove("active");});
       t.classList.add("active");
       document.getElementById("tab-"+t.dataset.tab).classList.add("active");
+      window.scrollTo(0,0);
     });
   });
 
@@ -497,109 +285,58 @@ a { color: var(--text-main); text-decoration: none; }
   LB.addEventListener("click",function(e){if(e.target===LB)LB.classList.remove("open")});
   function openLB(s){LBI.src=s;LB.classList.add("open")}
 
-  // Video Controls UI
-  var VOn='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
-  var VOff='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
-  var PlayI = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-  var PauseI = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-
-  function fmt(s){var m=Math.floor(s/60),sc=Math.floor(s%60);return m+":"+(sc<10?"0":"")+sc}
-
+  // Video Player Logic
   function initVid(card){
-    var w=card.querySelector(".vw"), v=w.querySelector("video"), ol=w.querySelector(".po"), 
-        pb=w.querySelector(".cb"), pg=w.querySelector(".pb"), pf=w.querySelector(".pf"), 
-        vb=w.querySelector(".vb"), vs=w.querySelector(".vs"), tm=w.querySelector(".ct");
-        
-    function tog(){
-      if(v.paused){ v.play(); w.classList.remove("ip"); if(ol)ol.style.display="none"; if(pb)pb.innerHTML=PauseI; }
-      else{ v.pause(); w.classList.add("ip"); if(pb)pb.innerHTML=PlayI; }
-    }
-    v.addEventListener("click",tog); if(ol)ol.addEventListener("click",tog);
-    if(pb)pb.addEventListener("click",function(e){e.stopPropagation();tog()});
-    
-    v.addEventListener("timeupdate",function(){
-      if(!v.duration)return;
-      if(pf)pf.style.width=(v.currentTime/v.duration*100)+"%";
-      if(tm)tm.textContent=fmt(v.currentTime)+" / "+fmt(v.duration);
-    });
-    
-    v.addEventListener("ended",function(){ w.classList.add("ip"); if(pb)pb.innerHTML=PlayI; if(ol)ol.style.display=""; });
-    
-    if(pg)pg.addEventListener("click",function(e){
-      e.stopPropagation(); var r=pg.getBoundingClientRect(); v.currentTime=((e.clientX-r.left)/r.width)*v.duration;
-    });
-    
-    if(vs){
-      vs.value=v.volume;
-      vs.addEventListener("input",function(e){
-        e.stopPropagation(); v.volume=parseFloat(this.value); v.muted=v.volume===0;
-        if(vb)vb.innerHTML=v.muted?VOff:VOn;
-      });
-    }
-    if(vb){
-      vb.innerHTML=VOn;
-      vb.addEventListener("click",function(e){
-        e.stopPropagation(); v.muted=!v.muted; vb.innerHTML=v.muted?VOff:VOn;
-        if(vs)vs.value=v.muted?0:v.volume;
-      });
-    }
+    var w=card.querySelector(".vw"), v=w.querySelector("video"), pb=w.querySelector(".pb"), pf=w.querySelector(".pf"), vb=w.querySelector(".vb"), vs=w.querySelector(".vs");
+    function tog(){ if(v.paused){v.play(); w.classList.remove("ip");} else {v.pause(); w.classList.add("ip");} }
+    v.addEventListener("click",tog);
+    v.addEventListener("timeupdate",function(){ if(pf&&v.duration) pf.style.width=(v.currentTime/v.duration*100)+"%"; });
+    v.addEventListener("ended",function(){ w.classList.add("ip"); });
+    if(pb) pb.addEventListener("click",function(e){ e.stopPropagation(); var r=pb.getBoundingClientRect(); v.currentTime=((e.clientX-r.left)/r.width)*v.duration; });
+    if(vs){ vs.value=v.volume; vs.addEventListener("input",function(e){ e.stopPropagation(); v.volume=parseFloat(this.value); v.muted=v.volume===0; if(vb)vb.textContent=v.muted?"M":"U"; }); }
+    if(vb){ vb.addEventListener("click",function(e){ e.stopPropagation(); v.muted=!v.muted; vb.textContent=v.muted?"M":"U"; if(vs)vs.value=v.muted?0:v.volume; }); }
   }
 
   function mkVid(it){
     var c=document.createElement("div"); c.className="card";
-    c.innerHTML='<div class="vw ip"><video src="'+it.src+'" playsinline preload="metadata"></video><div class="po"><div class="pi">'+PlayI+'</div></div><div class="cc"><button class="cb">'+PlayI+'</button><div class="pb"><div class="pf"></div></div><span class="ct">0:00</span><div class="vl"><button class="vb"></button><input type="range" class="vs" min="0" max="1" step="0.05" value="1"></div></div></div><div class="cn"><span>'+it.name+'</span><span class="tg">'+ext(it.name)+'</span></div>';
+    c.innerHTML='<div class="vw ip"><video src="'+it.src+'" playsinline preload="metadata"></video><div class="po"><div class="pi">▶</div></div><div class="cc"><div class="pb"><div class="pf"></div></div><button class="vb">U</button><input type="range" class="vs" min="0" max="1" step="0.05" value="1"></div></div>';
     initVid(c); return c;
   }
-  function mkGif(it){
+  function mkImg(it){
     var c=document.createElement("div"); c.className="card";
-    c.innerHTML='<div class="gw"><img src="'+it.src+'" alt="'+it.name+'" draggable="false" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.ph\').style.display=\'flex\'"><div class="ph" style="display:none"><div class="pi2">File Missing</div><div class="pt">'+it.name+'</div></div><div class="gb">GIF</div></div><div class="cn"><span>'+it.name+'</span></div>';
-    c.querySelector(".gw img").addEventListener("click",function(){openLB(it.src)}); return c;
-  }
-  function mkPic(it){
-    var c=document.createElement("div"); c.className="card";
-    c.innerHTML='<div class="pw"><img src="'+it.src+'" alt="'+it.name+'" draggable="false" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.ph\').style.display=\'flex\'"><div class="ph" style="display:none"><div class="pi2">File Missing</div><div class="pt">'+it.name+'</div></div></div><div class="cn"><span>'+it.name+'</span><span class="tg">'+ext(it.name)+'</span></div>';
-    c.querySelector(".pw img").addEventListener("click",function(){openLB(it.src)}); return c;
+    c.innerHTML='<img src="'+it.src+'" loading="lazy">';
+    c.querySelector("img").addEventListener("click",function(){openLB(it.src)}); return c;
   }
 
   function render(tk){
     var f=D[tk]; if(!f||!f.length)return;
-    var grid=document.getElementById(GM[tk]), ctr=document.getElementById(IM[tk]), btn=document.querySelector('.lm[data-tab="'+tk+'"]');
+    var grid=document.getElementById(GM[tk]), btn=document.querySelector('.lm[data-tab="'+tk+'"]');
     var s=S[tk], e=Math.min(s+B,f.length);
-    for(var i=s;i<e;i++){
-      var it=f[i], c;
-      if(isV(it.name)) c=mkVid(it); else if(isG(it.name)) c=mkGif(it); else c=mkPic(it);
-      grid.appendChild(c);
-    }
-    S[tk]=e; ctr.textContent=e+" of "+f.length;
+    for(var i=s;i<e;i++){ grid.appendChild(isV(f[i].name) ? mkVid(f[i]) : mkImg(f[i])); }
+    S[tk]=e;
     if(e>=f.length) btn.disabled=true;
     if(f.length>0) btn.style.display="";
   }
 
   document.querySelectorAll(".lm").forEach(function(b){b.addEventListener("click",function(){render(b.dataset.tab)})});
 
+  // File Fetching Logic
   var gitOK=false, r2OK=false, gitD={}, r2D={};
   function merge(){
     if(!gitOK||!r2OK)return;
-    var total=0;
     ["vids","gifs","pics","death"].forEach(function(folder,i){
       var tk=["videos","gifs","pictures","death"][i], merged=[], seen={};
       (gitD[folder]||[]).forEach(function(n){if(!seen[n]){seen[n]=true;merged.push({name:n,src:folder+"/"+n})}});
       (r2D[folder]||[]).forEach(function(n){if(!seen[n]){seen[n]=true;merged.push({name:n,src:W+"/file/"+folder+"/"+n})}});
       merged.sort(function(a,b){return num(a.name)-num(b.name)});
-      D[tk]=merged; total+=merged.length;
+      D[tk]=merged;
+      var g=document.getElementById(GM[tk]); g.innerHTML="";
+      if(!D[tk].length) g.innerHTML='<div class="empty">NULL</div>';
+      else render(tk);
     });
-    document.getElementById("fc").textContent=total.toLocaleString();
-    document.getElementById("cv").textContent=D.videos.length;
-    document.getElementById("cg").textContent=D.gifs.length;
-    document.getElementById("cp").textContent=D.pictures.length;
-    document.getElementById("cd").textContent=D.death.length;
-    
-    ["videos","gifs","pictures","death"].forEach(function(k){
-      var g=document.getElementById(GM[k]); g.innerHTML="";
-      if(!D[k].length) g.innerHTML='<div class="empty">No files indexed in this directory.</div>';
-      else render(k);
-    });
-    finishLoad();
+    // Silent Hit Counter Call
+    var visited = localStorage.getItem("larpik_visited");
+    fetch(W + "/visitors" + (visited ? "" : "?hit=1")).then(function(){ if(!visited)localStorage.setItem("larpik_visited","true"); }).catch(function(){});
   }
 
   fetch("files.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){gitD=d}).catch(function(){}).finally(function(){gitOK=true;merge()});
@@ -614,8 +351,7 @@ a { color: var(--text-main); text-decoration: none; }
   var TOKEN="", admFolder="vids";
   document.getElementById("adm-go").addEventListener("click",doLogin);
   document.getElementById("adm-pass").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin()});
-  document.getElementById("adm-out").addEventListener("click",function(){TOKEN="";document.getElementById("adm-panel").classList.remove("vis");document.getElementById("adm-login").style.display="flex";document.getElementById("adm-pass").value=""});
-  document.getElementById("adm-back").addEventListener("click",function(e){e.preventDefault();history.pushState(null,"","/");document.body.classList.remove("on-admin")});
+  document.getElementById("adm-out").addEventListener("click",function(){TOKEN="";document.getElementById("adm-panel").classList.remove("vis");document.getElementById("adm-login").style.display="block";document.getElementById("adm-pass").value=""});
   document.getElementById("adm-upload-btn").addEventListener("click",doUpload);
 
   function doLogin(){
@@ -623,8 +359,8 @@ a { color: var(--text-main); text-decoration: none; }
     fetch(W+"/auth",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pass})})
     .then(function(r){return r.json()}).then(function(d){
       if(d.ok){TOKEN=d.token;document.getElementById("adm-login").style.display="none";document.getElementById("adm-panel").classList.add("vis");initAdm()}
-      else document.getElementById("adm-err").textContent="Authentication Failed"
-    }).catch(function(){document.getElementById("adm-err").textContent="Network Error"});
+      else document.getElementById("adm-err").textContent="ERR"
+    }).catch(function(){document.getElementById("adm-err").textContent="ERR"});
   }
 
   function initAdm(){
@@ -641,10 +377,10 @@ a { color: var(--text-main); text-decoration: none; }
   }
 
   function loadAdmFiles(){
-    var list=document.getElementById("adm-flist"); list.innerHTML='<div style="color:var(--text-muted);font-size:12px">Fetching data...</div>';
+    var list=document.getElementById("adm-flist"); list.innerHTML='<div>...</div>';
     var allFiles=[], done=0;
     fetch("files.json?v="+Date.now()).then(function(r){return r.json()}).then(function(data){
-      (data[admFolder]||[]).forEach(function(n){allFiles.push({name:n,source:"Git"})})
+      (data[admFolder]||[]).forEach(function(n){allFiles.push({name:n,source:"GIT"})})
     }).catch(function(){}).finally(chk);
     fetch(W+"/list/"+admFolder).then(function(r){return r.json()}).then(function(files){
       if(Array.isArray(files)) files.forEach(function(f){allFiles.push({name:typeof f==="string"?f:f.name,source:"R2"})})
@@ -656,17 +392,17 @@ a { color: var(--text-main); text-decoration: none; }
       allFiles.forEach(function(f){var k=f.name+"|"+f.source;if(!seen[k]){seen[k]=true;final.push(f)}});
       final.sort(function(a,b){return num(a.name)-num(b.name)});
       list.innerHTML="";
-      if(!final.length){list.innerHTML='<div style="color:var(--text-muted);font-size:12px">No files found.</div>';return}
+      if(!final.length){list.innerHTML='<div>NULL</div>';return}
       
       final.forEach(function(f){
         var item=document.createElement("div"); item.className="adm-fi";
         var isImg=f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i);
         var src=f.source==="R2"?W+"/file/"+admFolder+"/"+f.name:admFolder+"/"+f.name;
-        item.innerHTML=(isImg?'<img src="'+src+'" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<div class="fi-name">'+f.name+'</div><div class="fi-src">Source: '+f.source+'</div><button class="fi-del'+(f.source==="Git"?" git-del":"")+'">'+(f.source==="Git"?"Git Locked":"Delete File")+'</button>';
-        if(f.source==="R2") item.querySelector(".fi-del").addEventListener("click",function(){
-          if(!confirm("Permenantly delete "+f.name+"?"))return;
+        item.innerHTML=(isImg?'<img src="'+src+'" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<div class="name">'+f.name+'</div><button class="del'+(f.source==="GIT"?" git":"")+'">X</button>';
+        if(f.source==="R2") item.querySelector(".del").addEventListener("click",function(){
+          if(!confirm("DEL?"))return;
           fetch(W+"/delete",{method:"POST",headers:{"Authorization":"Bearer "+TOKEN,"Content-Type":"application/json"},body:JSON.stringify({key:admFolder+"/"+f.name})})
-          .then(function(){loadAdmFiles()}).catch(function(){alert("Delete failed")})
+          .then(function(){loadAdmFiles()}).catch(function(){alert("ERR")})
         });
         list.appendChild(item);
       });
@@ -675,22 +411,18 @@ a { color: var(--text-main); text-decoration: none; }
 
   function doUpload(){
     var files=document.getElementById("adm-files").files, folder=document.getElementById("adm-folder").value, status=document.getElementById("adm-status"), btn=document.getElementById("adm-upload-btn");
-    if(!files.length){status.textContent="No files selected."; status.className="adm-status err"; return}
-    btn.disabled=true; status.textContent="Uploading (0/"+files.length+")..."; status.className="adm-status";
+    if(!files.length) return;
+    btn.disabled=true; status.textContent="...";
     var done=0, total=files.length;
     Array.from(files).forEach(function(file){
       var fd=new FormData(); fd.append("file",file); fd.append("folder",folder);
       fetch(W+"/upload",{method:"POST",headers:{"Authorization":"Bearer "+TOKEN},body:fd})
       .then(function(r){return r.json()}).then(function(){
-        done++; status.textContent="Uploading ("+done+"/"+total+")...";
-        if(done===total){status.className="adm-status ok";status.textContent="Upload complete.";btn.disabled=false;loadAdmFiles();document.getElementById("adm-files").value=""}
-      }).catch(function(){
-        done++; status.className="adm-status err"; status.textContent="Upload failed."; if(done===total) btn.disabled=false;
-      });
+        done++;
+        if(done===total){status.textContent="DONE";btn.disabled=false;loadAdmFiles();document.getElementById("adm-files").value=""}
+      }).catch(function(){ done++; if(done===total) {status.textContent="ERR"; btn.disabled=false;} });
     });
   }
-
-  if(isAdmin) setTimeout(finishLoad,600);
 })();
 </script>
 </body>
