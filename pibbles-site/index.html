@@ -401,7 +401,173 @@
     </div>
 
     <div class="glow-tag">JAH MODE ON</div>
+<script>
+    const btn = document.getElementById('sendBtn');
+    const progressFill = document.getElementById('progressFill');
+    const progressLabel = document.getElementById('progressLabel');
+    const statusRight = document.getElementById('statusRight');
+    const consoleBox = document.getElementById('console');
+    const ipBox = document.querySelector('.input-line[contenteditable="true"][data-placeholder="JAH IP HERE"]');
+    const portBox = document.querySelector('.input-line[contenteditable="true"][data-placeholder="JAH PORT HERE"]');
 
+    let interval = null;
+    let loadInterval = null;
+    let hasLoaded = false;
+    let tick = 0;
+    let spamInterval = null;
+    let audioCtx;
+
+    const consoleLines = [
+        '0x7f9a33', '184.22.09.144', '0x00ff11a8', '8892 4401 7710',
+        'SYS> 0048-77', '0x91abdc', '443.881.002', '127.0.0.1:8080',
+        '0x1c04ff', '7742 0001 9922', '0xabcdef', '991.004.118',
+        'SYS> 88a1-ff09', '0x1047be', '6382.77.199', '0x3a9c11',
+        '11223344', '7710.0.0.9', '0xff0a11', '0044-9911',
+        '0x59ffad', '9001.444.121', 'SYS> 11b0-77', '0x7c2d90'
+    ];
+
+    function ensureAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function beep(freq = 620, duration = 0.04, type = 'square', volume = 0.02) {
+        ensureAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.value = volume;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function clickSound() {
+        beep(780, 0.03, 'square', 0.018);
+    }
+
+    function notifySound() {
+        beep(520 + Math.random() * 220, 0.05, 'triangle', 0.02);
+    }
+
+    function addConsoleLine() {
+        const line = consoleLines[Math.floor(Math.random() * consoleLines.length)];
+        const lineEl = document.createElement('div');
+        lineEl.className = 'console-line';
+        lineEl.textContent = line;
+        consoleBox.appendChild(lineEl);
+
+        while (consoleBox.children.length > 30) {
+            consoleBox.removeChild(consoleBox.firstChild);
+        }
+
+        consoleBox.scrollTop = consoleBox.scrollHeight;
+    }
+
+    function addBurst(count) {
+        for (let i = 0; i < count; i++) addConsoleLine();
+    }
+
+    function showEmptyMessage() {
+        progressLabel.textContent = 'ON JAH U HAVE TO PUT IN VALUES';
+        statusRight.innerHTML =
+            `CONNECTION: STABLE<br>` +
+            `PACKETS: 0<br>` +
+            `LATENCY: 0ms`;
+        clickSound();
+    }
+
+    function runLoadSequence() {
+        if (hasLoaded) return;
+        hasLoaded = true;
+
+        let loadTick = 0;
+        addBurst(8);
+
+        loadInterval = setInterval(() => {
+            loadTick += 20;
+            progressFill.style.width = loadTick + '%';
+            progressLabel.textContent = loadTick < 100 ? 'status: loading parody interface' : 'status: ready';
+            statusRight.innerHTML =
+                `CONNECTION: STABLE<br>` +
+                `PACKETS: ${Math.floor(loadTick * 12).toLocaleString()}<br>` +
+                `LATENCY: ${12 + Math.floor(Math.random() * 40)}ms`;
+
+            addBurst(6);
+            notifySound();
+
+            if (loadTick >= 100) {
+                clearInterval(loadInterval);
+                loadInterval = null;
+            }
+        }, 260);
+    }
+
+    btn.addEventListener('click', () => {
+        const ipValue = ipBox.textContent.trim();
+        const portValue = portBox.textContent.trim();
+
+        if (!ipValue || !portValue) {
+            showEmptyMessage();
+            return;
+        }
+
+        ensureAudio();
+        clickSound();
+
+        if (interval) clearInterval(interval);
+        if (spamInterval) clearInterval(spamInterval);
+
+        tick = 0;
+        progressFill.style.width = '0%';
+        progressLabel.textContent = 'status: launching';
+
+        addBurst(20);
+        notifySound();
+
+        spamInterval = setInterval(() => {
+            addBurst(12);
+            notifySound();
+        }, 35);
+
+        interval = setInterval(() => {
+            tick += 4;
+            progressFill.style.width = tick + '%';
+
+            if (tick < 35) {
+                progressLabel.textContent = 'status: JAH JAH JAH';
+            } else if (tick < 70) {
+                progressLabel.textContent = 'status: JUGG JUGG JUGG';
+            } else if (tick < 100) {
+                progressLabel.textContent = 'status: AYO-';
+            } else {
+                progressLabel.textContent = 'status: COMPLETE NGL';
+            }
+
+            const packets = Math.floor(tick * 42);
+            const latency = 10 + Math.floor(Math.random() * 90);
+            statusRight.innerHTML =
+                `CONNECTION: STABLE<br>` +
+                `PACKETS: ${packets.toLocaleString()}<br>` +
+                `LATENCY: ${latency}ms`;
+
+            if (tick >= 100) {
+                clearInterval(interval);
+                interval = null;
+                clearInterval(spamInterval);
+                spamInterval = null;
+            }
+        }, 320);
+    });
+
+    runLoadSequence();
+</script>
     <script>
         const btn = document.getElementById('sendBtn');
         const progressFill = document.getElementById('progressFill');
