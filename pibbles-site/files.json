@@ -1,6 +1,540 @@
-{
-  "vids": [],
-  "gifs": [],
-  "pics": [],
-  "death": []
-}
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Lighting = game:GetService("Lighting")
+
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+local saveEvent = ReplicatedStorage:WaitForChild("SaveStackScore")
+local reviveEvent = ReplicatedStorage:WaitForChild("RevivePlayer")
+
+local REVIVE_PRODUCT_ID = 123456789 
+
+-- ==========================================
+-- PHASE 1: CUSTOM SKYBOX & LIGHTING
+-- ==========================================
+local function nukeCharacter(character)
+	task.wait()
+	if character then character:Destroy() end
+end
+if player.Character then nukeCharacter(player.Character) end
+player.CharacterAdded:Connect(nukeCharacter)
+
+Lighting.GlobalShadows = false
+Lighting.ClockTime = 12
+Lighting.Brightness = 2
+Lighting.Ambient = Color3.fromRGB(200, 200, 200)
+Lighting.OutdoorAmbient = Color3.fromRGB(200, 200, 200)
+Lighting.FogEnd = 100000 
+
+for _, v in pairs(Lighting:GetChildren()) do
+	if v:IsA("Sky") or v:IsA("Atmosphere") or v:IsA("BloomEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") then
+		v:Destroy()
+	end
+end
+
+local customSky = Instance.new("Sky")
+customSky.Name = "CustomStackSky"
+local assetUrl = "rbxassetid://2013298"
+customSky.SkyboxBk = assetUrl
+customSky.SkyboxDn = assetUrl
+customSky.SkyboxFt = assetUrl
+customSky.SkyboxLf = assetUrl
+customSky.SkyboxRt = assetUrl
+customSky.SkyboxUp = assetUrl
+customSky.Parent = Lighting
+
+local function createSound(id, volume)
+	local s = Instance.new("Sound")
+	s.SoundId = "rbxassetid://" .. id
+	s.Volume = volume
+	s.Parent = workspace
+	return s
+end
+local sfx_place = createSound("136839407049381", 0.6) 
+local sfx_perfect = createSound("129092886278401", 0.8) 
+local sfx_grow = createSound("134912331993339", 1)
+local sfx_over = createSound("1592934514", 0.8)  
+
+-- ==========================================
+-- PHASE 2: SKATE 3 STREET ARCADE UI
+-- ==========================================
+local playerGui = player:WaitForChild("PlayerGui")
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "StackGui"
+screenGui.IgnoreGuiInset = true
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+local function createSkateBtn(text, pos, rot, parent, bgColor, textColor)
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(0, 260, 0, 65)
+	btn.Position = pos
+	btn.Rotation = rot
+	btn.AnchorPoint = Vector2.new(0.5, 0.5)
+	btn.BackgroundColor3 = bgColor or Color3.fromRGB(0, 255, 255) -- Default Neon Cyan
+	btn.Font = Enum.Font.GothamBlack
+	btn.TextSize = 30
+	btn.TextColor3 = textColor or Color3.fromRGB(10, 10, 10)
+	btn.Text = text
+	btn.Parent = parent
+
+	-- Street art drop shadow
+	local shadow = Instance.new("Frame")
+	shadow.Size = UDim2.new(1, 0, 1, 0)
+	shadow.Position = UDim2.new(0, 6, 0, 6)
+	shadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	shadow.ZIndex = btn.ZIndex - 1
+	shadow.Parent = btn
+
+	btn.MouseEnter:Connect(function()
+		TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Bounce), {Rotation = rot * -1.5, Size = UDim2.new(0, 275, 0, 70)}):Play()
+	end)
+	btn.MouseLeave:Connect(function()
+		TweenService:Create(btn, TweenInfo.new(0.2, Enum.EasingStyle.Quint), {Rotation = rot, Size = UDim2.new(0, 260, 0, 65)}):Play()
+	end)
+	btn.MouseButton1Click:Connect(function() sfx_grow:Play() end)
+
+	return btn
+end
+
+-- Main Menu
+local menuPanel = Instance.new("Frame")
+menuPanel.Size = UDim2.new(1, 0, 1, 0)
+menuPanel.BackgroundTransparency = 1 -- Transparent to see the 3D orbit
+menuPanel.Parent = screenGui
+
+local studioTag = Instance.new("TextLabel")
+studioTag.Size = UDim2.new(1, 0, 0, 30)
+studioTag.Position = UDim2.new(0, 0, 0.15, 0)
+studioTag.BackgroundTransparency = 1
+studioTag.Font = Enum.Font.GothamBold
+studioTag.TextSize = 20
+studioTag.TextColor3 = Color3.fromRGB(255, 255, 255)
+studioTag.Text = "L A R P I K   P R E S E N T S"
+studioTag.Parent = menuPanel
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 150)
+title.Position = UDim2.new(0, 0, 0.18, 0)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBlack
+title.TextSize = 120
+title.TextColor3 = Color3.fromRGB(255, 230, 0) -- Skate Yellow
+title.Text = "STACK"
+title.Parent = menuPanel
+
+-- Scaling element for the bounce animation
+local titleScale = Instance.new("UIScale")
+titleScale.Parent = title
+
+local titleShadow = title:Clone()
+titleShadow.TextColor3 = Color3.fromRGB(0, 0, 0)
+titleShadow.Position = UDim2.new(0, 8, 0, 8)
+titleShadow.ZIndex = 0
+titleShadow.Parent = title
+titleShadow:FindFirstChild("UIScale"):Destroy()
+
+local btnPlay = createSkateBtn("PLAY", UDim2.new(0.5, 0, 0.55, 0), -2, menuPanel)
+local leaderboardText = Instance.new("TextLabel")
+leaderboardText.Size = UDim2.new(1, 0, 0, 50)
+leaderboardText.Position = UDim2.new(0, 0, 0.7, 0)
+leaderboardText.BackgroundTransparency = 1
+leaderboardText.Font = Enum.Font.GothamBlack
+leaderboardText.TextSize = 25
+leaderboardText.TextColor3 = Color3.fromRGB(255, 255, 255)
+leaderboardText.Text = "HIGH SCORE: " .. player:WaitForChild("leaderstats"):WaitForChild("HighScore").Value
+leaderboardText.Parent = menuPanel
+local lbShadow = Instance.new("UIStroke", leaderboardText)
+lbShadow.Thickness = 3
+
+-- Game HUD
+local hudPanel = Instance.new("Frame")
+hudPanel.Size = UDim2.new(1, 0, 1, 0)
+hudPanel.BackgroundTransparency = 1
+hudPanel.Visible = false
+hudPanel.Parent = screenGui
+
+local scoreLabel = Instance.new("TextLabel")
+scoreLabel.Size = UDim2.new(1, 0, 0, 100)
+scoreLabel.Position = UDim2.new(0, 0, 0.08, 0)
+scoreLabel.BackgroundTransparency = 1
+scoreLabel.Font = Enum.Font.GothamBlack
+scoreLabel.TextSize = 90
+scoreLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+scoreLabel.Text = "0"
+scoreLabel.Parent = hudPanel
+Instance.new("UIStroke", scoreLabel).Thickness = 4
+
+local comboLabel = Instance.new("TextLabel")
+comboLabel.Size = UDim2.new(1, 0, 0, 50)
+comboLabel.Position = UDim2.new(0, 0, 0.2, 0)
+comboLabel.BackgroundTransparency = 1
+comboLabel.Rotation = -3
+comboLabel.Font = Enum.Font.GothamBlack
+comboLabel.TextSize = 45
+comboLabel.TextColor3 = Color3.fromRGB(255, 50, 100) -- Hot Pink combo
+comboLabel.Text = ""
+comboLabel.TextTransparency = 1
+comboLabel.Parent = hudPanel
+local comboStroke = Instance.new("UIStroke", comboLabel)
+comboStroke.Thickness = 4
+comboStroke.Transparency = 1
+
+local tapButton = Instance.new("TextButton")
+tapButton.Size = UDim2.new(1, 0, 1, 0)
+tapButton.BackgroundTransparency = 1
+tapButton.Text = ""
+tapButton.Parent = hudPanel
+
+-- Game Over Panel
+local overPanel = Instance.new("Frame")
+overPanel.Size = UDim2.new(1, 0, 1, 0)
+overPanel.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+overPanel.BackgroundTransparency = 0.2
+overPanel.Visible = false
+overPanel.Parent = screenGui
+
+local overTitle = title:Clone()
+overTitle.Text = "OH NO!"
+overTitle.TextColor3 = Color3.fromRGB(255, 50, 50)
+overTitle.TextSize = 90
+overTitle.Position = UDim2.new(0, 0, 0.25, 0)
+overTitle.Parent = overPanel
+
+local btnRevive = createSkateBtn("REVIVE (7 R$)", UDim2.new(0.5, 0, 0.5, 0), 2, overPanel, Color3.fromRGB(100, 255, 120))
+local btnRestart = createSkateBtn("RETRY", UDim2.new(0.5, 0, 0.65, 0), -2, overPanel, Color3.fromRGB(255, 230, 0))
+local btnMenu = createSkateBtn("MENU", UDim2.new(0.5, 0, 0.8, 0), 2, overPanel, Color3.fromRGB(255, 255, 255))
+
+-- ==========================================
+-- PHASE 3: GAMEPLAY & DYNAMIC GRADIENT
+-- ==========================================
+local towerFolder = workspace:FindFirstChild("StackTower") or Instance.new("Folder")
+towerFolder.Name = "StackTower"
+towerFolder.Parent = workspace
+
+local baseBlock, currentBlock, previousBlock
+local movingZ = true
+local isMoving = false
+local gameState = "Menu" 
+local score = 0
+local perfectStreak = 0
+local speed = 25
+local camTargetY = 0
+local currentCamY = 0
+local camOffset = Vector3.new(-18, 16, -18) 
+local moveDir = 1
+local travelDistance = 16
+local positionOffset = -travelDistance
+local startHue = 0 
+local menuTime = 0 -- Timer for animations
+
+local function getBlockColor(index)
+	local currentHue = (startHue + (index * 0.015)) % 1
+	return Color3.fromHSV(currentHue, 0.8, 0.9)
+end
+
+-- Cinematic Menu Tower Generator
+local function buildMenuTower()
+	towerFolder:ClearAllChildren()
+	startHue = math.random()
+
+	local dBase = Instance.new("Part")
+	dBase.Anchored = true
+	dBase.Size = Vector3.new(10, 1, 10)
+	dBase.Position = Vector3.new(0, 0, 0)
+	dBase.Color = Color3.fromRGB(20, 20, 20)
+	dBase.Material = Enum.Material.SmoothPlastic
+	dBase.Parent = towerFolder
+
+	local cY = 1
+	local cSize = 10
+	for i = 1, 20 do
+		local p = Instance.new("Part")
+		p.Anchored = true
+		p.Size = Vector3.new(cSize, 1, cSize)
+		-- Messy, artistic stack
+		p.Position = Vector3.new(math.sin(i * 0.5) * 0.8, cY, math.cos(i * 0.5) * 0.8) 
+		p.Color = getBlockColor(i)
+		p.Material = Enum.Material.SmoothPlastic
+		p.Parent = towerFolder
+		cY = cY + 1
+		cSize = cSize - 0.2
+	end
+end
+
+local function createShockwave(block)
+	local wave = Instance.new("Part")
+	wave.Anchored = true
+	wave.CanCollide = false
+	wave.Material = Enum.Material.Neon
+	wave.Color = block.Color
+	wave.Size = Vector3.new(block.Size.X + 0.1, 0.1, block.Size.Z + 0.1)
+	wave.Position = block.Position
+	wave.Parent = workspace
+
+	local tw = TweenService:Create(wave, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = Vector3.new(block.Size.X + 8, 0.1, block.Size.Z + 8),
+		Transparency = 1
+	})
+	tw:Play()
+	tw.Completed:Connect(function() wave:Destroy() end)
+end
+
+local function popComboText(streak)
+	comboLabel.Text = "STREAK x" .. streak
+	comboLabel.TextTransparency = 0
+	comboStroke.Transparency = 0
+	comboLabel.Position = UDim2.new(0, 0, 0.25, 0)
+
+	local tw = TweenService:Create(comboLabel, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.2, 0)})
+	tw:Play()
+
+	task.delay(1, function()
+		if perfectStreak == streak then 
+			TweenService:Create(comboLabel, TweenInfo.new(0.2), {TextTransparency = 1}):Play()
+			TweenService:Create(comboStroke, TweenInfo.new(0.2), {Transparency = 1}):Play()
+		end
+	end)
+end
+
+local function spawnBlock()
+	local newBlock = Instance.new("Part")
+	newBlock.Anchored = true
+	newBlock.Material = Enum.Material.SmoothPlastic
+	newBlock.Color = getBlockColor(score)
+	newBlock.Size = previousBlock.Size
+
+	local startY = previousBlock.Position.Y + previousBlock.Size.Y
+	if movingZ then
+		newBlock.Position = Vector3.new(previousBlock.Position.X, startY, previousBlock.Position.Z - travelDistance)
+	else
+		newBlock.Position = Vector3.new(previousBlock.Position.X - travelDistance, startY, previousBlock.Position.Z)
+	end
+
+	newBlock.Parent = towerFolder
+	currentBlock = newBlock
+	positionOffset = -travelDistance
+	moveDir = 1
+	isMoving = true
+end
+
+local function initGame()
+	towerFolder:ClearAllChildren()
+	score = 0
+	perfectStreak = 0
+	speed = 25
+	movingZ = true
+	camTargetY = 0
+	currentCamY = 0
+	startHue = math.random() 
+
+	scoreLabel.Text = "0"
+	comboLabel.TextTransparency = 1
+	comboStroke.Transparency = 1
+
+	menuPanel.Visible = false
+	overPanel.Visible = false
+	hudPanel.Visible = true
+	gameState = "Playing"
+
+	baseBlock = Instance.new("Part")
+	baseBlock.Name = "BaseBlock"
+	baseBlock.Anchored = true
+	baseBlock.Size = Vector3.new(10, 1, 10)
+	baseBlock.Position = Vector3.new(0, 0, 0)
+	baseBlock.Color = Color3.fromRGB(20, 20, 20)
+	baseBlock.Material = Enum.Material.SmoothPlastic
+	baseBlock.Parent = towerFolder
+
+	previousBlock = baseBlock
+	spawnBlock()
+end
+
+local function triggerGameOver()
+	sfx_over:Play()
+	gameState = "GameOver"
+	isMoving = false
+	saveEvent:FireServer(score)
+	leaderboardText.Text = "HIGH SCORE: " .. player.leaderstats.HighScore.Value
+
+	overPanel.BackgroundTransparency = 1
+	overPanel.Visible = true
+	TweenService:Create(overPanel, TweenInfo.new(0.5), {BackgroundTransparency = 0.4}):Play()
+end
+
+local function placeBlock()
+	if not currentBlock then return false end
+	isMoving = false 
+
+	local distance, overlap, newSize, newPos, chopSize, chopPos
+	local snapTolerance = 0.5 
+	local isPerfect = false
+
+	if movingZ then
+		distance = currentBlock.Position.Z - previousBlock.Position.Z
+		if math.abs(distance) >= previousBlock.Size.Z then return false end 
+
+		if math.abs(distance) <= snapTolerance then 
+			distance = 0 
+			isPerfect = true
+		end
+
+		overlap = previousBlock.Size.Z - math.abs(distance)
+		newSize = Vector3.new(currentBlock.Size.X, currentBlock.Size.Y, overlap)
+		newPos = Vector3.new(currentBlock.Position.X, currentBlock.Position.Y, previousBlock.Position.Z + (distance / 2))
+
+		if distance ~= 0 then
+			chopSize = Vector3.new(currentBlock.Size.X, currentBlock.Size.Y, math.abs(distance))
+			chopPos = Vector3.new(currentBlock.Position.X, currentBlock.Position.Y, currentBlock.Position.Z + (distance > 0 and overlap/2 or -overlap/2))
+		end
+	else
+		distance = currentBlock.Position.X - previousBlock.Position.X
+		if math.abs(distance) >= previousBlock.Size.X then return false end 
+
+		if math.abs(distance) <= snapTolerance then 
+			distance = 0 
+			isPerfect = true
+		end
+
+		overlap = previousBlock.Size.X - math.abs(distance)
+		newSize = Vector3.new(overlap, currentBlock.Size.Y, currentBlock.Size.Z)
+		newPos = Vector3.new(previousBlock.Position.X + (distance / 2), currentBlock.Position.Y, currentBlock.Position.Z)
+
+		if distance ~= 0 then
+			chopSize = Vector3.new(math.abs(distance), currentBlock.Size.Y, currentBlock.Size.Z)
+			chopPos = Vector3.new(currentBlock.Position.X + (distance > 0 and overlap/2 or -overlap/2), currentBlock.Position.Y, currentBlock.Position.Z)
+		end
+	end
+
+	currentBlock.Size = newSize
+	currentBlock.Position = newPos
+
+	if isPerfect then
+		perfectStreak = perfectStreak + 1
+		createShockwave(currentBlock)
+		popComboText(perfectStreak)
+
+		sfx_perfect.Pitch = 1 + (math.min(perfectStreak, 15) * 0.1)
+		sfx_perfect:Play()
+
+		if perfectStreak >= 3 then
+			local maxAllowed = 10 
+			local growth = 0.5
+			local expandedSize = Vector3.new(
+				math.min(maxAllowed, currentBlock.Size.X + growth),
+				currentBlock.Size.Y,
+				math.min(maxAllowed, currentBlock.Size.Z + growth)
+			)
+			TweenService:Create(currentBlock, TweenInfo.new(0.3, Enum.EasingStyle.Bounce), {Size = expandedSize}):Play()
+			currentBlock.Size = expandedSize 
+		end
+	else
+		perfectStreak = 0
+		sfx_place.Pitch = 1 + (math.min(score, 30) * 0.01)
+		sfx_place:Play()
+	end
+
+	if distance ~= 0 then
+		local chop = Instance.new("Part")
+		chop.Size = chopSize
+		chop.Position = chopPos
+		chop.Color = currentBlock.Color
+		chop.Material = Enum.Material.SmoothPlastic
+		chop.Anchored = false
+		chop.Parent = workspace
+		task.delay(3, function() chop:Destroy() end)
+	end
+
+	previousBlock = currentBlock
+	movingZ = not movingZ
+	speed = speed + 0.5 
+	score = score + 1
+	camTargetY = currentBlock.Position.Y
+
+	scoreLabel.Text = tostring(score)
+	TweenService:Create(scoreLabel, TweenInfo.new(0.1, Enum.EasingStyle.Quint), {TextSize = 120}):Play()
+	task.delay(0.1, function() TweenService:Create(scoreLabel, TweenInfo.new(0.2), {TextSize = 90}):Play() end)
+
+	return true
+end
+
+-- ==========================================
+-- INPUT & LOOP ENGINE
+-- ==========================================
+tapButton.MouseButton1Down:Connect(function()
+	if gameState ~= "Playing" then return end
+	if placeBlock() then
+		spawnBlock()
+	else
+		triggerGameOver()
+	end
+end)
+
+btnPlay.MouseButton1Click:Connect(initGame)
+btnRestart.MouseButton1Click:Connect(initGame)
+btnMenu.MouseButton1Click:Connect(function()
+	overPanel.Visible = false
+	hudPanel.Visible = false
+	menuPanel.Visible = true
+	gameState = "Menu"
+	buildMenuTower()
+end)
+
+btnRevive.MouseButton1Click:Connect(function() game:GetService("MarketplaceService"):PromptProductPurchase(player, REVIVE_PRODUCT_ID) end)
+
+reviveEvent.OnClientEvent:Connect(function()
+	overPanel.Visible = false
+	gameState = "Playing"
+	perfectStreak = 0 
+	currentBlock.Position = Vector3.new(previousBlock.Position.X, currentBlock.Position.Y, previousBlock.Position.Z)
+	placeBlock()
+	spawnBlock()
+end)
+
+RunService.RenderStepped:Connect(function(dt)
+	camera.CameraType = Enum.CameraType.Scriptable
+
+	-- Cinematic Menu Camera
+	if gameState == "Menu" then
+		camera.FieldOfView = 90 -- Fisheye lens effect
+		menuTime = menuTime + dt
+		local radius = 28
+		local cx = math.sin(menuTime * 0.4) * radius
+		local cz = math.cos(menuTime * 0.4) * radius
+		camera.CFrame = CFrame.lookAt(Vector3.new(cx, 12, cz), Vector3.new(0, 8, 0))
+
+		-- Title Bouncing & Throbbing
+		title.Rotation = math.sin(menuTime * 5) * 4
+		titleShadow.Rotation = title.Rotation
+		titleScale.Scale = 1 + math.sin(menuTime * 8) * 0.05
+		return
+	end
+
+	-- Normal Game Camera
+	camera.FieldOfView = 70
+	currentCamY = currentCamY + (camTargetY - currentCamY) * 10 * dt 
+	local targetPos = Vector3.new(0, currentCamY, 0)
+	camera.CFrame = CFrame.lookAt(targetPos + camOffset, targetPos)
+
+	if gameState ~= "Playing" or not isMoving or not currentBlock then return end
+
+	positionOffset = positionOffset + (speed * dt * moveDir)
+	if positionOffset > travelDistance then
+		positionOffset = travelDistance
+		moveDir = -1
+	elseif positionOffset < -travelDistance then
+		positionOffset = -travelDistance
+		moveDir = 1
+	end
+
+	if movingZ then
+		currentBlock.Position = Vector3.new(previousBlock.Position.X, currentBlock.Position.Y, previousBlock.Position.Z + positionOffset)
+	else
+		currentBlock.Position = Vector3.new(previousBlock.Position.X + positionOffset, currentBlock.Position.Y, previousBlock.Position.Z)
+	end
+end)
+
+-- Start up the cinematic menu!
+buildMenuTower()
