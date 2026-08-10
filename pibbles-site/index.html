@@ -1,726 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XXXTTRA DDOSSER</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pBruter — Premium Roblox Account Bruter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05060a;
+    --bg2: #0a0d14;
+    --bg3: #111622;
+    --accent: #ff0040;
+    --accent2: #ff2d55;
+    --accent-glow: rgba(255, 0, 64, 0.25);
+    --cyan: #00e5ff;
+    --text: #f4f7fb;
+    --text2: #9aa3b2;
+    --border: #1a2333;
+    --green: #00ff9d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #05060a; }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent2); }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #000;
-        }
+  /* Animated background */
+  .bg-glow {
+    position: fixed; inset: 0; z-index: -1; overflow: hidden;
+  }
+  .bg-glow::before, .bg-glow::after {
+    content: ''; position: absolute; width: 600px; height: 600px;
+    border-radius: 50%; filter: blur(120px); animation: float 12s infinite alternate;
+  }
+  .bg-glow::before { background: rgba(255,0,64,0.12); top: -200px; left: -100px; }
+  .bg-glow::after { background: rgba(0,229,255,0.08); bottom: -200px; right: -100px; animation-delay: 4s; }
+  @keyframes float {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(60px,40px) scale(1.2); }
+  }
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: -1;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
 
-        body {
-            background:
-                linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-                url('https://fbi.cults3d.com/uploaders/16862511/illustration-file/ca1d4109-92fb-4952-af11-199e2ea62c10/xxxmix-xxxtentacion.gif') center center / cover no-repeat;
-            filter: grayscale(100%);
-        }
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 48px;
+    background: rgba(5,6,10,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; }
+  .logo-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono'; font-weight: 700; font-size: 16px;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .logo small { color: var(--text2); font-weight: 400; margin-left: 4px; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    padding: 9px 20px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff !important; font-weight: 600; cursor: pointer;
+    box-shadow: 0 0 24px var(--accent-glow); transition: 0.3s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 36px var(--accent-glow); }
+  .hamburger { display: none; }
+  
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; position: absolute; top: 60px; right: 20px; flex-direction: column; background: var(--bg2); padding: 20px; border-radius: 12px; border: 1px solid var(--border); gap: 16px; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: block; background: none; border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+  }
 
-        .topbar {
-            height: 28px;
-            background: linear-gradient(#d9d9d9, #bfbfbf);
-            border-bottom: 1px solid #777;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 8px;
-            color: #111;
-            font-size: 12px;
-            font-weight: 700;
-        }
+  /* Hero */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 120px 24px 60px; position: relative;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 999px;
+    background: rgba(0,255,157,0.08); border: 1px solid rgba(0,255,157,0.25);
+    color: var(--green); font-size: 13px; font-weight: 500; margin-bottom: 28px;
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% {opacity:1} 50% {opacity:0.4} }
 
-        .window-controls {
-            display: flex;
-            gap: 5px;
-        }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+    max-width: 900px; margin-bottom: 24px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent), var(--accent2), #ff8a5c);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero p.sub {
+    font-size: 18px; color: var(--text2); max-width: 620px; line-height: 1.7; margin-bottom: 40px;
+  }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    padding: 15px 34px; border-radius: 10px; border: none;
+    font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block;
+  }
+  .btn-download {
+    background: linear-gradient(135deg, var(--green), #00cc7a);
+    color: #04150c !important; box-shadow: 0 4px 30px rgba(0,255,157,0.3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-download:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(0,255,157,0.45); }
+  .dl-note { margin-top: 14px; color: var(--text2); font-size: 13px; font-family: 'JetBrains Mono'; }
+  .dl-note b { color: var(--green); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; box-shadow: 0 4px 30px var(--accent-glow);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px var(--accent-glow); }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border); backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-        .control {
-            width: 16px;
-            height: 14px;
-            border: 1px solid #888;
-            background: #eee;
-        }
+  .terminal {
+    margin-top: 60px; width: min(680px, 90vw);
+    background: #0a0e18; border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: left; overflow: hidden;
+  }
+  .term-head {
+    display: flex; align-items: center; gap: 8px; padding: 13px 18px;
+    background: #0d1220; border-bottom: 1px solid var(--border);
+  }
+  .term-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .term-head span.name { margin-left: 10px; color: var(--text2); font-size: 13px; font-family: 'JetBrains Mono'; }
+  .term-body { padding: 20px 24px; font-family: 'JetBrains Mono'; font-size: 14px; line-height: 1.8; min-height: 200px; }
+  .term-line { white-space: pre-wrap; }
+  .term-line .cmd { color: var(--green); }
+  .term-line .out { color: var(--text2); }
+  .term-line .acc { color: var(--accent); font-weight: 700; }
+  .cursor { display: inline-block; width: 9px; height: 16px; background: var(--green); vertical-align: middle; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100% {opacity:1} 50% {opacity:0} }
 
-        .control.close {
-            background: #d9534f;
-            border-color: #8b2c2a;
-        }
+  /* Stats */
+  .stats { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; margin-top: 70px; }
+  .stat h3 { font-size: 34px; font-weight: 800; }
+  .stat h3 span { color: var(--accent); }
+  .stat p { color: var(--text2); font-size: 14px; margin-top: 4px; }
 
-        .overlay {
-            width: 100%;
-            height: calc(100% - 28px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.58);
-        }
+  /* Sections */
+  .section { padding: 100px 24px; max-width: 1200px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 60px; }
+  .section-eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .section-head h2 { font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -0.02em; }
+  .section-head p { color: var(--text2); max-width: 600px; margin: 14px auto 0; line-height: 1.7; }
 
-        .layout {
-            display: flex;
-            align-items: stretch;
-            gap: 18px;
-            width: 1040px;
-            max-width: 98vw;
-            height: 540px;
-        }
+  /* Features */
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .feature {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
+    padding: 30px; transition: 0.3s; position: relative; overflow: hidden;
+  }
+  .feature::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0; transition: 0.3s;
+  }
+  .feature:hover { transform: translateY(-4px); border-color: rgba(255,0,64,0.4); }
+  .feature:hover::before { opacity: 1; }
+  .feature-icon { font-size: 30px; margin-bottom: 16px; }
+  .feature h3 { font-size: 19px; margin-bottom: 10px; font-weight: 700; }
+  .feature p { color: var(--text2); font-size: 14px; line-height: 1.6; }
 
-        .panel {
-            flex: 1 1 auto;
-            position: relative;
-            color: #fff;
-            background:
-                radial-gradient(circle at center, rgba(255,255,255,0.03), rgba(0,0,0,0.7)),
-                rgba(0,0,0,0.55);
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: 0 0 35px rgba(0,0,0,0.85);
-            overflow: visible;
-        }
+  /* Pricing */
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .price-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+    padding: 34px; text-align: center; transition: 0.3s; position: relative;
+  }
+  .price-card:hover { transform: translateY(-5px); }
+  .price-card.popular { border-color: var(--accent); box-shadow: 0 0 40px var(--accent-glow); background: linear-gradient(180deg, rgba(255,0,64,0.06), var(--bg2)); }
+  .popular-tag {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 4px 14px; border-radius: 999px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .price-card h3 { font-size: 18px; margin-bottom: 16px; }
+  .price { font-size: 44px; font-weight: 800; margin-bottom: 4px; }
+  .price span { font-size: 16px; color: var(--text2); font-weight: 400; }
+  .price-card ul { list-style: none; margin: 24px 0; text-align: left; }
+  .price-card li { padding: 8px 0; color: var(--text2); font-size: 14px; display: flex; align-items: center; gap: 10px; }
+  .price-card li::before { content: '✓'; color: var(--green); font-weight: 700; }
+  .price-card .btn { width: 100%; }
 
-        .console {
-            width: 260px;
-            height: 100%;
-            background: rgba(0,0,0,0.86);
-            border: 1px solid rgba(255,255,255,0.14);
-            box-shadow: 0 0 14px rgba(0,0,0,0.35);
-            color: #b8b8b8;
-            font-family: "Courier New", monospace;
-            font-size: 11px;
-            padding: 8px;
-            overflow: hidden;
-            white-space: pre-wrap;
-        }
+  /* FAQ */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+  .faq {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    margin-bottom: 14px; overflow: hidden;
+  }
+  .faq summary {
+    padding: 20px 24px; cursor: pointer; font-weight: 600; font-size: 15px;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq summary::after { content: '+'; font-size: 22px; color: var(--accent); transition: 0.3s; }
+  .faq[open] summary::after { transform: rotate(45deg); }
+  .faq p { padding: 0 24px 20px; color: var(--text2); font-size: 14px; line-height: 1.7; }
 
-        .bg-figures {
-            position: absolute;
-            inset: 0;
-            background:
-                url('https://cdn-images.dzcdn.net/images/cover/f65d5ac8c3a1cdba3d797ade79a47857/0x1900-000000-80-0-0.jpg') left center / 46% auto no-repeat,
-                url('https://cdn-images.dzcdn.net/images/cover/f65d5ac8c3a1cdba3d797ade79a47857/0x1900-000000-80-0-0.jpg') right center / 46% auto no-repeat;
-            filter: grayscale(100%) contrast(120%);
-            opacity: 0.55;
-        }
+  /* Discord CTA */
+  .discord-cta {
+    text-align: center; padding: 80px 24px; position: relative;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, transparent, rgba(255,0,64,0.05), transparent);
+  }
+  .discord-cta h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 18px; }
+  .discord-cta p { color: var(--text2); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
 
-        .grain {
-            position: absolute;
-            inset: 0;
-            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-            opacity: 0.28;
-            pointer-events: none;
-        }
+  /* Footer */
+  footer {
+    text-align: center; padding: 48px 24px; color: var(--text2); font-size: 13px;
+  }
+  footer .mono { font-family: 'JetBrains Mono'; color: var(--text); }
+  footer .cr { margin-top: 12px; opacity: 0.6; }
 
-        .center-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 48px;
-            text-align: center;
-        }
-
-        .main-title {
-            font-size: 34px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 56px;
-            text-shadow: 0 0 8px rgba(255,255,255,0.18);
-        }
-
-        .label {
-            font-size: 21px;
-            font-weight: 800;
-            margin-top: 8px;
-            margin-bottom: 4px;
-        }
-
-        .input-line {
-            width: 220px;
-            border-bottom: 2px solid rgba(255,255,255,0.55);
-            padding-bottom: 3px;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            margin-bottom: 14px;
-            outline: none;
-        }
-
-        .input-line:empty::before {
-            content: attr(data-placeholder);
-            color: rgba(255,255,255,0.45);
-        }
-
-        .send-btn {
-            margin-top: 18px;
-            width: 210px;
-            height: 28px;
-            background: #ededed;
-            border: 3px solid #bbb;
-            color: #111;
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        .send-btn:hover {
-            background: #fff;
-        }
-
-        .progress-wrap {
-            width: 320px;
-            margin-top: 22px;
-            border: 1px solid #666;
-            background: rgba(0,0,0,0.6);
-            padding: 6px;
-        }
-
-        .progress-label {
-            font-size: 11px;
-            color: #aaa;
-            text-align: left;
-            margin-bottom: 5px;
-            font-family: "Courier New", monospace;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 14px;
-            border: 1px solid #999;
-            background: #111;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, magenta, red);
-			background-size: 400% 100%;
-			animation: rainbowBar 1.5s linear infinite;
-            transition: width 0.15s linear;
-        }
-
-        .bottom-text {
-            position: absolute;
-            bottom: 22px;
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-            font-size: 12px;
-            line-height: 1.35;
-            font-weight: 700;
-        }
-
-        .bottom-text .small {
-            display: block;
-            margin-top: 6px;
-            font-size: 11px;
-        }
-
-        .toast-stack {
-            position: fixed;
-            top: 42px;
-            right: 16px;
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        .toast {
-            background: rgba(15,15,15,0.92);
-            border-left: 4px solid #ff4d4d;
-            padding: 10px 12px;
-            color: #fff;
-            font-size: 12px;
-            font-family: "Courier New", monospace;
-            box-shadow: 0 0 14px rgba(0,0,0,0.4);
-            opacity: 0;
-            transform: translateX(16px);
-            animation: toastIn 0.25s ease forwards;
-        }
-		@keyframes rainbowBar {
-			0% { background-position: 0% 50%; }
-			100% { background-position: 100% 50%; }
-		}
-
-        .toast.green {
-            border-left-color: #66ff66;
-        }
-
-        .toast.yellow {
-            border-left-color: #ffb84d;
-        }
-
-        .toast .title {
-            font-weight: 900;
-            margin-bottom: 4px;
-        }
-
-        @keyframes toastIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .left-stack {
-            position: fixed;
-            top: 70px;
-            left: 16px;
-            width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        .notif {
-            background: rgba(0,0,0,0.88);
-            border: 1px solid rgba(255,255,255,0.12);
-            padding: 8px 10px;
-            color: #fff;
-            font-size: 11px;
-            font-family: "Courier New", monospace;
-            box-shadow: 0 0 12px rgba(0,0,0,0.35);
-            animation: slideIn 0.25s ease forwards;
-        }
-
-        .notif.red { border-left: 4px solid #ff4d4d; }
-        .notif.green { border-left: 4px solid #66ff66; }
-        .notif.yellow { border-left: 4px solid #ffb84d; }
-
-        .notif .title {
-            font-weight: 900;
-            margin-bottom: 3px;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .status-right {
-            position: fixed;
-            right: 18px;
-            bottom: 20px;
-            width: 290px;
-            text-align: right;
-            z-index: 20;
-            font-family: "Courier New", monospace;
-            font-size: 12px;
-            color: #ff7070;
-            text-shadow: 0 0 4px rgba(255,0,0,0.25);
-            pointer-events: none;
-        }
-
-        .glow-tag {
-            position: fixed;
-            left: 18px;
-            bottom: 18px;
-            z-index: 20;
-            color: #ff4d4d;
-            font-family: "Courier New", monospace;
-            font-size: 11px;
-            pointer-events: none;
-        }
-
-        .console-line {
-            line-height: 1.2;
-            opacity: 0.98;
-        }
-    </style>
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
-    <div class="topbar">
-        <div>CRACKED BY DIDLY</div>
-        <div class="window-controls">
-            <div class="control"></div>
-            <div class="control"></div>
-            <div class="control close"></div>
-        </div>
+
+<div class="bg-glow"></div>
+<div class="grid-overlay"></div>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">p</div>
+    <div>pBruter <small>v5.0</small></div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#download" class="nav-cta">Download</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">☰</button>
+</nav>
+
+<section class="hero">
+  <div class="badge"><span class="dot"></span> Maintained by averus · Build 5</div>
+  <h1>The Most Advanced <span class="gradient-text">Roblox Account</span> Bruter</h1>
+  <p class="sub">Mass account cracking with lightning speed. Threaded engine, proxy rotation, and auto-salvage algorithms built for serious users who need results.</p>
+  <div class="hero-cta">
+    <a href="#download" class="btn btn-primary">Download Loader</a>
+    <a href="#features" class="btn btn-ghost">Explore Features</a>
+  </div>
+
+  <div class="dl-note" id="download">⬇️ Loader build 5 · <b>1.2 MB</b> · Windows x64 · key required for activation</div>
+
+  <div class="terminal">
+    <div class="term-head">
+      <span class="term-dot" style="background:#ff5f57"></span>
+      <span class="term-dot" style="background:#febc2e"></span>
+      <span class="term-dot" style="background:#28c840"></span>
+      <span class="name">pbruter.exe — build 5</span>
     </div>
+    <div class="term-body" id="terminal"></div>
+  </div>
 
-    <div class="overlay">
-        <div class="layout">
-            <div class="panel">
-                <div class="bg-figures"></div>
-                <div class="grain"></div>
+  <div class="stats">
+    <div class="stat"><h3><span data-count="3847">0</span>+</h3><p>Accounts Crashed</p></div>
+    <div class="stat"><h3><span data-count="158">0</span></h3><p>Active Users</p></div>
+    <div class="stat"><h3><span data-count="97">0</span>%</h3><p>Uptime</p></div>
+    <div class="stat"><h3>24/7</h3><p>Support</p></div>
+  </div>
+</section>
 
-                <div class="center-content">
-                    <div class="main-title">"XXXTTRA DDOSSER"</div>
-
-                    <div class="label">IP:</div>
-                    <div class="input-line" contenteditable="true" data-placeholder="JAH IP HERE"></div>
-
-                    <div class="label">PORT:</div>
-                    <div class="input-line" contenteditable="true" data-placeholder="JAH PORT HERE"></div>
-
-                    <button class="send-btn" id="sendBtn">SEND</button>
-
-                    <div class="progress-wrap">
-                        <div class="progress-label" id="progressLabel">status: idle</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bottom-text">
-                    MAINTAINED BY @PIBBLER
-                    <span class="small">R E L A X 𝙾𝙽 𝚆𝚁𝙸𝚂𝚃 𝙻𝙾𝙾𝙺 𝚂𝙾 𝙱𝙴𝙰𝚄𝚃𝙸𝙵𝚄𝙻 ♛</span>
-                </div>
-            </div>
-
-            <div class="console" id="console"></div>
-        </div>
+<section class="section" id="features">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Powerful Engine</div>
+    <h2>Built for Speed. Made for Results.</h2>
+    <p>Every component engineered to maximize throughput while keeping you anonymous and ahead of the curve.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature reveal">
+      <div class="feature-icon">⚡</div>
+      <h3>Multi-Threading</h3>
+      <p>Up to 500 concurrent check threads. Scale your workload to 1,000,000+ combos without sacrificing performance.</p>
     </div>
-
-    <div class="toast-stack" id="toastStack"></div>
-    <div class="left-stack" id="leftStack"></div>
-
-    <div class="status-right" id="statusRight">
-        CONNECTION: STABLE<br>
-        PACKETS: 0<br>
-        LATENCY: 0ms
+    <div class="feature reveal">
+      <div class="feature-icon">🌐</div>
+      <h3>Proxy Rotation</h3>
+      <p>Built-in SOCKS4/SOCKS5/HTTP proxy loader with auto-rotation and per-thread binding. Stay undetected, stay fast.</p>
     </div>
+    <div class="feature reveal">
+      <div class="feature-icon">🎯</div>
+      <h3>Auto-Salvage</h3>
+      <p>Advanced hit-validation engine filters worthless accounts from real hits. Only clean, usable accounts land in your hits file.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">🛡️</div>
+      <h3>Undetected Builds</h3>
+      <p>Constantly updated check methods. Build 5 ships with the latest signature bypasses fresh off the test bench.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">📊</div>
+      <h3>Real-Time Dashboard</h3>
+      <p>Live CPM counter, thread monitor, proxy latency graph, and hit feed. Full transparency into every check.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">🔑</div>
+      <h3>License-Protected</h3>
+      <p>One-time activation keys tied to your hardware ID. Your copy is yours — no shared leaks, no cracked builds.</p>
+    </div>
+  </div>
+</section>
 
-    <div class="glow-tag">JAH MODE ON</div>
+<section class="section" id="pricing">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Pricing</div>
+    <h2>Choose Your License</h2>
+    <p>One-time keys. Lifetime updates on your tier. New keys issued instantly after payment.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <h3>Starter</h3>
+      <div class="price">$5<span> / month</span></div>
+      <ul>
+        <li>100 threads</li>
+        <li>Single device key</li>
+        <li>Standard check speed</li>
+        <li>Email support</li>
+        <li>Manual updates</li>
+      </ul>
+      <a href="#download" class="btn btn-ghost" onclick="alert('Message @averus1337 on Discord'); return false;">Purchase</a>
+    </div>
+    <div class="price-card popular reveal">
+      <span class="popular-tag">Most Popular</span>
+      <h3>Pro</h3>
+      <div class="price">$15<span> / month</span></div>
+      <ul>
+        <li>500 threads</li>
+        <li>Multi-device key</li>
+        <li>Max check speed</li>
+        <li>Real-time dashboard</li>
+        <li>Auto-updates</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#download" class="btn btn-primary" onclick="alert('Message @averus1337 on Discord'); return false;">Purchase</a>
+    </div>
+    <div class="price-card reveal">
+      <h3>Lifetime</h3>
+      <div class="price">$50<span> / once</span></div>
+      <ul>
+        <li>Unlimited threads</li>
+        <li>Unlimited devices</li>
+        <li>All current + future builds</li>
+        <li>Private build access</li>
+        <li>1-on-1 setup call</li>
+      </ul>
+      <a href="#download" class="btn btn-ghost" onclick="alert('Message @averus1337 on Discord'); return false;">Purchase</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Questions</div>
+    <h2>Frequently Asked</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq reveal">
+      <summary>How do I get my license key?</summary>
+      <p>Add <b style="color:var(--green)">@averus1337</b> on Discord and message them. Choose your tier, pay, and your key is generated instantly. Keys are one-time use and hardware-locked.</p>
+    </details>
+    <details class="faq reveal">
+      <summary>Does it work on Windows 10 / 11?</summary>
+      <p>Yes. pBruter is fully compatible with Windows 10 and Windows 11, x64. No additional dependencies — works out of the box.</p>
+    </details>
+    <details class="faq reveal">
+      <summary>What combo formats are supported?</summary>
+      <p>Standard user:pass format, email:pass, and user@email:pass. The loader auto-detects the format and normalizes combos.</p>
+    </details>
+    <details class="faq reveal">
+      <summary>Will I get detected?</summary>
+      <p>Build 5 includes the latest check bypasses. Use rotating proxies with the included loader for maximum anonymity. No tool is 100% undetectable forever, which is why we push constant updates.</p>
+    </details>
+    <details class="faq reveal">
+      <summary>Can I refund?</summary>
+      <p>Keys are digital goods and non-refundable once issued. If you have a technical issue, our support team will sort it out — we stand behind the product.</p>
+    </details>
+  </div>
+</section>
+
+<section class="discord-cta" id="download">
+  <h2>Download the Loader</h2>
+  <p>Grab build 5 below. After you get your key from <b style="color:var(--green)">@averus1337</b> on Discord, activate it and start hitting combo lists within minutes.</p>
+  <a href="loader.exe" class="btn btn-download">⬇ Download Loader (v5)</a>
+  <p style="margin-top:18px;color:var(--text2);font-size:14px;">Got a key already? Open the loader, enter it, done.</p>
+</section>
+
+<footer>
+  <div>pBruter <span class="mono">v5.0</span> — maintained by <span class="mono">averus</span> · <span class="mono">@averus1337</span> on Discord</div>
+  <div class="cr">© 2026 pBruter. All rights reserved. For educational purposes only.</div>
+</footer>
+
 <script>
-    const btn = document.getElementById('sendBtn');
-    const progressFill = document.getElementById('progressFill');
-    const progressLabel = document.getElementById('progressLabel');
-    const statusRight = document.getElementById('statusRight');
-    const consoleBox = document.getElementById('console');
-    const ipBox = document.querySelector('.input-line[contenteditable="true"][data-placeholder="JAH IP HERE"]');
-    const portBox = document.querySelector('.input-line[contenteditable="true"][data-placeholder="JAH PORT HERE"]');
+// Terminal animation
+const termLines = [
+  { text: '> pbruter.exe --load combos.txt --threads 500', cls: 'cmd' },
+  { text: '[+] Loaded 1,482,302 combos', cls: 'out' },
+  { text: '[+] Proxy pool: 1,204 (rotating)', cls: 'out' },
+  { text: '[+] Threads: 500 | CPM: 24,881', cls: 'out' },
+  { text: '[+] HIT  | user1234:password1  | R$ 2,500  [robux:2200]', cls: 'acc' },
+  { text: '[+] HIT  | xX_Nightmare_Xx:abc1 | R$ 18,000 [robux:15100]', cls: 'acc' },
+  { text: '[+] HIT  | king_dom:qwerty2024 | R$ 6,700  [robux:5900]', cls: 'acc' },
+  { text: '[!] Salvage: 3 valid hits — saving to hits.txt', cls: 'out' },
+];
+const terminal = document.getElementById('terminal');
+let lineIdx = 0;
+function typeTerminal() {
+  if (lineIdx >= termLines.length) {
+    const c = document.createElement('span');
+    c.className = 'cursor';
+    terminal.appendChild(c);
+    return;
+  }
+  const line = termLines[lineIdx];
+  const el = document.createElement('div');
+  el.className = 'term-line';
+  el.innerHTML = `<span class="${line.cls}">${line.text}</span>`;
+  terminal.appendChild(el);
+  lineIdx++;
+  setTimeout(typeTerminal, 450 + lineIdx * 90);
+}
+setTimeout(typeTerminal, 600);
 
-    let interval = null;
-    let loadInterval = null;
-    let hasLoaded = false;
-    let tick = 0;
-    let spamInterval = null;
-    let audioCtx;
+// Counters
+function animateCount(el) {
+  const target = +el.dataset.count;
+  const duration = 1800;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const val = Math.floor(target * (1 - Math.pow(1 - t, 3)));
+    el.textContent = val.toLocaleString();
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+document.querySelectorAll('[data-count]').forEach(el => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); obs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  obs.observe(el);
+});
 
-    const consoleLines = [
-        '0x7f9a33', '184.22.09.144', '0x00ff11a8', '8892 4401 7710',
-        'SYS> 0048-77', '0x91abdc', '443.881.002', '127.0.0.1:8080',
-        '0x1c04ff', '7742 0001 9922', '0xabcdef', '991.004.118',
-        'SYS> 88a1-ff09', '0x1047be', '6382.77.199', '0x3a9c11',
-        '11223344', '7710.0.0.9', '0xff0a11', '0044-9911',
-        '0x59ffad', '9001.444.121', 'SYS> 11b0-77', '0x7c2d90'
-    ];
+// Reveal on scroll
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-    function ensureAudio() {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-    }
-
-    function beep(freq = 620, duration = 0.04, type = 'square', volume = 0.02) {
-        ensureAudio();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.value = freq;
-        gain.gain.value = volume;
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-    }
-
-    function clickSound() {
-        beep(780, 0.03, 'square', 0.018);
-    }
-
-    function notifySound() {
-        beep(520 + Math.random() * 220, 0.05, 'triangle', 0.02);
-    }
-
-    function addConsoleLine() {
-        const line = consoleLines[Math.floor(Math.random() * consoleLines.length)];
-        const lineEl = document.createElement('div');
-        lineEl.className = 'console-line';
-        lineEl.textContent = line;
-        consoleBox.appendChild(lineEl);
-
-        while (consoleBox.children.length > 30) {
-            consoleBox.removeChild(consoleBox.firstChild);
-        }
-
-        consoleBox.scrollTop = consoleBox.scrollHeight;
-    }
-
-    function addBurst(count) {
-        for (let i = 0; i < count; i++) addConsoleLine();
-    }
-
-    function showEmptyMessage() {
-        progressLabel.textContent = 'ON JAH U HAVE TO PUT IN VALUES';
-        statusRight.innerHTML =
-            `CONNECTION: STABLE<br>` +
-            `PACKETS: 0<br>` +
-            `LATENCY: 0ms`;
-        clickSound();
-    }
-
-    function runLoadSequence() {
-        if (hasLoaded) return;
-        hasLoaded = true;
-
-        let loadTick = 0;
-        addBurst(8);
-
-        loadInterval = setInterval(() => {
-            loadTick += 20;
-            progressFill.style.width = loadTick + '%';
-            progressLabel.textContent = loadTick < 100 ? 'status: loading JAH XXXTRA DDOSSER' : 'status: ready';
-            statusRight.innerHTML =
-                `CONNECTION: STABLE<br>` +
-                `PACKETS: ${Math.floor(loadTick * 12).toLocaleString()}<br>` +
-                `LATENCY: ${12 + Math.floor(Math.random() * 40)}ms`;
-
-            addBurst(6);
-            notifySound();
-
-            if (loadTick >= 100) {
-                clearInterval(loadInterval);
-                loadInterval = null;
-            }
-        }, 260);
-    }
-
-    btn.addEventListener('click', () => {
-        const ipValue = ipBox.textContent.trim();
-        const portValue = portBox.textContent.trim();
-
-        if (!ipValue || !portValue) {
-            showEmptyMessage();
-            return;
-        }
-
-        ensureAudio();
-        clickSound();
-
-        if (interval) clearInterval(interval);
-        if (spamInterval) clearInterval(spamInterval);
-
-        tick = 0;
-        progressFill.style.width = '0%';
-        progressLabel.textContent = 'status: LAUNCHED BRUH';
-
-        addBurst(20);
-        notifySound();
-
-        spamInterval = setInterval(() => {
-            addBurst(12);
-            notifySound();
-        }, 35);
-
-        interval = setInterval(() => {
-            tick += 4;
-            progressFill.style.width = tick + '%';
-
-            if (tick < 35) {
-                progressLabel.textContent = 'status: JAH JAH JAH';
-            } else if (tick < 70) {
-                progressLabel.textContent = 'status: JUGG JUGG JUGG';
-            } else if (tick < 100) {
-                progressLabel.textContent = 'status: AYO-';
-            } else {
-                progressLabel.textContent = 'status: COMPLETE NGL';
-            }
-
-            const packets = Math.floor(tick * 42);
-            const latency = 10 + Math.floor(Math.random() * 90);
-            statusRight.innerHTML =
-                `CONNECTION: STABLE<br>` +
-                `PACKETS: ${packets.toLocaleString()}<br>` +
-                `LATENCY: ${latency}ms`;
-
-            if (tick >= 100) {
-                clearInterval(interval);
-                interval = null;
-                clearInterval(spamInterval);
-                spamInterval = null;
-            }
-        }, 320);
-    });
-
-    runLoadSequence();
+// Mobile nav
+function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 </script>
-    <script>
-        const btn = document.getElementById('sendBtn');
-        const progressFill = document.getElementById('progressFill');
-        const progressLabel = document.getElementById('progressLabel');
-        const statusRight = document.getElementById('statusRight');
-        const consoleBox = document.getElementById('console');
-
-        let interval = null;
-        let loadInterval = null;
-        let hasLoaded = false;
-        let tick = 0;
-        let spamInterval = null;
-        let audioCtx;
-
-        const consoleLines = [
-            '0x7f9a33', '184.22.09.144', '0x00ff11a8', '8892 4401 7710',
-            'SYS> 0048-77', '0x91abdc', '443.881.002', '127.0.0.1:8080',
-            '0x1c04ff', '7742 0001 9922', '0xabcdef', '991.004.118',
-            'SYS> 88a1-ff09', '0x1047be', '6382.77.199', '0x3a9c11',
-            '11223344', '7710.0.0.9', '0xff0a11', '0044-9911',
-            '0x59ffad', '9001.444.121', 'SYS> 11b0-77', '0x7c2d90'
-        ];
-
-        function ensureAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        }
-
-        function beep(freq = 620, duration = 0.04, type = 'square', volume = 0.02) {
-            ensureAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = type;
-            osc.frequency.value = freq;
-            gain.gain.value = volume;
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        function clickSound() {
-            beep(780, 0.03, 'square', 0.018);
-        }
-
-        function notifySound() {
-            beep(520 + Math.random() * 220, 0.05, 'triangle', 0.02);
-        }
-
-        function addConsoleLine() {
-            const line = consoleLines[Math.floor(Math.random() * consoleLines.length)];
-            const lineEl = document.createElement('div');
-            lineEl.className = 'console-line';
-            lineEl.textContent = line;
-            consoleBox.appendChild(lineEl);
-
-            while (consoleBox.children.length > 30) {
-                consoleBox.removeChild(consoleBox.firstChild);
-            }
-
-            consoleBox.scrollTop = consoleBox.scrollHeight;
-        }
-
-        function addBurst(count) {
-            for (let i = 0; i < count; i++) addConsoleLine();
-        }
-
-        function runLoadSequence() {
-            if (hasLoaded) return;
-            hasLoaded = true;
-
-            let loadTick = 0;
-            addBurst(8);
-
-            loadInterval = setInterval(() => {
-                loadTick += 20;
-                progressFill.style.width = loadTick + '%';
-                progressLabel.textContent = loadTick < 100 ? 'status: loading parody interface' : 'status: ready';
-                statusRight.innerHTML =
-                    `CONNECTION: STABLE<br>` +
-                    `PACKETS: ${Math.floor(loadTick * 12).toLocaleString()}<br>` +
-                    `LATENCY: ${12 + Math.floor(Math.random() * 40)}ms`;
-
-                addBurst(6);
-                notifySound();
-
-                if (loadTick >= 100) {
-                    clearInterval(loadInterval);
-                    loadInterval = null;
-                }
-            }, 260);
-        }
-
-        btn.addEventListener('click', () => {
-            ensureAudio();
-            clickSound();
-
-            if (interval) clearInterval(interval);
-            if (spamInterval) clearInterval(spamInterval);
-
-            tick = 0;
-            progressFill.style.width = '0%';
-            progressLabel.textContent = 'status: launching';
-
-            addBurst(20);
-            notifySound();
-
-            spamInterval = setInterval(() => {
-                addBurst(12);
-                notifySound();
-            }, 35);
-
-            interval = setInterval(() => {
-                tick += 4;
-                progressFill.style.width = tick + '%';
-
-                if (tick < 35) {
-                    progressLabel.textContent = 'status: JAH JAH JAH';
-                } else if (tick < 70) {
-                    progressLabel.textContent = 'status: JUGG JUGG JUGG';
-                } else if (tick < 100) {
-                    progressLabel.textContent = 'status: AYO-';
-                } else {
-                    progressLabel.textContent = 'status: COMPLETE NGL';
-                }
-
-                const packets = Math.floor(tick * 42);
-                const latency = 10 + Math.floor(Math.random() * 90);
-                statusRight.innerHTML =
-                    `CONNECTION: STABLE<br>` +
-                    `PACKETS: ${packets.toLocaleString()}<br>` +
-                    `LATENCY: ${latency}ms`;
-
-                if (tick >= 100) {
-                    clearInterval(interval);
-                    interval = null;
-                    clearInterval(spamInterval);
-                    spamInterval = null;
-                }
-            }, 320);
-        });
-
-        runLoadSequence();
-    </script>
 </body>
 </html>
